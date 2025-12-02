@@ -135,6 +135,40 @@
       </div>
     </div>
   </section>
+
+  <!-- Primary CTA Section -->
+  <section class="py-12 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-blue-900 rounded-3xl relative overflow-hidden py-20 px-6 sm:px-12 shadow-2xl">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
+          <div class="absolute -top-[50%] -right-[20%] w-[100%] h-[100%] rounded-full bg-blue-500 blur-3xl"></div>
+          <div class="absolute -bottom-[50%] -left-[20%] w-[100%] h-[100%] rounded-full bg-teal-500 blur-3xl"></div>
+        </div>
+
+        <div 
+          ref="ctaSection"
+          class="relative z-10 text-center transition-all duration-1000 ease-out transform"
+          :class="[
+            isCtaVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-12'
+          ]"
+        >
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            Ready to Finally Maximize Your Business Profit?
+          </h2>
+          <p class="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+            Join hundreds of successful entrepreneurs who achieved sustainable growth with our tool. Stop guessing, start growing.
+          </p>
+          
+          <button class="inline-block px-10 py-5 bg-yellow-400 text-blue-900 rounded-full font-bold text-xl shadow-xl shadow-yellow-400/20 hover:bg-yellow-300 hover:shadow-yellow-400/40 transform hover:-translate-y-1 transition-all duration-300 animate-pulse">
+            Get Started For Free
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -188,6 +222,25 @@ onMounted(() => {
   if (testimonialsGrid.value) {
     testimonialsObserver.observe(testimonialsGrid.value)
   }
+
+  const ctaObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          isCtaVisible.value = true
+          ctaObserver.unobserve(entry.target)
+        }
+      })
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '50px',
+    }
+  )
+
+  if (ctaSection.value) {
+    ctaObserver.observe(ctaSection.value)
+  }
 })
 
 const features = [
@@ -225,4 +278,7 @@ const testimonials = [
     handle: "@LinaBeauty_ID"
   }
 ]
+
+const ctaSection = ref<HTMLElement | null>(null)
+const isCtaVisible = ref(false)
 </script>
