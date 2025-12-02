@@ -44,10 +44,38 @@
     </main>
 
     <footer class="bg-white border-t border-gray-200 mt-auto">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-gray-500 text-sm">
-          &copy; {{ new Date().getFullYear() }} NuxtApp. All rights reserved.
-        </p>
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+          
+          <!-- Logo (Left) -->
+          <div class="flex-shrink-0">
+            <NuxtLink to="/" class="flex items-center gap-2 group">
+              <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:shadow-blue-500/30 transition-all duration-300">
+                P
+              </div>
+              <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">ProfitMax</span>
+            </NuxtLink>
+          </div>
+
+          <!-- Menu Links (Center/Right) -->
+          <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+            <NuxtLink to="#" class="text-gray-500 hover:text-blue-600 transition-colors duration-200 text-sm font-medium">
+              Contact Us
+            </NuxtLink>
+            <NuxtLink to="#" class="text-gray-500 hover:text-blue-600 transition-colors duration-200 text-sm font-medium">
+              Terms and Conditions
+            </NuxtLink>
+            <NuxtLink to="#" class="text-gray-500 hover:text-blue-600 transition-colors duration-200 text-sm font-medium">
+              Privacy Policy
+            </NuxtLink>
+          </nav>
+
+          <!-- Copyright (Right) -->
+          <div class="text-gray-400 text-sm">
+            &copy; {{ new Date().getFullYear() }} ProfitMax. All rights reserved.
+          </div>
+          
+        </div>
       </div>
     </footer>
   </div>

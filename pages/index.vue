@@ -103,7 +103,7 @@
   </section>
 
   <!-- Social Proof / Testimonials Section -->
-  <section class="py-12 bg-gray-50 relative overflow-hidden">
+  <section class="pb-16 bg-gray-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-gray-100">
         <div class="text-center max-w-3xl mx-auto mb-16">
@@ -139,7 +139,7 @@
   </section>
 
   <!-- Primary CTA Section -->
-  <section class="py-12 sm:py-24">
+  <section class="pb-12 sm:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-blue-900 rounded-3xl relative overflow-hidden py-20 px-6 sm:px-12 shadow-2xl">
         <!-- Background Decoration -->
