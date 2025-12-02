@@ -1,6 +1,13 @@
 <template>
   <div class="min-h-screen flex flex-col bg-gray-50">
-    <header class="bg-white/90 backdrop-blur-md fixed w-full z-50 transition-all duration-300 border-b border-gray-100">
+    <header 
+      class="fixed z-50 ease-[cubic-bezier(0.25, 1, 0.5, 1.2)] transition-[margin,width,max-width,border-radius,box-shadow,background-color,backdrop-filter] duration-300"
+      :class="[
+        isScrolled 
+          ? 'top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-2xl bg-white/30 backdrop-blur-xl shadow-lg border border-white/20' 
+          : 'w-full top-0 bg-white/90 backdrop-blur-md border-b border-gray-100'
+      ]"
+    >
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <!-- Logo -->
         <div class="flex-shrink-0 flex items-center cursor-pointer">
@@ -37,7 +44,7 @@
       </nav>
     </header>
 
-    <main class="flex-grow">
+    <main class="pt-20 flex-grow">
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <slot />
       </div>
@@ -80,3 +87,21 @@
     </footer>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const isScrolled = ref(false)
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 20
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+</script>
