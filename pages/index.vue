@@ -101,6 +101,40 @@
       </div>
     </div>
   </section>
+
+  <!-- Social Proof / Testimonials Section -->
+  <section class="py-24 bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          Trusted by Visionary Entrepreneurs
+        </h2>
+        <p class="text-lg text-gray-600">
+          See how our data-driven approach is transforming businesses and driving real results.
+        </p>
+      </div>
+
+      <div 
+        ref="testimonialsGrid"
+        class="grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
+        <TestimonialCard
+          v-for="(testimonial, index) in testimonials"
+          :key="testimonial.author"
+          :quote="testimonial.quote"
+          :author="testimonial.author"
+          :handle="testimonial.handle"
+          class="transition-all duration-700 ease-out transform"
+          :class="[
+            areTestimonialsVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-12'
+          ]"
+          :style="{ transitionDelay: `${index * 200}ms` }"
+        />
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -112,6 +146,9 @@ definePageMeta({
 
 const featuresGrid = ref<HTMLElement | null>(null)
 const areFeaturesVisible = ref(false)
+
+const testimonialsGrid = ref<HTMLElement | null>(null)
+const areTestimonialsVisible = ref(false)
 
 onMounted(() => {
   const observer = new IntersectionObserver(
@@ -131,6 +168,25 @@ onMounted(() => {
 
   if (featuresGrid.value) {
     observer.observe(featuresGrid.value)
+  }
+
+  const testimonialsObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          areTestimonialsVisible.value = true
+          testimonialsObserver.unobserve(entry.target)
+        }
+      })
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '50px',
+    }
+  )
+
+  if (testimonialsGrid.value) {
+    testimonialsObserver.observe(testimonialsGrid.value)
   }
 })
 
@@ -154,6 +210,19 @@ const features = [
     title: 'Personalized Growth Roadmaps',
     description: 'Receive tailored strategies to scale your business efficiently based on your unique data.',
     iconPath: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7'
+  }
+]
+
+const testimonials = [
+  {
+    quote: "Our revenue increased by 30% after just three months using their strategy. The insights were actionable and immediate.",
+    author: "Budi Santoso",
+    handle: "@Budis_Coffee"
+  },
+  {
+    quote: "The deep cost analysis saved us thousands monthly and transformed our operation. Highly recommended for any growing business.",
+    author: "Lina Wijaya",
+    handle: "@LinaBeauty_ID"
   }
 ]
 </script>
