@@ -1,56 +1,101 @@
 <template>
-  <form @submit.prevent="handleLogin" class="mt-8 space-y-6">
-    <div class="rounded-md shadow-sm -space-y-px">
-      <div>
-        <label for="email-address" class="sr-only">Email address</label>
-        <input
-          id="email-address"
-          name="email"
-          type="email"
-          autocomplete="email"
-          required
-          v-model="email"
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          placeholder="Email address"
-        />
-      </div>
-      <div>
-        <label for="password" class="sr-only">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autocomplete="current-password"
-          required
-          v-model="password"
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          placeholder="Password"
-        />
+  <div class="min-h-screen flex font-sans text-gray-900">
+    <!-- Left Section: Login Form -->
+    <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24 bg-white">
+      <div class="mx-auto w-full max-w-sm lg:w-96">
+        <!-- Logo -->
+        <div class="mb-10">
+          <span class="text-2xl font-bold tracking-tight">MaxPro</span>
+        </div>
+
+        <div>
+          <h2 class="mt-6 text-3xl font-bold text-gray-900">
+            Sign up with your email
+          </h2>
+          <p class="mt-2 text-sm text-gray-600">
+            Join our platform and unlock your potential.
+          </p>
+        </div>
+
+        <div class="mt-8">
+          <form @submit.prevent="handleLogin" class="space-y-6">
+            <div>
+              <label for="email" class="sr-only">Email address</label>
+              <div class="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  v-model="email"
+                  class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+              >
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
-    <div>
-      <button
-        type="submit"
-        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Sign in
-      </button>
+    <!-- Right Section: Benefits List -->
+    <div class="hidden lg:flex flex-1 bg-gray-50 relative overflow-hidden items-center justify-center">
+        <div class="relative z-10 px-12 max-w-lg">
+            <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Your Only</p>
+            <h2 class="text-4xl font-extrabold mb-12 leading-tight">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                    AI Business Assistant
+                </span>
+            </h2>
+            
+            <ul class="space-y-6">
+                <li v-for="(benefit, index) in benefits" :key="index" class="flex items-start group">
+                    <div class="flex-shrink-0 mt-1">
+                        <!-- Checkmark Icon -->
+                        <svg class="h-6 w-6 text-green-500 group-hover:scale-110 transition-transform duration-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path class="fill-green-500" fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="#1C274C"/>
+                        </svg>
+                    </div>
+                    <p class="ml-4 text-lg text-gray-700 font-medium">{{ benefit }}</p>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Subtle decorative circle -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-50 opacity-50 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-purple-50 opacity-50 blur-3xl"></div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script setup lang="ts">
 const email = ref('')
-const password = ref('')
 const authStore = useAuthStore()
 const router = useRouter()
 
+const benefits = [
+    "Automate repetitive tasks",
+    "Gain deeper insights",
+    "Boost team productivity",
+    "24/7 support availability"
+]
+
 definePageMeta({
-  layout: 'auth',
+  layout: false,
 })
 
 const handleLogin = () => {
+  if (!email.value) return
   authStore.login(email.value)
   router.push('/home')
 }
