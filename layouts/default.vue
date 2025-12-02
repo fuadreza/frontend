@@ -28,9 +28,11 @@
 
         <!-- CTA Button -->
         <div class="hidden md:flex items-center">
-          <button class="bg-gray-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-0.5 transition-all duration-300">
-            Try Now
-          </button>
+          <NuxtLink to="/login">
+            <button class="bg-gray-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-0.5 transition-all duration-300">
+              Try Now
+            </button>
+          </NuxtLink>
         </div>
 
         <!-- Mobile menu button -->

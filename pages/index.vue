@@ -25,9 +25,11 @@
           </div>
 
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <button class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg shadow-lg shadow-blue-500/30 hover:bg-blue-700 hover:shadow-blue-600/40 transform hover:-translate-y-1 transition-all duration-300">
-              Start Free Trial
-            </button>
+            <NuxtLink to="/login">
+              <button class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg shadow-lg shadow-blue-500/30 hover:bg-blue-700 hover:shadow-blue-600/40 transform hover:-translate-y-1 transition-all duration-300">
+                Start Free Trial
+              </button>
+            </NuxtLink>
             <button class="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-full font-semibold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 flex items-center justify-center gap-2 group">
               <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -49,7 +51,7 @@
         <div class="flex-1 w-full max-w-lg lg:max-w-xl relative">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-gray-100 bg-white p-2">
              <img 
-              src="/hero-illustration.png" 
+              src="/illustration-profit.png" 
               alt="Business Growth Analytics" 
               class="w-full h-auto rounded-xl transform hover:scale-105 transition-transform duration-700"
             />
@@ -163,10 +165,11 @@
           <p class="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
             Join hundreds of successful entrepreneurs who achieved sustainable growth with our tool. Stop guessing, start growing.
           </p>
-          
-          <button class="inline-block px-10 py-5 bg-yellow-400 text-blue-900 rounded-full font-bold text-xl shadow-xl shadow-yellow-400/20 hover:bg-yellow-300 hover:shadow-yellow-400/40 transform hover:-translate-y-1 transition-all duration-300 animate-pulse">
-            Get Started For Free
-          </button>
+          <NuxtLink to="/login">
+            <button class="inline-block px-10 py-5 bg-yellow-400 text-blue-900 rounded-full font-bold text-xl shadow-xl shadow-yellow-400/20 hover:bg-yellow-300 hover:shadow-yellow-400/40 transform hover:-translate-y-1 transition-all duration-300 animate-pulse">
+              Get Started For Free
+            </button>
+          </NuxtLink>
         </div>
       </div>
     </div>
