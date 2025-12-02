@@ -64,7 +64,7 @@
   </div>
 
   <!-- Features & Benefits Section -->
-  <section class="py-24 bg-gray-50 relative overflow-hidden">
+  <section class="py-16 bg-gray-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -103,35 +103,37 @@
   </section>
 
   <!-- Social Proof / Testimonials Section -->
-  <section class="py-24 bg-white relative overflow-hidden">
+  <section class="py-12 bg-gray-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-          Trusted by Visionary Entrepreneurs
-        </h2>
-        <p class="text-lg text-gray-600">
-          See how our data-driven approach is transforming businesses and driving real results.
-        </p>
-      </div>
+      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-gray-100">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Trusted by Visionary Entrepreneurs
+          </h2>
+          <p class="text-lg text-gray-600">
+            See how our data-driven approach is transforming businesses and driving real results.
+          </p>
+        </div>
 
-      <div 
-        ref="testimonialsGrid"
-        class="grid grid-cols-1 md:grid-cols-2 gap-8"
-      >
-        <TestimonialCard
-          v-for="(testimonial, index) in testimonials"
-          :key="testimonial.author"
-          :quote="testimonial.quote"
-          :author="testimonial.author"
-          :handle="testimonial.handle"
-          class="transition-all duration-700 ease-out transform"
-          :class="[
-            areTestimonialsVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-12'
-          ]"
-          :style="{ transitionDelay: `${index * 200}ms` }"
-        />
+        <div 
+          ref="testimonialsGrid"
+          class="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          <TestimonialCard
+            v-for="(testimonial, index) in testimonials"
+            :key="testimonial.author"
+            :quote="testimonial.quote"
+            :author="testimonial.author"
+            :handle="testimonial.handle"
+            class="transition-all duration-700 ease-out transform"
+            :class="[
+              areTestimonialsVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-12'
+            ]"
+            :style="{ transitionDelay: `${index * 200}ms` }"
+          />
+        </div>
       </div>
     </div>
   </section>
