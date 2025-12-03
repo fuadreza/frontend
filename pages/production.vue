@@ -1,15 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <div class="bg-white shadow">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900">Produksi & Perhitungan HPP</h1>
-          <p class="mt-1 text-sm text-gray-500">Hitung maksimal produksi dan HPP produk</p>
-        </div>
-      </div>
-    </div>
-
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Tabs -->
@@ -400,7 +390,7 @@ interface ProductionHistory {
 }
 
 definePageMeta({
-  layout: 'default',
+  layout: 'dashboard',
 })
 
 const activeTab = ref('calculator')

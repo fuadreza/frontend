@@ -1,26 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <div class="bg-white shadow">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-2xl font-bold text-gray-900">Manajemen Produk</h1>
-            <p class="mt-1 text-sm text-gray-500">Kelola daftar produk jadi</p>
-          </div>
-          <button
-            @click="showAddModal = true"
-            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-          >
-            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            Tambah Produk
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Stats Cards -->
@@ -388,6 +367,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Modern Floating Action Button -->
+    <button
+      @click="showAddModal = true"
+      class="fixed bottom-8 right-8 group flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out z-10"
+    >
+      <svg class="h-6 w-6 transition-transform group-hover:rotate-90 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      <span class="font-semibold text-sm whitespace-nowrap">Tambah Produk</span>
+    </button>
   </div>
 </template>
 
@@ -407,7 +397,7 @@ interface Product {
 }
 
 definePageMeta({
-  layout: 'default',
+  layout: 'dashboard',
 })
 
 const showAddModal = ref(false)
