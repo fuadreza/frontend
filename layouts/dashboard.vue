@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '~/stores/auth';
+import { useAuthStore } from '~/stores/authStore';
 import { useRouter, useRoute } from 'vue-router';
 
 // Nuxt hooks and Pinia store

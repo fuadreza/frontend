@@ -64,25 +64,13 @@
 
       <!-- Filter & Search -->
       <div class="bg-white p-4 rounded-lg shadow mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             v-model="searchQuery"
             type="text"
             placeholder="Cari bahan..."
             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           />
-
-          <select
-            v-model="filterCategory"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="">Semua Kategori</option>
-            <option value="Biji Kopi">Biji Kopi</option>
-            <option value="Teh">Teh</option>
-            <option value="Coklat">Coklat</option>
-            <option value="Gula">Gula</option>
-            <option value="Susu">Susu</option>
-          </select>
 
           <select
             v-model="filterStatus"
@@ -102,7 +90,7 @@
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-3">Nama Bahan</th>
-              <th class="px-6 py-3">Kategori</th>
+              <!-- <th class="px-6 py-3">Kategori</th> -->
               <th class="px-6 py-3">Stok</th>
               <th class="px-6 py-3">Satuan</th>
               <th class="px-6 py-3">Harga/Unit</th>
@@ -115,27 +103,22 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-for="material in filteredMaterials" :key="material.id">
               <td class="px-6 py-4 font-medium text-gray-900">{{ material.name }}</td>
-              <td class="px-6 py-4">
-                <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
-                  {{ material.category }}
-                </span>
+              <td class="px-6 py-4 text-center">{{ material.stock }}</td>
+              <td class="px-6 py-4 text-gray-500 text-center">{{ material.metric }}</td>
+              <td class="px-6 py-4 text-center">
+                {{ formatCurrency(material.costPerUnit) }}
               </td>
-              <td class="px-6 py-4">{{ material.stock }}</td>
-              <td class="px-6 py-4 text-gray-500">{{ material.unit }}</td>
-              <td class="px-6 py-4">
-                {{ formatCurrency(material.pricePerUnit) }}
-              </td>
-              <td class="px-6 py-4 font-medium">
-                {{ formatCurrency(material.stock * material.pricePerUnit) }}
+              <td class="px-6 py-4 font-medium text-center">
+                {{ formatCurrency(material.stock * material.costPerUnit) }}
               </td>
 
-              <td class="px-6 py-4">
-                <span :class="['px-2 py-1 text-xs rounded-full', getStatusClass(material)]">
+              <td class="px-6 py-4 text-center">
+                <span :class="['px-2 py-1 text-xs rounded-full text', getStatusClass(material)]">
                   {{ getStatusText(material) }}
                 </span>
               </td>
 
-              <td class="px-6 py-4 space-x-3">
+              <td class="px-6 py-4 space-x-3 text-center">
                 <button @click="editMaterial(material)" class="text-indigo-600 hover:text-indigo-900">Edit</button>
                 <button @click="deleteMaterial(material.id)" class="text-red-600 hover:text-red-900">Hapus</button>
               </td>
@@ -155,21 +138,11 @@
         </h3>
 
         <div class="space-y-4">
-
           <input v-model="form.name" type="text" placeholder="Nama bahan" class="input" />
-
-          <select v-model="form.category" class="input">
-            <option value="">Pilih kategori</option>
-            <option value="Biji Kopi">Biji Kopi</option>
-            <option value="Teh">Teh</option>
-            <option value="Coklat">Coklat</option>
-            <option value="Gula">Gula</option>
-            <option value="Susu">Susu</option>
-          </select>
 
           <div class="grid grid-cols-2 gap-4">
             <input v-model.number="form.stock" type="number" placeholder="Stok" class="input" />
-            <select v-model="form.unit" class="input">
+            <select v-model="form.metric" class="input">
               <option value="kg">kg</option>
               <option value="gram">gram</option>
               <option value="liter">liter</option>
@@ -178,7 +151,7 @@
           </div>
 
           <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="form.pricePerUnit" type="number" placeholder="Harga per unit" class="input" />
+            <input v-model.number="form.costPerUnit" type="number" placeholder="Harga per unit" class="input" />
             <input v-model.number="form.minStock" type="number" placeholder="Stok minimum" class="input" />
           </div>
 
@@ -211,9 +184,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import type { IMaterial } from "~/services/interfaces/IMaterialService";
+import { useMaterialStore } from "~/stores/materialStore";
 
 definePageMeta({ layout: "dashboard" });
 
+const materialStore = useMaterialStore();
 
 const showAddModal = ref(false);
 const editMode = ref(false);
@@ -222,63 +198,47 @@ const searchQuery = ref("");
 const filterCategory = ref("");
 const filterStatus = ref("");
 
-interface Material {
-  id: number;
-  name: string;
-  category: string;
-  stock: number;
-  unit: string;
-  pricePerUnit: number;
-  minStock: number;
-  notes?: string;
-}
+onMounted(() => {
+  materialStore.fetchMaterials();
+});
 
-const emptyForm = (): Material => ({
+const emptyForm = (): IMaterial => ({
   id: 0,
   name: "",
-  category: "",
   stock: 0,
-  unit: "kg",
-  pricePerUnit: 0,
-  minStock: 10,
+  minStock: 0,
+  metric: "",
+  costPerUnit: 0,
   notes: ""
 });
 
-const form = ref<Material>(emptyForm());
+const form = ref<IMaterial>(emptyForm());
 
-const materials = ref<Material[]>([
-  { id: 1, name: "Kopi Arabica Premium", category: "Biji Kopi", stock: 150, unit: "kg", pricePerUnit: 85000, minStock: 20 },
-  { id: 2, name: "Kopi Robusta Grade A", category: "Biji Kopi", stock: 200, unit: "kg", pricePerUnit: 65000, minStock: 30 },
-  { id: 3, name: "Teh Hijau Organik", category: "Teh", stock: 75, unit: "kg", pricePerUnit: 120000, minStock: 15 },
-  { id: 4, name: "Coklat Bubuk Premium", category: "Coklat", stock: 50, unit: "kg", pricePerUnit: 95000, minStock: 10 },
-  { id: 5, name: "Gula Pasir", category: "Gula", stock: 300, unit: "kg", pricePerUnit: 15000, minStock: 50 },
-  { id: 6, name: "Susu Bubuk Full Cream", category: "Susu", stock: 8, unit: "kg", pricePerUnit: 75000, minStock: 15 },
-  { id: 7, name: "Vanilla Extract", category: "Perisa", stock: 5, unit: "liter", pricePerUnit: 250000, minStock: 10 }
-]);
+const materials = ref<IMaterial[]>([]);
 
 // ───────────────────────────────────────────────
 // FILTERED DATA
 // ───────────────────────────────────────────────
 
 const filteredMaterials = computed(() => {
-  return materials.value.filter((m) => {
+  return materialStore.materials.filter((m) => {
     const matchSearch = m.name.toLowerCase().includes(searchQuery.value.toLowerCase());
-    const matchCategory = !filterCategory.value || m.category === filterCategory.value;
+    // const matchCategory = !filterCategory.value || m.category === filterCategory.value;
 
     let matchStatus = true;
     if (filterStatus.value === "aman") matchStatus = m.stock > m.minStock * 2;
     if (filterStatus.value === "rendah") matchStatus = m.stock <= m.minStock * 2 && m.stock > 0;
     if (filterStatus.value === "habis") matchStatus = m.stock === 0;
 
-    return matchSearch && matchCategory && matchStatus;
+    return matchSearch && matchStatus;
   });
 });
 
-const safeStock = computed(() => materials.value.filter((m) => m.stock > m.minStock * 2).length);
-const lowStock = computed(() => materials.value.filter((m) => m.stock <= m.minStock * 2 && m.stock > 0).length);
+const safeStock = computed(() => materialStore.materials.filter((m) => m.stock > m.minStock * 2).length);
+const lowStock = computed(() => materialStore.materials.filter((m) => m.stock <= m.minStock * 2 && m.stock > 0).length);
 
 const totalValue = computed(() => {
-  return materials.value.reduce((sum, m) => sum + m.stock * m.pricePerUnit, 0);
+  return materialStore.materials.reduce((sum, m) => sum + m.stock * m.costPerUnit, 0);
 });
 
 // ───────────────────────────────────────────────
@@ -292,14 +252,14 @@ const formatCurrency = (value: number) =>
     minimumFractionDigits: 0
   }).format(value);
 
-const getStatusClass = (m: Material) => {
+const getStatusClass = (m: IMaterial) => {
   if (m.stock === 0) return "bg-red-100 text-red-800";
   if (m.stock <= m.minStock) return "bg-yellow-100 text-yellow-800";
   if (m.stock <= m.minStock * 2) return "bg-blue-100 text-blue-800";
   return "bg-green-100 text-green-800";
 };
 
-const getStatusText = (m: Material) => {
+const getStatusText = (m: IMaterial) => {
   if (m.stock === 0) return "Habis";
   if (m.stock <= m.minStock) return "Kritis";
   if (m.stock <= m.minStock * 2) return "Rendah";
@@ -316,7 +276,7 @@ const openAddModal = () => {
   showAddModal.value = true;
 };
 
-const editMaterial = (m: Material) => {
+const editMaterial = (m: IMaterial) => {
   form.value = JSON.parse(JSON.stringify(m)); // fix reactivity clone
   editMode.value = true;
   showAddModal.value = true;
@@ -324,26 +284,23 @@ const editMaterial = (m: Material) => {
 
 const deleteMaterial = (id: number) => {
   if (confirm("Yakin ingin menghapus bahan ini?")) {
-    materials.value = materials.value.filter((m) => m.id !== id);
+    materialStore.deleteMaterial(id);
   }
 };
 
 const saveMaterial = () => {
-  if (!form.value.name || !form.value.category) {
-    alert("Nama dan kategori tidak boleh kosong.");
+  if (!form.value.name || !form.value.metric) {
+    alert("Nama dan satuan tidak boleh kosong.");
     return;
   }
 
   if (editMode.value) {
-    const index = materials.value.findIndex((m) => m.id === form.value.id);
-    if (index !== -1) {
-      materials.value[index] = JSON.parse(JSON.stringify(form.value));
-    }
+    materialStore.updateMaterial(JSON.parse(JSON.stringify(form.value)));
   } else {
-    const newId = materials.value.length
-      ? Math.max(...materials.value.map((m) => m.id)) + 1
+    const newId = materialStore.materials.length
+      ? Math.max(...materialStore.materials.map((m) => m.id)) + 1
       : 1;
-    materials.value.push({ ...form.value, id: newId });
+    materialStore.addMaterial({ ...form.value, id: newId });
   }
   closeModal();
 };
