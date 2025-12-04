@@ -1,9 +1,13 @@
 import type { IMaterial, IMaterialService, NewMaterial } from "./interfaces/IMaterialService";
 import { db } from "./database/db";
+import type { PromiseExtended } from "dexie";
 
 export class MaterialServiceLocal implements IMaterialService {
     getMaterials(): Promise<IMaterial[]> {
         return db.materials.toArray();
+    }
+    getMaterialsBulk(ids: number[]): PromiseExtended<(IMaterial | undefined)[]> {
+        return db.materials.bulkGet(ids);
     }
     addMaterial(material: NewMaterial): Promise<number> {
         return db.materials.add(material as IMaterial);

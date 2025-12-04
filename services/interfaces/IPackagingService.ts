@@ -1,3 +1,5 @@
+import type { PromiseExtended } from "dexie";
+
 export interface IPackaging {
     id: number;
     name: string;
@@ -13,6 +15,7 @@ export type NewPackaging = Omit<IPackaging, 'id'>;
 
 export interface IPackagingService {
     getPackagings(): Promise<IPackaging[]>;
+    getPackagingsBulk(ids: number[]): PromiseExtended<(IPackaging | undefined)[]>;
     addPackaging(packaging: NewPackaging): Promise<number>;
     updatePackaging(id: number, packaging: Partial<IPackaging>): Promise<number>;
     deletePackaging(id: number): Promise<void>;

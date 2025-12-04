@@ -1,9 +1,13 @@
 import type { IPackaging, IPackagingService, NewPackaging } from "./interfaces/IPackagingService";
 import { db } from "./database/db";
+import type { PromiseExtended } from "dexie";
 
 export class PackagingServiceLocal implements IPackagingService {
     getPackagings(): Promise<IPackaging[]> {
         return db.packagings.toArray();
+    }
+    getPackagingsBulk(ids: number[]): PromiseExtended<(IPackaging | undefined)[]> {
+        return db.packagings.bulkGet(ids);
     }
     addPackaging(packaging: NewPackaging): Promise<number> {
         return db.packagings.add(packaging as IPackaging);
