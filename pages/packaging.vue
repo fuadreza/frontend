@@ -13,7 +13,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-500">Total Kemasan</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ packagings.length }}</p>
+              <p class="text-2xl font-semibold text-gray-900">{{ packagingStore.packagings.length }}</p>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
 
       <!-- Filter & Search -->
       <div class="bg-white p-4 rounded-lg shadow mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <input
               v-model="searchQuery"
@@ -71,19 +71,6 @@
               placeholder="Cari kemasan..."
               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
             />
-          </div>
-          <div>
-            <select
-              v-model="filterType"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            >
-              <option value="">Semua Tipe</option>
-              <option value="Botol">Botol</option>
-              <option value="Pouch">Pouch</option>
-              <option value="Jar">Jar</option>
-              <option value="Box">Box</option>
-              <option value="Label">Label</option>
-            </select>
           </div>
           <div>
             <select
@@ -111,10 +98,10 @@
               <span
                 :class="[
                   'px-3 py-1 text-xs font-semibold rounded-full',
-                  getTypeColor(pack.type)
+                  getTypeColor(pack.metric)
                 ]"
               >
-                {{ pack.type }}
+                {{ pack.metric }}
               </span>
               <span
                 :class="[
@@ -127,30 +114,30 @@
             </div>
 
             <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ pack.name }}</h3>
-            <p class="text-sm text-gray-500 mb-4">{{ pack.size }}</p>
+            <p class="text-sm text-gray-500 mb-4">{{ pack.metric }}</p>
 
             <div class="space-y-3">
               <div class="flex justify-between items-center">
                 <span class="text-sm text-gray-600">Stok Tersedia</span>
-                <span class="text-lg font-bold text-gray-900">{{ pack.stock }} {{ pack.unit }}</span>
+                <span class="text-lg font-bold text-gray-900">{{ pack.stock }} {{ pack.metric }}</span>
               </div>
 
               <div class="flex justify-between items-center">
                 <span class="text-sm text-gray-600">Harga/Unit</span>
-                <span class="text-sm font-semibold text-gray-900">{{ formatCurrency(pack.pricePerUnit) }}</span>
+                <span class="text-sm font-semibold text-gray-900">{{ formatCurrency(pack.costPerUnit) }}</span>
               </div>
 
               <div class="flex justify-between items-center">
                 <span class="text-sm text-gray-600">Total Nilai</span>
                 <span class="text-sm font-semibold text-indigo-600">
-                  {{ formatCurrency(pack.stock * pack.pricePerUnit) }}
+                  {{ formatCurrency(pack.stock * pack.costPerUnit) }}
                 </span>
               </div>
 
               <div class="pt-3 border-t border-gray-200">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-xs text-gray-500">Stok Minimum</span>
-                  <span class="text-xs font-medium text-gray-700">{{ pack.minStock }} {{ pack.unit }}</span>
+                  <span class="text-xs font-medium text-gray-700">{{ pack.minStock }} {{ pack.metric }}</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2">
                   <div
@@ -210,33 +197,6 @@
 
               <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Tipe</label>
-                  <select
-                    v-model="formData.type"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                  >
-                    <option value="">Pilih Tipe</option>
-                    <option value="Botol">Botol</option>
-                    <option value="Pouch">Pouch</option>
-                    <option value="Jar">Jar</option>
-                    <option value="Box">Box</option>
-                    <option value="Label">Label</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Ukuran</label>
-                  <input
-                    v-model="formData.size"
-                    type="text"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="250ml, 500g, dll"
-                  />
-                </div>
-              </div>
-
-              <div class="grid grid-cols-2 gap-4">
-                <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Stok</label>
                   <input
                     v-model.number="formData.stock"
@@ -249,7 +209,7 @@
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Satuan</label>
                   <select
-                    v-model="formData.unit"
+                    v-model="formData.metric"
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     <option value="pcs">Pieces (pcs)</option>
@@ -264,7 +224,7 @@
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Harga per Unit</label>
                   <input
-                    v-model.number="formData.pricePerUnit"
+                    v-model.number="formData.costPerUnit"
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="5000"
@@ -337,44 +297,39 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { usePackagingStore } from '../stores/packagingStore'
+import type { IPackaging, NewPackaging } from '~/services/interfaces/IPackagingService'
 
 definePageMeta({
   layout: 'dashboard',
 })
 
+const packagingStore = usePackagingStore()
+
 const showAddModal = ref(false)
 const editMode = ref(false)
 const searchQuery = ref('')
-const filterType = ref('')
 const filterStatus = ref('')
 
-const formData = ref({
-  id: null as number | null,
+onMounted(() => {
+  packagingStore.fetchPackagings()
+})
+
+const emptyForm = (): NewPackaging => ({
   name: '',
-  type: '',
-  size: '',
+  metric: '',
   stock: 0,
-  unit: 'pcs',
-  pricePerUnit: 0,
+  costPerUnit: 0,
   minStock: 100,
   supplier: '',
   notes: ''
 })
 
-const packagings = ref([
-  { id: 1, name: 'Botol Kaca 250ml Bening', type: 'Botol', size: '250ml', stock: 500, unit: 'pcs', pricePerUnit: 3500, minStock: 100, supplier: 'PT Kaca Jaya' },
-  { id: 2, name: 'Pouch Stand Up 250g', type: 'Pouch', size: '250g', stock: 1000, unit: 'pcs', pricePerUnit: 1500, minStock: 200, supplier: 'CV Plastik Indo' },
-  { id: 3, name: 'Jar Plastik 500ml Putih', type: 'Jar', size: '500ml', stock: 300, unit: 'pcs', pricePerUnit: 2800, minStock: 80, supplier: 'UD Kemasan Murah' },
-  { id: 4, name: 'Box Karton 20x15x10cm', type: 'Box', size: '20x15x10cm', stock: 250, unit: 'pcs', pricePerUnit: 4500, minStock: 50, supplier: 'Karton Box Indonesia' },
-  { id: 5, name: 'Label Stiker Premium', type: 'Label', size: '10x5cm', stock: 2000, unit: 'pcs', pricePerUnit: 500, minStock: 500, supplier: 'Digital Print Co' },
-  { id: 6, name: 'Botol PET 500ml', type: 'Botol', size: '500ml', stock: 80, unit: 'pcs', pricePerUnit: 2500, minStock: 150, supplier: 'PT PET Plastic' },
-  { id: 7, name: 'Pouch Zipper 100g', type: 'Pouch', size: '100g', stock: 1500, unit: 'pcs', pricePerUnit: 1200, minStock: 300, supplier: 'CV Plastik Indo' },
-])
+const formData = ref<Partial<IPackaging>>(emptyForm());
 
 const filteredPackagings = computed(() => {
-  return packagings.value.filter(pack => {
+  return packagingStore.packagings.filter(pack => {
     const matchSearch = pack.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchType = !filterType.value || pack.type === filterType.value
     
     let matchStatus = true
     if (filterStatus.value === 'aman') {
@@ -385,20 +340,20 @@ const filteredPackagings = computed(() => {
       matchStatus = pack.stock === 0
     }
     
-    return matchSearch && matchType && matchStatus
+    return matchSearch && matchStatus
   })
 })
 
 const safeStock = computed(() => {
-  return packagings.value.filter(m => m.stock > m.minStock * 2).length
+  return packagingStore.packagings.filter(m => m.stock > m.minStock * 2).length
 })
 
 const lowStock = computed(() => {
-  return packagings.value.filter(m => m.stock <= m.minStock * 2 && m.stock > 0).length
+  return packagingStore.packagings.filter(m => m.stock <= m.minStock * 2 && m.stock > 0).length
 })
 
 const totalValue = computed(() => {
-  return packagings.value.reduce((sum, m) => sum + (m.stock * m.pricePerUnit), 0)
+  return packagingStore.packagings.reduce((sum, m) => sum + (m.stock * m.costPerUnit), 0)
 })
 
 const formatCurrency = (value: number) => {
@@ -442,19 +397,22 @@ const editPackaging = (pack: any) => {
 
 const deletePackaging = (id: number) => {
   if (confirm('Yakin ingin menghapus kemasan ini?')) {
-    packagings.value = packagings.value.filter(p => p.id !== id)
+    packagingStore.deletePackaging(id)
   }
 }
 
 const savePackaging = () => {
+  if (!formData.value.name || !formData.value.stock || !formData.value.costPerUnit) {
+    alert('Harap isi semua field')
+    return
+  }
+
   if (editMode.value) {
-    const index = packagings.value.findIndex(p => p.id === formData.value.id)
-    if (index !== -1) {
-      packagings.value[index] = { ...formData.value } as any
+    if (formData.value.id) {
+      packagingStore.updatePackaging(formData.value.id, formData.value)
     }
   } else {
-    const newId = Math.max(...packagings.value.map(p => p.id)) + 1
-    packagings.value.push({ ...formData.value, id: newId } as any)
+    packagingStore.addPackaging({...formData.value as NewPackaging})
   }
   closeModal()
 }
@@ -462,17 +420,6 @@ const savePackaging = () => {
 const closeModal = () => {
   showAddModal.value = false
   editMode.value = false
-  formData.value = {
-    id: null,
-    name: '',
-    type: '',
-    size: '',
-    stock: 0,
-    unit: 'pcs',
-    pricePerUnit: 0,
-    minStock: 100,
-    supplier: '',
-    notes: ''
-  }
+  formData.value = emptyForm()
 }
 </script>

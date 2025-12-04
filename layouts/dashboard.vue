@@ -88,7 +88,7 @@ const menuItems = computed(() => [
   },
   {
     name: 'Kemasan',
-    path: '/packing',
+    path: '/packaging',
     title: 'Manajemen Kemasan',
     subtitle: 'Lacak persediaan, penerimaan, dan penggunaan bahan kemasan.',
     icon: () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24', class: 'h-5 w-5' }, [

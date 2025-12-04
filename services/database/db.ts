@@ -1,21 +1,21 @@
 import Dexie from 'dexie';
 import type { IMaterial } from '../interfaces/IMaterialService';
-import type { Packaging } from '../interfaces/IPackagingService';
+import type { IPackaging } from '../interfaces/IPackagingService';
 import type { Product } from '../interfaces/IProductService';
 import type { Table } from 'dexie';
 
 export class LocalDB extends Dexie {
     materials!: Table<IMaterial, number>;
-    packaging!: Table<Packaging, number>;
+    packagings!: Table<IPackaging, number>;
     products!: Table<Product, number>;
 
     constructor() {
         super('MyAppLocalDatabase');
 
         // You MUST increment the version number when changing the schema!
-        this.version(1).stores({
+        this.version(3).stores({
             materials: '++id, name, costPerUnit, metric',
-            packaging: '++id, name, costPerUnit, metric',
+            packagings: '++id, name, costPerUnit, metric',
             products: '++id, name, sellingPrice, laborCost',
         });
     }

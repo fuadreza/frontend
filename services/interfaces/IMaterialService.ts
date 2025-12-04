@@ -5,13 +5,16 @@ export interface IMaterial {
     metric: string;
     stock: number;
     minStock: number;
-    notes?: string;
+    notes?: string | null;
 }
+
+// Interface for new materials (ID is not required)
+export type NewMaterial = Omit<IMaterial, 'id'>;
 
 export interface IMaterialService {
     getMaterials(): Promise<IMaterial[]>;
-    addMaterial(material: IMaterial): Promise<number>;
-    updateMaterial(material: IMaterial): Promise<number>;
+    addMaterial(material: NewMaterial): Promise<number>;
+    updateMaterial(id: number, material: Partial<IMaterial>): Promise<number>;
     deleteMaterial(id: number): Promise<void>;
     updateStock(id: number, quantity: number): Promise<number>;
 }

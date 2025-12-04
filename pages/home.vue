@@ -351,7 +351,7 @@ const quickActions = ref([
     icon: PackageIcon,
     iconBg: 'bg-blue-100',
     iconColor: 'text-blue-600',
-    onClick: () => navigateTo('/packing')
+    onClick: () => navigateTo('/packaging')
   },
   {
     name: 'Hitung HPP',

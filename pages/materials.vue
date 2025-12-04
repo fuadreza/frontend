@@ -11,7 +11,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-500">Total Bahan</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ materials.length }}</p>
+              <p class="text-2xl font-semibold text-gray-900">{{ materialStore.materials.length }}</p>
             </div>
           </div>
         </div>
@@ -138,11 +138,11 @@
         </h3>
 
         <div class="space-y-4">
-          <input v-model="form.name" type="text" placeholder="Nama bahan" class="input" />
+          <input v-model="formData.name" type="text" placeholder="Nama bahan" class="input" />
 
           <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="form.stock" type="number" placeholder="Stok" class="input" />
-            <select v-model="form.metric" class="input">
+            <input v-model.number="formData.stock" type="number" placeholder="Stok" class="input" />
+            <select v-model="formData.metric" class="input">
               <option value="kg">kg</option>
               <option value="gram">gram</option>
               <option value="liter">liter</option>
@@ -151,11 +151,11 @@
           </div>
 
           <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="form.costPerUnit" type="number" placeholder="Harga per unit" class="input" />
-            <input v-model.number="form.minStock" type="number" placeholder="Stok minimum" class="input" />
+            <input v-model.number="formData.costPerUnit" type="number" placeholder="Harga per unit" class="input" />
+            <input v-model.number="formData.minStock" type="number" placeholder="Stok minimum" class="input" />
           </div>
 
-          <textarea v-model="form.notes" rows="3" class="input" placeholder="Catatan"></textarea>
+          <textarea v-model="formData.notes" rows="3" class="input" placeholder="Catatan"></textarea>
         </div>
 
         <div class="flex justify-end mt-6 space-x-3">
@@ -184,7 +184,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import type { IMaterial } from "~/services/interfaces/IMaterialService";
+import type { IMaterial, NewMaterial } from "~/services/interfaces/IMaterialService";
 import { useMaterialStore } from "~/stores/materialStore";
 
 definePageMeta({ layout: "dashboard" });
@@ -195,15 +195,13 @@ const showAddModal = ref(false);
 const editMode = ref(false);
 
 const searchQuery = ref("");
-const filterCategory = ref("");
 const filterStatus = ref("");
 
 onMounted(() => {
   materialStore.fetchMaterials();
 });
 
-const emptyForm = (): IMaterial => ({
-  id: 0,
+const emptyForm = (): NewMaterial => ({
   name: "",
   stock: 0,
   minStock: 0,
@@ -212,9 +210,7 @@ const emptyForm = (): IMaterial => ({
   notes: ""
 });
 
-const form = ref<IMaterial>(emptyForm());
-
-const materials = ref<IMaterial[]>([]);
+const formData = ref<Partial<IMaterial>>(emptyForm());
 
 // ───────────────────────────────────────────────
 // FILTERED DATA
@@ -271,13 +267,13 @@ const getStatusText = (m: IMaterial) => {
 // ───────────────────────────────────────────────
 
 const openAddModal = () => {
-  form.value = emptyForm();
+  formData.value = emptyForm();
   editMode.value = false;
   showAddModal.value = true;
 };
 
 const editMaterial = (m: IMaterial) => {
-  form.value = JSON.parse(JSON.stringify(m)); // fix reactivity clone
+  formData.value = JSON.parse(JSON.stringify(m)); // fix reactivity clone
   editMode.value = true;
   showAddModal.value = true;
 };
@@ -289,18 +285,17 @@ const deleteMaterial = (id: number) => {
 };
 
 const saveMaterial = () => {
-  if (!form.value.name || !form.value.metric) {
+  if (!formData.value.name || !formData.value.metric) {
     alert("Nama dan satuan tidak boleh kosong.");
     return;
   }
 
   if (editMode.value) {
-    materialStore.updateMaterial(JSON.parse(JSON.stringify(form.value)));
+    if (formData.value.id) {
+      materialStore.updateMaterial(formData.value.id, formData.value);
+    }
   } else {
-    const newId = materialStore.materials.length
-      ? Math.max(...materialStore.materials.map((m) => m.id)) + 1
-      : 1;
-    materialStore.addMaterial({ ...form.value, id: newId });
+    materialStore.addMaterial({...formData.value as NewMaterial});
   }
   closeModal();
 };
@@ -308,7 +303,7 @@ const saveMaterial = () => {
 const closeModal = () => {
   showAddModal.value = false;
   editMode.value = false;
-  form.value = emptyForm();
+  formData.value = emptyForm();
 };
 </script>
 

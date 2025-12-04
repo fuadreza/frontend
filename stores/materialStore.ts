@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { IMaterial } from "../services/interfaces/IMaterialService";
+import type { IMaterial, NewMaterial } from "../services/interfaces/IMaterialService";
 import { materialServiceLocal } from "../services/MaterialServiceLocal";
 
 export const useMaterialStore = defineStore('material', {
@@ -10,12 +10,12 @@ export const useMaterialStore = defineStore('material', {
         async fetchMaterials() {
             this.materials = await materialServiceLocal.getMaterials();
         },
-        async addMaterial(material: IMaterial) {
+        async addMaterial(material: NewMaterial) {
             await materialServiceLocal.addMaterial(material);
             this.fetchMaterials();
         },
-        async updateMaterial(material: IMaterial) {
-            await materialServiceLocal.updateMaterial(material);
+        async updateMaterial(id: number, material: Partial<IMaterial>) {
+            await materialServiceLocal.updateMaterial(id, material);
             this.fetchMaterials();
         },
         async deleteMaterial(id: number) {
