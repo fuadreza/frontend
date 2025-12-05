@@ -346,7 +346,7 @@
         <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-2xl w-full relative z-20">
           <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-8 text-white">
             <h2 class="text-2xl font-bold">{{ selectedProduct.name }}</h2>
-            <p class="mt-1 text-indigo-100">{{ selectedProduct.stock }}</p>
+            <p class="mt-1 text-indigo-100">Stok: {{ selectedProduct.stock }}</p>
           </div>
           
           <div class="px-6 py-6">
