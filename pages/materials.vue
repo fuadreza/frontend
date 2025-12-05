@@ -62,7 +62,6 @@
 
       </div>
 
-      <!-- Filter & Search -->
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
@@ -84,13 +83,11 @@
         </div>
       </div>
 
-      <!-- Table -->
       <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors duration-300 rounded-lg overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50 dark:bg-gray-800">
             <tr>
               <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Nama Bahan</th>
-              <!-- <th class="px-6 py-3">Kategori</th> -->
               <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Stok</th>
               <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Satuan</th>
               <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Harga/Unit</th>
@@ -130,45 +127,104 @@
     </div>
 
     <!-- Add/Edit Modal -->
-    <div v-if="showAddModal" class="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-40">
-      <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/50 transition-colors duration-300-xl max-w-lg w-full p-6">
+    <div v-if="showAddModal" class="fixed z-10 inset-0 overflow-y-auto">
+      <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="closeModal"></div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-2xl w-full relative z-20">
+          <div class="bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+              {{ editMode ? 'Edit Bahan' : 'Tambah Bahan Baru' }}
+            </h3>
+          </div>
+          
+          <div class="px-6 py-4 max-h-96 overflow-y-auto">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Bahan</label>
+                <input
+                  v-model="formData.name"
+                  type="text"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                  placeholder="Contoh: Gula Pasir"
+                />
+              </div>
 
-        <h3 class="text-lg font-semibold mb-4">
-          {{ editMode ? 'Edit Bahan' : 'Tambah Bahan Baru' }}
-        </h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Stok</label>
+                  <input
+                    v-model.number="formData.stock"
+                    type="number"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    placeholder="0"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Satuan</label>
+                  <select
+                    v-model="formData.metric"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                  >
+                    <option value="kg">kg</option>
+                    <option value="gram">gram</option>
+                    <option value="liter">liter</option>
+                    <option value="pcs">pcs</option>
+                  </select>
+                </div>
+              </div>
 
-        <div class="space-y-4">
-          <input v-model="formData.name" type="text" placeholder="Nama bahan" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Harga per Unit</label>
+                  <input
+                    v-model.number="formData.costPerUnit"
+                    type="number"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    placeholder="0"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Stok Minimum</label>
+                  <input
+                    v-model.number="formData.minStock"
+                    type="number"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    placeholder="0"
+                  />
+                </div>
+              </div>
 
-          <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="formData.stock" type="number" placeholder="Stok" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
-            <select v-model="formData.metric" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200">
-              <option value="kg">kg</option>
-              <option value="gram">gram</option>
-              <option value="liter">liter</option>
-              <option value="pcs">pcs</option>
-            </select>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Catatan</label>
+                <textarea
+                  v-model="formData.notes"
+                  rows="3"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                  placeholder="Catatan tambahan..."
+                ></textarea>
+              </div>
+            </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="formData.costPerUnit" type="number" placeholder="Harga per unit" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
-            <input v-model.number="formData.minStock" type="number" placeholder="Stok minimum" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
+          <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end space-x-3 border-t border-gray-200 dark:border-gray-700">
+            <button
+              @click="closeModal"
+              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            >
+              Batal
+            </button>
+            <button
+              @click="saveMaterial"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors"
+            >
+              {{ editMode ? 'Update' : 'Simpan' }}
+            </button>
           </div>
-
-          <textarea v-model="formData.notes" rows="3" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" placeholder="Catatan"></textarea>
         </div>
-
-        <div class="flex justify-end mt-6 space-x-3">
-          <button @click="closeModal" class="btn-secondary">Batal</button>
-          <button @click="saveMaterial" class="btn-primary">
-            {{ editMode ? 'Update' : 'Simpan' }}
-          </button>
-        </div>
-
       </div>
     </div>
 
-    <!-- Modern Floating Action Button -->
     <button
       @click="openAddModal"
       class="fixed bottom-8 right-8 group flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out z-10"
@@ -212,15 +268,9 @@ const emptyForm = (): NewMaterial => ({
 
 const formData = ref<Partial<IMaterial>>(emptyForm());
 
-// ───────────────────────────────────────────────
-// FILTERED DATA
-// ───────────────────────────────────────────────
-
 const filteredMaterials = computed(() => {
   return materialStore.materials.filter((m) => {
     const matchSearch = m.name.toLowerCase().includes(searchQuery.value.toLowerCase());
-    // const matchCategory = !filterCategory.value || m.category === filterCategory.value;
-
     let matchStatus = true;
     if (filterStatus.value === "aman") matchStatus = m.stock > m.minStock * 2;
     if (filterStatus.value === "rendah") matchStatus = m.stock <= m.minStock * 2 && m.stock > 0;
@@ -236,10 +286,6 @@ const lowStock = computed(() => materialStore.materials.filter((m) => m.stock <=
 const totalValue = computed(() => {
   return materialStore.materials.reduce((sum, m) => sum + m.stock * m.costPerUnit, 0);
 });
-
-// ───────────────────────────────────────────────
-// UTILS
-// ───────────────────────────────────────────────
 
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("id-ID", {
@@ -307,14 +353,4 @@ const closeModal = () => {
 };
 </script>
 
-<style scoped>
-.input {
-  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500;
-}
-.btn-primary {
-  @apply px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700;
-}
-.btn-secondary {
-  @apply px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100;
-}
-</style>
+
