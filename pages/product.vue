@@ -1,93 +1,81 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-800 dark:bg-gray-900 transition-colors duration-300">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Stats Cards -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition-colors">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600">
+            <div class="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Total Produk</p>
-              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ products.length }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Total Produk</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ productStore.productsWithDetails.length }}</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition-colors">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600">
+            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Produk Aktif</p>
-              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ activeProducts }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Produk Aktif</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ activeProducts }}</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition-colors">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Avg HPP</p>
-              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ formatCurrency(avgHPP) }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Avg HPP</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(avgHPP) }}</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition-colors">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600">
+            <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Avg Margin</p>
-              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ avgMargin }}%</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Avg Margin</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ avgMargin }}%</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Filter & Search -->
-      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6 transition-colors">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <input
               v-model="searchQuery"
               type="text"
               placeholder="Cari produk..."
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
             />
           </div>
           <div>
             <select
-              v-model="filterCategory"
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
-            >
-              <option value="">Semua Kategori</option>
-              <option value="Kopi">Kopi</option>
-              <option value="Teh">Teh</option>
-              <option value="Coklat">Coklat</option>
-              <option value="Minuman">Minuman</option>
-            </select>
-          </div>
-          <div>
-            <select
               v-model="filterStatus"
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
             >
               <option value="">Semua Status</option>
               <option value="aktif">Aktif</option>
@@ -102,24 +90,24 @@
         <div
           v-for="product in filteredProducts"
           :key="product.id"
-          class="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/50 transition-colors duration-300-md hover:shadow-lg transition-shadow overflow-hidden"
+          class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all overflow-hidden"
         >
           <div class="h-48 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
             <div class="text-white text-center">
               <svg class="h-16 w-16 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <p class="text-sm font-medium">{{ product.category }}</p>
+              <p class="text-sm font-medium">{{ product.name }}</p>
             </div>
           </div>
 
           <div class="p-6">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ product.name }}</h3>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ product.name }}</h3>
               <span
                 :class="[
                   'px-2 py-1 text-xs font-semibold rounded-full',
-                  product.isActive ? 'bg-green-100 dark:bg-green-900/30 text-green-800' : 'bg-gray-100 text-gray-800'
+                  product.isActive ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300'
                 ]"
               >
                 {{ product.isActive ? 'Aktif' : 'Nonaktif' }}
@@ -130,39 +118,39 @@
 
             <div class="space-y-2 mb-4">
               <div class="flex justify-between text-sm">
-                <span class="text-gray-600 dark:text-gray-400 dark:text-gray-400">Ukuran</span>
-                <span class="font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ product.size }}</span>
+                <span class="text-gray-600 dark:text-gray-400">Biaya Tenaga</span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">{{ formatCurrency(product.laborCost) }}</span>
               </div>
               <div class="flex justify-between text-sm">
-                <span class="text-gray-600 dark:text-gray-400 dark:text-gray-400">HPP</span>
-                <span class="font-medium text-red-600">{{ formatCurrency(product.hpp) }}</span>
+                <span class="text-gray-600 dark:text-gray-400">HPP</span>
+                <span class="font-medium text-red-600 dark:text-red-400">{{ formatCurrency(getHPP(product)) }}</span>
               </div>
               <div class="flex justify-between text-sm">
-                <span class="text-gray-600 dark:text-gray-400 dark:text-gray-400">Harga Jual</span>
-                <span class="font-medium text-green-600">{{ formatCurrency(product.sellingPrice) }}</span>
+                <span class="text-gray-600 dark:text-gray-400">Harga Jual</span>
+                <span class="font-medium text-green-600 dark:text-green-400">{{ formatCurrency(product.sellingPrice) }}</span>
               </div>
-              <div class="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
-                <span class="text-gray-600 dark:text-gray-400 dark:text-gray-400">Margin</span>
-                <span class="font-semibold text-indigo-600">{{ product.margin }}%</span>
+              <div class="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-700">
+                <span class="text-gray-600 dark:text-gray-400">Margin</span>
+                <span class="font-semibold text-indigo-600 dark:text-indigo-400">{{ getMargin(product).toFixed(2) }}%</span>
               </div>
             </div>
 
-            <div class="flex justify-end space-x-2 pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
+            <div class="flex justify-end space-x-2 pt-4 border-t border-gray-200 dark:border-gray-700">
               <button
                 @click="viewDetail(product)"
-                class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-800 rounded-md transition-colors"
+                class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
               >
                 Detail
               </button>
               <button
                 @click="editProduct(product)"
-                class="px-3 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
+                class="px-3 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md transition-colors"
               >
                 Edit
               </button>
               <button
                 @click="deleteProduct(product.id)"
-                class="px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                class="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-md transition-colors"
               >
                 Hapus
               </button>
@@ -175,11 +163,11 @@
     <!-- Add/Edit Modal -->
     <div v-if="showAddModal" class="fixed z-10 inset-0 overflow-y-auto">
       <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="closeModal"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="closeModal"></div>
         
         <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-2xl w-full relative z-20">
-          <div class="bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">
+          <div class="bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
               {{ editMode ? 'Edit Produk' : 'Tambah Produk Baru' }}
             </h3>
           </div>
@@ -191,7 +179,7 @@
                 <input
                   v-model="formData.name"
                   type="text"
-                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                   placeholder="Contoh: Kopi Arabica Premium"
                 />
               </div>
@@ -201,54 +189,39 @@
                 <textarea
                   v-model="formData.description"
                   rows="2"
-                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                   placeholder="Deskripsi produk..."
                 ></textarea>
               </div>
 
               <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kategori</label>
-                  <select
-                    v-model="formData.category"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
-                  >
-                    <option value="">Pilih Kategori</option>
-                    <option value="Kopi">Kopi</option>
-                    <option value="Teh">Teh</option>
-                    <option value="Coklat">Coklat</option>
-                    <option value="Minuman">Minuman</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ukuran</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Stok</label>
                   <input
-                    v-model="formData.size"
-                    type="text"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
-                    placeholder="250g, 500ml, dll"
+                    v-model.number="formData.stock"
+                    type="number"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    placeholder="0"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Biaya Tenaga</label>
+                  <input
+                    v-model.number="formData.laborCost"
+                    type="number"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    placeholder="0"
                   />
                 </div>
               </div>
 
-              <div class="grid grid-cols-3 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HPP</label>
-                  <input
-                    v-model.number="formData.hpp"
-                    type="number"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
-                    placeholder="25000"
-                  />
-                </div>
-
+              <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Harga Jual</label>
                   <input
                     v-model.number="formData.sellingPrice"
                     type="number"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                     placeholder="45000"
                   />
                 </div>
@@ -259,8 +232,78 @@
                     :value="calculatedMargin"
                     type="text"
                     readonly
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors"
                   />
+                </div>
+              </div>
+
+              <!-- Materials Section -->
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Bahan Baku</label>
+                  <button type="button" @click="addMaterialRow" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium">
+                    + Tambah Bahan
+                  </button>
+                </div>
+                <div class="space-y-2">
+                  <div v-for="(item, index) in formData.productMaterial" :key="index" class="flex gap-2 items-start">
+                    <select
+                      v-model="item.materialId"
+                      class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    >
+                      <option :value="0">Pilih Bahan</option>
+                      <option v-for="mat in materialStore.materials" :key="mat.id" :value="mat.id">
+                        {{ mat.name }} ({{ mat.metric }})
+                      </option>
+                    </select>
+                    <input
+                      v-model.number="item.quantity"
+                      type="number"
+                      placeholder="Jml"
+                      class="w-20 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    />
+                    <button type="button" @click="removeMaterialRow(index)" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors">
+                      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                  <p v-if="!formData.productMaterial?.length" class="text-sm text-gray-500 dark:text-gray-400 italic">Belum ada bahan baku dipilih</p>
+                </div>
+              </div>
+
+              <!-- Packaging Section -->
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kemasan</label>
+                  <button type="button" @click="addPackagingRow" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium">
+                    + Tambah Kemasan
+                  </button>
+                </div>
+                <div class="space-y-2">
+                  <div v-for="(item, index) in formData.productPackaging" :key="index" class="flex gap-2 items-start">
+                    <select
+                      v-model="item.packagingId"
+                      class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    >
+                      <option :value="0">Pilih Kemasan</option>
+                      <option v-for="pack in packagingStore.packagings" :key="pack.id" :value="pack.id">
+                        {{ pack.name }} ({{ pack.metric }})
+                      </option>
+                    </select>
+                    <input
+                      v-model.number="item.quantity"
+                      type="number"
+                      placeholder="Jml"
+                      class="w-20 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    />
+                    <button type="button" @click="removePackagingRow(index)" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors">
+                      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                  <p v-if="!formData.productPackaging?.length" class="text-sm text-gray-500 dark:text-gray-400 italic">Belum ada kemasan dipilih</p>
                 </div>
               </div>
 
@@ -269,24 +312,24 @@
                   <input
                     v-model="formData.isActive"
                     type="checkbox"
-                    class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
+                    class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:bg-gray-700 transition-colors"
                   />
-                  <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300">Produk Aktif</span>
+                  <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Produk Aktif</span>
                 </label>
               </div>
             </div>
           </div>
 
-          <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end space-x-3">
+          <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end space-x-3 border-t border-gray-200 dark:border-gray-700">
             <button
               @click="closeModal"
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               Batal
             </button>
             <button
               @click="saveProduct"
-              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors"
             >
               {{ editMode ? 'Update' : 'Simpan' }}
             </button>
@@ -298,36 +341,36 @@
     <!-- Detail Modal -->
     <div v-if="showDetailModal && selectedProduct" class="fixed z-10 inset-0 overflow-y-auto">
       <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showDetailModal = false"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="showDetailModal = false"></div>
         
         <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-2xl w-full relative z-20">
           <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-8 text-white">
             <h2 class="text-2xl font-bold">{{ selectedProduct.name }}</h2>
-            <p class="mt-1 text-indigo-100">{{ selectedProduct.category }} • {{ selectedProduct.size }}</p>
+            <p class="mt-1 text-indigo-100">Stok: {{ selectedProduct.stock }} unit</p>
           </div>
           
           <div class="px-6 py-6">
             <div class="space-y-4">
               <div>
                 <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Deskripsi</h3>
-                <p class="text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ selectedProduct.description }}</p>
+                <p class="text-gray-900 dark:text-gray-100">{{ selectedProduct.description }}</p>
               </div>
 
-              <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
+              <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div>
                   <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Informasi Harga</h3>
                   <div class="space-y-2">
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">HPP</span>
-                      <span class="text-sm font-semibold text-red-600">{{ formatCurrency(selectedProduct.hpp) }}</span>
+                      <span class="text-sm text-gray-600 dark:text-gray-400">HPP</span>
+                      <span class="text-sm font-semibold text-red-600 dark:text-red-400">{{ formatCurrency(getHPP(selectedProduct)) }}</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Harga Jual</span>
-                      <span class="text-sm font-semibold text-green-600">{{ formatCurrency(selectedProduct.sellingPrice) }}</span>
+                      <span class="text-sm text-gray-600 dark:text-gray-400">Harga Jual</span>
+                      <span class="text-sm font-semibold text-green-600 dark:text-green-400">{{ formatCurrency(selectedProduct.sellingPrice) }}</span>
                     </div>
-                    <div class="flex justify-between pt-2 border-t">
-                      <span class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Profit per Unit</span>
-                      <span class="text-sm font-bold text-indigo-600">{{ formatCurrency(selectedProduct.sellingPrice - selectedProduct.hpp) }}</span>
+                    <div class="flex justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+                      <span class="text-sm text-gray-600 dark:text-gray-400">Profit per Unit</span>
+                      <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400">{{ formatCurrency(selectedProduct.sellingPrice - getHPP(selectedProduct)) }}</span>
                     </div>
                   </div>
                 </div>
@@ -336,15 +379,15 @@
                   <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Margin & Status</h3>
                   <div class="space-y-2">
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Margin</span>
-                      <span class="text-sm font-semibold text-indigo-600">{{ selectedProduct.margin }}%</span>
+                      <span class="text-sm text-gray-600 dark:text-gray-400">Margin</span>
+                      <span class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{{ getMargin(selectedProduct).toFixed(2) }}%</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Status</span>
+                      <span class="text-sm text-gray-600 dark:text-gray-400">Status</span>
                       <span
                         :class="[
                           'text-sm font-semibold',
-                          selectedProduct.isActive ? 'text-green-600' : 'text-gray-600'
+                          selectedProduct.isActive ? 'text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-400'
                         ]"
                       >
                         {{ selectedProduct.isActive ? 'Aktif' : 'Tidak Aktif' }}
@@ -356,10 +399,10 @@
             </div>
           </div>
 
-          <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end">
+          <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end border-t border-gray-200 dark:border-gray-700">
             <button
               @click="showDetailModal = false"
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               Tutup
             </button>
@@ -382,19 +425,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-
-interface Product {
-  id: number
-  name: string
-  description: string
-  category: string
-  size: string
-  hpp: number
-  sellingPrice: number
-  margin: number
-  isActive: boolean
-}
+import { ref, computed, onMounted } from 'vue'
+import type { IProduct, IProductWithDetails, NewProduct } from '~/services/interfaces/IProductService'
+import { useProductStore } from '~/stores/productStore'
+import { useMaterialStore } from '~/stores/materialStore'
+import { usePackagingStore } from '~/stores/packagingStore'
+import { calculateProductMetrics } from '~/utils/productCalculation'
 
 definePageMeta({
   layout: 'dashboard',
@@ -404,110 +440,66 @@ const showAddModal = ref(false)
 const showDetailModal = ref(false)
 const editMode = ref(false)
 const searchQuery = ref('')
-const filterCategory = ref('')
 const filterStatus = ref('')
-const selectedProduct = ref<Product | null>(null)
+const selectedProduct = ref<IProductWithDetails | null>(null)
 
-const formData = ref({
-  id: null as number | null,
-  name: '',
-  description: '',
-  category: '',
-  size: '',
-  hpp: 0,
-  sellingPrice: 0,
-  isActive: true
+const productStore = useProductStore()
+const materialStore = useMaterialStore()
+const packagingStore = usePackagingStore()
+
+onMounted(() => {
+  productStore.fetchProductsWithDetails()
+  materialStore.fetchMaterials()
+  packagingStore.fetchPackagings()
 })
 
-const products = ref<Product[]>([
-  { 
-    id: 1, 
-    name: 'Kopi Arabica Premium 250g', 
-    description: 'Kopi Arabica pilihan dengan cita rasa premium',
-    category: 'Kopi', 
-    size: '250g', 
-    hpp: 25000, 
-    sellingPrice: 45000, 
-    margin: 44.4, 
-    isActive: true 
-  },
-  { 
-    id: 2, 
-    name: 'Teh Hijau Organik 100g', 
-    description: 'Teh hijau organik berkualitas tinggi',
-    category: 'Teh', 
-    size: '100g', 
-    hpp: 18000, 
-    sellingPrice: 32000, 
-    margin: 43.8, 
-    isActive: true 
-  },
-  { 
-    id: 3, 
-    name: 'Coklat Dark 70% 200g', 
-    description: 'Coklat hitam dengan kandungan kakao 70%',
-    category: 'Coklat', 
-    size: '200g', 
-    hpp: 35000, 
-    sellingPrice: 58000, 
-    margin: 39.7, 
-    isActive: true 
-  },
-  { 
-    id: 4, 
-    name: 'Matcha Latte Mix 150g', 
-    description: 'Campuran matcha premium siap seduh',
-    category: 'Minuman', 
-    size: '150g', 
-    hpp: 28000, 
-    sellingPrice: 48000, 
-    margin: 41.7, 
-    isActive: true 
-  },
-  { 
-    id: 5, 
-    name: 'Kopi Robusta 500g', 
-    description: 'Kopi robusta dengan body kuat',
-    category: 'Kopi', 
-    size: '500g', 
-    hpp: 45000, 
-    sellingPrice: 75000, 
-    margin: 40.0, 
-    isActive: false 
-  },
-])
+const emptyForm = (): NewProduct => ({
+  name: '',
+  description: '',
+  sellingPrice: 0,
+  stock: 0,
+  laborCost: 0,
+  productMaterial: [],
+  productPackaging: [],
+  isActive: true,
+})
+
+const formData = ref<Partial<IProduct>>(emptyForm())
 
 const filteredProducts = computed(() => {
-  return products.value.filter(product => {
+  return productStore.productsWithDetails.filter(product => {
     const matchSearch = product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchCategory = !filterCategory.value || product.category === filterCategory.value
     const matchStatus = !filterStatus.value || 
       (filterStatus.value === 'aktif' && product.isActive) ||
       (filterStatus.value === 'nonaktif' && !product.isActive)
     
-    return matchSearch && matchCategory && matchStatus
+    return matchSearch && matchStatus
   })
 })
 
 const activeProducts = computed(() => {
-  return products.value.filter(p => p.isActive).length
+  return productStore.productsWithDetails.filter(p => p.isActive).length
 })
 
+const getHPP = (product: IProductWithDetails) => {
+  return calculateProductMetrics(product).HPP
+}
+
+const getMargin = (product: IProductWithDetails) => {
+  return calculateProductMetrics(product).marginPercentage
+}
+
 const avgHPP = computed(() => {
-  const total = products.value.reduce((sum, p) => sum + p.hpp, 0)
-  return total / products.value.length || 0
+  const total = productStore.productsWithDetails.reduce((sum, p) => sum + getHPP(p), 0)
+  return total / productStore.productsWithDetails.length || 0
 })
 
 const avgMargin = computed(() => {
-  const total = products.value.reduce((sum, p) => sum + p.margin, 0)
-  return (total / products.value.length || 0).toFixed(1)
+  const total = productStore.productsWithDetails.reduce((sum, p) => sum + getMargin(p), 0)
+  return (total / productStore.productsWithDetails.length || 0).toFixed(1)
 })
 
 const calculatedMargin = computed(() => {
-  if (formData.value.hpp && formData.value.sellingPrice) {
-    const margin = ((formData.value.sellingPrice - formData.value.hpp) / formData.value.sellingPrice * 100).toFixed(1)
-    return `${margin}%`
-  }
   return '0%'
 })
 
@@ -519,34 +511,60 @@ const formatCurrency = (value: number) => {
   }).format(value)
 }
 
-const viewDetail = (product: Product) => {
+const viewDetail = (product: IProductWithDetails) => {
   selectedProduct.value = product
   showDetailModal.value = true
 }
 
-const editProduct = (product: Product) => {
-  formData.value = { ...product } as any
+const editProduct = (product: IProductWithDetails) => {
+  formData.value = {
+    ...product,
+    productMaterial: product.materials?.map(m => ({
+      materialId: m.material.id,
+      quantity: m.quantity
+    })) || [],
+    productPackaging: product.packaging?.map(p => ({
+      packagingId: p.packaging.id,
+      quantity: p.quantity
+    })) || []
+  }
   editMode.value = true
   showAddModal.value = true
 }
 
+const addMaterialRow = () => {
+  if (!formData.value.productMaterial) formData.value.productMaterial = []
+  formData.value.productMaterial.push({ materialId: 0, quantity: 0 })
+}
+
+const removeMaterialRow = (index: number) => {
+  formData.value.productMaterial?.splice(index, 1)
+}
+
+const addPackagingRow = () => {
+  if (!formData.value.productPackaging) formData.value.productPackaging = []
+  formData.value.productPackaging.push({ packagingId: 0, quantity: 0 })
+}
+
+const removePackagingRow = (index: number) => {
+  formData.value.productPackaging?.splice(index, 1)
+}
+
 const deleteProduct = (id: number) => {
   if (confirm('Yakin ingin menghapus produk ini?')) {
-    products.value = products.value.filter(p => p.id !== id)
+    productStore.deleteProduct(id)
   }
 }
 
 const saveProduct = () => {
-  const margin = parseFloat(((formData.value.sellingPrice - formData.value.hpp) / formData.value.sellingPrice * 100).toFixed(1))
-  
   if (editMode.value) {
-    const index = products.value.findIndex(p => p.id === formData.value.id)
-    if (index !== -1) {
-      products.value[index] = { ...formData.value, margin } as Product
+    if (formData.value.id) {
+      const productWithDetails = formData.value as IProductWithDetails
+      const { materials, packaging, ...product } = productWithDetails
+      productStore.updateProduct(formData.value.id, product)
     }
   } else {
-    const newId = Math.max(...products.value.map(p => p.id)) + 1
-    products.value.push({ ...formData.value, id: newId, margin } as Product)
+    productStore.addProduct({...formData.value as IProduct})
   }
   closeModal()
 }
@@ -554,15 +572,6 @@ const saveProduct = () => {
 const closeModal = () => {
   showAddModal.value = false
   editMode.value = false
-  formData.value = {
-    id: null,
-    name: '',
-    description: '',
-    category: '',
-    size: '',
-    hpp: 0,
-    sellingPrice: 0,
-    isActive: true
-  }
+  formData.value = emptyForm()
 }
 </script>

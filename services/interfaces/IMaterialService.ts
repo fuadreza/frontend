@@ -1,3 +1,5 @@
+import type { PromiseExtended } from "dexie";
+
 export interface IMaterial {
     id: number;
     name: string;
@@ -13,6 +15,7 @@ export type NewMaterial = Omit<IMaterial, 'id'>;
 
 export interface IMaterialService {
     getMaterials(): Promise<IMaterial[]>;
+    getMaterialsBulk(ids: number[]): PromiseExtended<(IMaterial | undefined)[]>;
     addMaterial(material: NewMaterial): Promise<number>;
     updateMaterial(id: number, material: Partial<IMaterial>): Promise<number>;
     deleteMaterial(id: number): Promise<void>;
