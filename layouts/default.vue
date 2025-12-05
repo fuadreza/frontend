@@ -70,13 +70,13 @@
 
           <!-- Menu Links (Center/Right) -->
           <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            <NuxtLink to="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium">
+            <NuxtLink to="/contact" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium">
               Contact Us
             </NuxtLink>
-            <NuxtLink to="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium">
+            <NuxtLink to="/terms" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium">
               Terms and Conditions
             </NuxtLink>
-            <NuxtLink to="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium">
+            <NuxtLink to="/privacy" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium">
               Privacy Policy
             </NuxtLink>
           </nav>
