@@ -745,14 +745,9 @@ const formatCurrency = (value: number) => {
 const getAIAnalysis = async () => {
   loading.value = true
   
-  // Inisialisasi Client
-  const client = new OpenAI({
-    apiKey: process.env.KOLOSAL_API_KEY,
-    baseURL: 'https://api.kolosal.ai/v1',
-    dangerouslyAllowBrowser: true
-  })
   try {
     const prompt = `Anda adalah konsultan keuangan dan akuntansi biaya. Analisis data HPP berikut dan berikan rekomendasi dalam format JSON:
+
 Data Produk:
 - Nama: ${hppForm.value.productName || 'Produk'}
 - HPP per Unit: Rp ${hppPerUnit.value.toFixed(0)}
@@ -763,48 +758,33 @@ Data Produk:
 - Target Margin: ${hppForm.value.targetMargin}%
 - Harga Jual Saran: Rp ${suggestedPrice.value.toFixed(0)}
 - Jumlah Produksi: ${hppForm.value.productionQty} unit
+
 Berikan analisis dalam format JSON berikut (HANYA JSON, tanpa penjelasan lain):
 {
   "efficiency_score": (skor 1-100, number),
-  "cost_breakdown_analysis": "analisis singkat struktur biaya (string)",
-  "pricing_recommendation": "rekomendasi harga jual yang optimal (string)",
+  "cost_breakdown_analysis": "analisis singkat struktur biaya",
+  "pricing_recommendation": "rekomendasi harga jual yang optimal",
   "optimization_tips": ["tip1", "tip2", "tip3"],
   "risk_factors": ["risiko1", "risiko2"],
-  "competitive_position": "analisis posisi kompetitif (string)"
+  "competitive_position": "analisis posisi kompetitif"
 }`
-    // Request ke API Kolosal
-    const completion = await client.chat.completions.create({
-      model: 'GLM 4.6',
-      messages: [
-        {
-          role: 'user',
-          content: prompt
-        }
-      ]
+
+    // Call backend API route
+    const response = await $fetch('/api/ai-analysis', {
+      method: 'POST',
+      body: { prompt }
     })
-    // Ambil response dengan aman
-    const aiResponse = completion.choices[0]?.message?.content
-    if (!aiResponse) {
-        throw new Error("Respons AI kosong atau gagal.")
-    }
-    console.log("Raw Response:", aiResponse)
-    // Bersihkan Markdown block jika ada
-    const cleanJson = aiResponse.replace(/```json|```/g, '').trim()
-    // Regex untuk mengambil JSON object saja
-    const jsonMatch = cleanJson.match(/\{[\s\S]*\}/)
-    if (jsonMatch) {
-      aiInsights.value = JSON.parse(jsonMatch[0])
-      activeTab.value = 'ai'
-    } else {
-      throw new Error("Format JSON tidak ditemukan dalam respons.")
-    }
+    
+    aiInsights.value = response
+    activeTab.value = 'ai'
+    
   } catch (error) {
     console.error('Error getting AI analysis:', error)
     
     // Fallback data
     aiInsights.value = {
       efficiency_score: 75,
-      cost_breakdown_analysis: "Struktur biaya Anda cukup baik dengan proporsi bahan baku yang dominan (Data Fallback).",
+      cost_breakdown_analysis: "Struktur biaya Anda cukup baik dengan proporsi bahan baku yang dominan.",
       pricing_recommendation: `Dengan HPP ${formatCurrency(hppPerUnit.value)}, harga jual optimal adalah ${formatCurrency(suggestedPrice.value)}`,
       optimization_tips: [
         "Pertimbangkan negosiasi harga bahan baku untuk volume besar",

@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    // Enable dark mode using class strategy
     darkMode: 'class',
 
     content: [
@@ -13,7 +12,6 @@ module.exports = {
 
     theme: {
         extend: {
-            // Add custom transitions for smooth theme switching
             transitionProperty: {
                 'colors': 'background-color, border-color, color, fill, stroke',
             },
