@@ -39,11 +39,26 @@
             </button>
           </div>
 
-          <div class="pt-8 flex items-center justify-center lg:justify-start gap-8 text-gray-400 grayscale opacity-70">
-            <!-- Trust Badges / Partner Logos Placeholder -->
-            <div class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-            <div class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-            <div class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          <div class="pt-8 flex items-center justify-center lg:justify-start gap-6 flex-wrap">
+            <!-- Tagline Badges -->
+            <div class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md border border-gray-200 dark:border-gray-700">
+              <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">0 Depo</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md border border-gray-200 dark:border-gray-700">
+              <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">MaxWin</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md border border-gray-200 dark:border-gray-700">
+              <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">MaxProfit</span>
+            </div>
           </div>
         </div>
 
@@ -66,27 +81,36 @@
   </div>
 
   <!-- Features & Benefits Section -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 relative overflow-hidden">
+  <section class="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300 relative overflow-hidden">
+    <!-- Background Decorations -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-30">
+      <div class="absolute top-[10%] right-[10%] w-72 h-72 rounded-full bg-blue-200 dark:bg-blue-900 blur-3xl"></div>
+      <div class="absolute bottom-[10%] left-[10%] w-72 h-72 rounded-full bg-purple-200 dark:bg-purple-900 blur-3xl"></div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold tracking-wide uppercase mb-4">
+          Fitur Lengkap
+        </span>
+        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Fitur Unggulan Sistem Kami
         </h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400">
+        <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
           Kelola seluruh aspek produksi Anda dengan mudah dan efisien menggunakan sistem terintegrasi kami.
         </p>
       </div>
 
       <div 
         ref="featuresGrid"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"
       >
         <FeatureCard
           v-for="(feature, index) in features"
           :key="feature.title"
           :title="feature.title"
           :description="feature.description"
-          class="transition-all duration-700 ease-out transform"
+          class="transition-all duration-700 ease-out transform hover:scale-105"
           :class="[
             areFeaturesVisible 
               ? 'opacity-100 translate-y-0' 
@@ -274,13 +298,13 @@ const features = [
 const testimonials = [
   {
     quote: "Sistem ini sangat membantu kami menghitung HPP dengan akurat. Sekarang kami bisa tentukan harga jual yang tepat dan profit meningkat 35%!",
-    author: "Budi Santoso",
-    handle: "@KopiNusantara"
+    author: "Fuad Reza",
+    handle: "@Dev1"
   },
   {
     quote: "Manajemen stok jadi lebih mudah. Tidak ada lagi bahan yang habis mendadak atau over-stock. Efisiensi produksi meningkat drastis!",
-    author: "Siti Rahmawati",
-    handle: "@SkincareBali"
+    author: "Tyas Nur T",
+    handle: "@Dev2"
   }
 ]
 

@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const completion = await client.chat.completions.create({
-            model: 'GLM 4.6',
+            model: 'Claude Sonnet 4.5',
             messages: [
                 {
                     role: 'user',
