@@ -626,6 +626,7 @@
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">HPP/Unit</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Total HPP</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Include Packing</th>
+                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Aksi</th>
                 </tr>
               </thead>
               <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
@@ -639,6 +640,14 @@
                     <span :class="history.includePacking ? 'text-green-600' : 'text-gray-400'">
                       {{ history.includePacking ? '✓ Ya' : '✗ Tidak' }}
                     </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
+                    <button
+                      @click="deleteProduction(history.id)"
+                      class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-medium transition-colors"
+                    >
+                      Hapus
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -1082,6 +1091,13 @@ const saveProduction = async () => {
     inventoryStart: 0,
     inventoryEnd: 0,
     targetMargin: 40
+  }
+}
+
+const deleteProduction = async (id: number) => {
+  if (confirm('Yakin ingin menghapus data produksi ini?')) {
+    await productionStore.deleteProduction(id)
+    alert('Data produksi berhasil dihapus!')
   }
 }
 </script>
