@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-800 dark:bg-gray-900 transition-colors duration-300">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Stats Grid -->
@@ -7,7 +7,7 @@
         <div
           v-for="stat in stats"
           :key="stat.name"
-          class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
+          class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
         >
           <div class="p-5">
             <div class="flex items-center">
@@ -18,11 +18,11 @@
               </div>
               <div class="ml-5 w-0 flex-1">
                 <dl>
-                  <dt class="text-sm font-medium text-gray-500 truncate">
+                  <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
                     {{ stat.name }}
                   </dt>
                   <dd class="flex items-baseline">
-                    <div class="text-2xl font-semibold text-gray-900">
+                    <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">
                       {{ stat.value }}
                     </div>
                     <div
@@ -45,9 +45,9 @@
       <!-- Two Column Layout -->
       <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 mb-8">
         <!-- Produk yang Sudah Diproduksi -->
-        <div class="bg-white shadow rounded-lg">
-          <div class="px-6 py-5 border-b border-gray-200 flex items-center justify-between">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
+        <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors duration-300 rounded-lg">
+          <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">
               Produk Terproduksi
             </h3>
             <button
@@ -62,14 +62,14 @@
               <div
                 v-for="product in producedProducts"
                 :key="product.id"
-                class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <div class="flex-1">
-                  <p class="text-sm font-medium text-gray-900">{{ product.name }}</p>
-                  <p class="text-xs text-gray-500">{{ product.date }}</p>
+                  <p class="text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ product.name }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">{{ product.date }}</p>
                 </div>
                 <div class="text-right">
-                  <p class="text-sm font-semibold text-gray-900">{{ product.quantity }} unit</p>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ product.quantity }} unit</p>
                   <p class="text-xs text-green-600">HPP: {{ formatCurrency(product.hpp) }}</p>
                 </div>
               </div>
@@ -78,9 +78,9 @@
         </div>
 
         <!-- Estimasi Profit -->
-        <div class="bg-white shadow rounded-lg">
-          <div class="px-6 py-5 border-b border-gray-200">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
+        <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors duration-300 rounded-lg">
+          <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">
               Estimasi Profit
             </h3>
           </div>
@@ -88,31 +88,31 @@
             <div class="space-y-4">
               <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-sm font-medium text-gray-700">Total Penjualan</span>
-                  <span class="text-lg font-bold text-gray-900">{{ formatCurrency(profitData.totalSales) }}</span>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300">Total Penjualan</span>
+                  <span class="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ formatCurrency(profitData.totalSales) }}</span>
                 </div>
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-sm font-medium text-gray-700">Total HPP</span>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300">Total HPP</span>
                   <span class="text-lg font-bold text-red-600">{{ formatCurrency(profitData.totalHPP) }}</span>
                 </div>
                 <div class="border-t border-green-300 my-3"></div>
                 <div class="flex items-center justify-between">
-                  <span class="text-sm font-semibold text-gray-900">Profit Bersih</span>
+                  <span class="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">Profit Bersih</span>
                   <span class="text-2xl font-bold text-green-600">{{ formatCurrency(profitData.netProfit) }}</span>
                 </div>
                 <div class="mt-2 text-right">
-                  <span class="text-xs text-gray-600">Margin: </span>
+                  <span class="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-400">Margin: </span>
                   <span class="text-sm font-semibold text-green-700">{{ profitData.margin }}%</span>
                 </div>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
                 <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                  <p class="text-xs text-gray-600 mb-1">Bulan Ini</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Bulan Ini</p>
                   <p class="text-lg font-bold text-blue-600">{{ formatCurrency(profitData.thisMonth) }}</p>
                 </div>
                 <div class="bg-purple-50 p-3 rounded-lg border border-purple-200">
-                  <p class="text-xs text-gray-600 mb-1">Tahun Ini</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Tahun Ini</p>
                   <p class="text-lg font-bold text-purple-600">{{ formatCurrency(profitData.thisYear) }}</p>
                 </div>
               </div>
@@ -122,9 +122,9 @@
       </div>
 
       <!-- Quick Actions -->
-      <div class="bg-white shadow rounded-lg mb-8">
-        <div class="px-6 py-5 border-b border-gray-200">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors duration-300 rounded-lg mb-8">
+        <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">
             Quick Actions
           </h3>
         </div>
@@ -134,14 +134,14 @@
               v-for="action in quickActions"
               :key="action.name"
               @click="action.onClick"
-              class="relative group bg-white border-2 border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow-md transition-all"
+              class="relative group bg-white border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-indigo-500 hover:shadow-md transition-all"
             >
               <div class="flex flex-col items-center text-center">
                 <div :class="[action.iconBg, 'rounded-lg p-3 mb-3 group-hover:scale-110 transition-transform']">
                   <component :is="action.icon" :class="[action.iconColor, 'h-6 w-6']" />
                 </div>
-                <p class="text-sm font-medium text-gray-900">{{ action.name }}</p>
-                <p class="text-xs text-gray-500 mt-1">{{ action.description }}</p>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ action.name }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ action.description }}</p>
               </div>
             </button>
           </div>
@@ -149,55 +149,55 @@
       </div>
 
       <!-- User Profile Card -->
-      <div class="bg-white shadow rounded-lg">
-        <div class="px-6 py-5 border-b border-gray-200">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors duration-300 rounded-lg">
+        <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">
             Informasi Akun
           </h3>
         </div>
         <div class="px-6 py-5">
           <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
             <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500 flex items-center">
+              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                 <svg class="h-5 w-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 Nama Lengkap
               </dt>
-              <dd class="mt-1 text-sm text-gray-900 font-medium">
+              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">
                 {{ authStore.user?.name || '-' }}
               </dd>
             </div>
             <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500 flex items-center">
+              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                 <svg class="h-5 w-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 Email Address
               </dt>
-              <dd class="mt-1 text-sm text-gray-900 font-medium">
+              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">
                 {{ authStore.user?.email || '-' }}
               </dd>
             </div>
             <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500 flex items-center">
+              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                 <svg class="h-5 w-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                 </svg>
                 API Base URL
               </dt>
-              <dd class="mt-1 text-sm text-gray-900 font-mono text-xs bg-gray-50 px-2 py-1 rounded">
+              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-mono text-xs bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">
                 {{ config.public.apiBaseUrl }}
               </dd>
             </div>
             <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500 flex items-center">
+              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                 <svg class="h-5 w-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Last Login
               </dt>
-              <dd class="mt-1 text-sm text-gray-900 font-medium">
+              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">
                 {{ formatDate(new Date()) }}
               </dd>
             </div>

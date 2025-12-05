@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-800 dark:bg-gray-900 transition-colors duration-300">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Tabs -->
-      <div class="bg-white rounded-lg shadow mb-8">
-        <div class="border-b border-gray-200">
+      <div class="bg-white dark:bg-gray-700 dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/50 transition-colors duration-300 mb-8">
+        <div class="border-b border-gray-200 dark:border-gray-700">
           <nav class="flex -mb-px">
             <button
               @click="activeTab = 'calculator'"
@@ -12,7 +12,7 @@
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'calculator'
                   ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'
               ]"
             >
               Kalkulator HPP
@@ -23,7 +23,7 @@
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'maxProduction'
                   ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'
               ]"
             >
               Maksimal Produksi
@@ -34,7 +34,7 @@
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'history'
                   ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'
               ]"
             >
               Riwayat Produksi
@@ -47,40 +47,40 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Form Input -->
             <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Input Biaya Produksi</h3>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Input Biaya Produksi</h3>
               
               <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Nama Produk</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Produk</label>
                   <input
                     v-model="hppForm.productName"
                     type="text"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="Contoh: Kopi Arabica 250g"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Bahan Baku</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bahan Baku</label>
                   <div class="space-y-2">
                     <div v-for="(item, index) in hppForm.materials" :key="index" class="flex gap-2">
                       <input
                         v-model="item.name"
                         type="text"
                         placeholder="Nama bahan"
-                        class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       />
                       <input
                         v-model.number="item.quantity"
                         type="number"
                         placeholder="Qty"
-                        class="w-24 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       />
                       <input
                         v-model.number="item.price"
                         type="number"
                         placeholder="Harga"
-                        class="w-32 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        class="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       />
                       <button
                         @click="removeMaterial(index)"
@@ -99,34 +99,34 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Biaya Tenaga Kerja</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Biaya Tenaga Kerja</label>
                   <input
                     v-model.number="hppForm.laborCost"
                     type="number"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="50000"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Biaya Overhead</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Biaya Overhead</label>
                   <input
                     v-model.number="hppForm.overheadCost"
                     type="number"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="20000"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Kemasan</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Kemasan</label>
                   <div class="flex items-center mb-2">
                     <input
                       v-model="hppForm.includePacking"
                       type="checkbox"
-                      class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 dark:text-indigo-400 focus:ring-indigo-500 bg-white dark:bg-gray-700"
                     />
-                    <span class="ml-2 text-sm text-gray-700">Include biaya kemasan dalam HPP</span>
+                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Include biaya kemasan dalam HPP</span>
                   </div>
                   
                   <div v-if="hppForm.includePacking" class="space-y-2">
@@ -135,19 +135,19 @@
                         v-model="pack.name"
                         type="text"
                         placeholder="Nama kemasan"
-                        class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       />
                       <input
                         v-model.number="pack.quantity"
                         type="number"
                         placeholder="Qty"
-                        class="w-24 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       />
                       <input
                         v-model.number="pack.price"
                         type="number"
                         placeholder="Harga"
-                        class="w-32 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        class="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       />
                       <button
                         @click="removePackaging(index)"
@@ -167,11 +167,11 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Produksi (unit)</label>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jumlah Produksi (unit)</label>
                   <input
                     v-model.number="hppForm.productionQty"
                     type="number"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="100"
                   />
                 </div>
@@ -180,43 +180,43 @@
 
             <!-- Result -->
             <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Hasil Perhitungan</h3>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Hasil Perhitungan</h3>
               
-              <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-6 border border-indigo-200">
+              <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-lg p-6 border border-indigo-200 dark:border-gray-700 transition-colors duration-300">
                 <div class="space-y-4">
-                  <div class="flex justify-between items-center pb-3 border-b border-indigo-200">
-                    <span class="text-sm text-gray-700">Total Biaya Bahan</span>
-                    <span class="text-lg font-semibold text-gray-900">{{ formatCurrency(totalMaterialCost) }}</span>
+                  <div class="flex justify-between items-center pb-3 border-b border-indigo-200 dark:border-indigo-800">
+                    <span class="text-sm text-gray-700 dark:text-gray-300">Total Biaya Bahan</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(totalMaterialCost) }}</span>
                   </div>
 
-                  <div v-if="hppForm.includePacking" class="flex justify-between items-center pb-3 border-b border-indigo-200">
-                    <span class="text-sm text-gray-700">Total Biaya Kemasan</span>
-                    <span class="text-lg font-semibold text-gray-900">{{ formatCurrency(totalPackagingCost) }}</span>
+                  <div v-if="hppForm.includePacking" class="flex justify-between items-center pb-3 border-b border-indigo-200 dark:border-indigo-800">
+                    <span class="text-sm text-gray-700 dark:text-gray-300">Total Biaya Kemasan</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(totalPackagingCost) }}</span>
                   </div>
 
-                  <div class="flex justify-between items-center pb-3 border-b border-indigo-200">
-                    <span class="text-sm text-gray-700">Biaya Tenaga Kerja</span>
-                    <span class="text-lg font-semibold text-gray-900">{{ formatCurrency(hppForm.laborCost) }}</span>
+                  <div class="flex justify-between items-center pb-3 border-b border-indigo-200 dark:border-indigo-800">
+                    <span class="text-sm text-gray-700 dark:text-gray-300">Biaya Tenaga Kerja</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(hppForm.laborCost) }}</span>
                   </div>
 
-                  <div class="flex justify-between items-center pb-3 border-b border-indigo-200">
-                    <span class="text-sm text-gray-700">Biaya Overhead</span>
-                    <span class="text-lg font-semibold text-gray-900">{{ formatCurrency(hppForm.overheadCost) }}</span>
+                  <div class="flex justify-between items-center pb-3 border-b border-indigo-200 dark:border-indigo-800">
+                    <span class="text-sm text-gray-700 dark:text-gray-300">Biaya Overhead</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(hppForm.overheadCost) }}</span>
                   </div>
 
                   <div class="flex justify-between items-center py-3 bg-indigo-100 rounded-lg px-4">
-                    <span class="text-base font-semibold text-gray-900">Total HPP</span>
+                    <span class="text-base font-semibold text-gray-900 dark:text-gray-100">Total HPP</span>
                     <span class="text-2xl font-bold text-indigo-600">{{ formatCurrency(totalHPP) }}</span>
                   </div>
 
                   <div class="flex justify-between items-center py-3 bg-purple-100 rounded-lg px-4">
-                    <span class="text-base font-semibold text-gray-900">HPP per Unit</span>
+                    <span class="text-base font-semibold text-gray-900 dark:text-gray-100">HPP per Unit</span>
                     <span class="text-2xl font-bold text-purple-600">{{ formatCurrency(hppPerUnit) }}</span>
                   </div>
 
                   <div class="pt-4">
-                    <p class="text-xs text-gray-600 mb-2">Saran Harga Jual (Margin 40%)</p>
-                    <div class="bg-green-100 rounded-lg px-4 py-3 border border-green-200">
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Saran Harga Jual (Margin 40%)</p>
+                    <div class="bg-green-100 dark:bg-green-900/30 rounded-lg px-4 py-3 border border-green-200 dark:border-green-800">
                       <span class="text-xl font-bold text-green-700">{{ formatCurrency(suggestedPrice) }}</span>
                     </div>
                   </div>
@@ -236,10 +236,10 @@
         <!-- Max Production Tab -->
         <div v-if="activeTab === 'maxProduction'" class="p-6">
           <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Pilih Produk</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Pilih Produk</h3>
             <select
               v-model="selectedProductForMax"
-              class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+              class="w-full max-w-md px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
             >
               <option :value="null">Pilih produk...</option>
               <option v-for="prod in sampleProducts" :key="prod.id" :value="prod">
@@ -250,15 +250,15 @@
 
           <div v-if="selectedProductForMax" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h4 class="font-semibold text-gray-900 mb-4">Resep & Kebutuhan Bahan</h4>
-              <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+              <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Resep & Kebutuhan Bahan</h4>
+              <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
                 <div v-for="material in selectedProductForMax.recipe" :key="material.name">
                   <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-700">{{ material.name }}</span>
-                    <span class="text-sm text-gray-600">{{ material.needed }} {{ material.unit }} per unit</span>
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ material.name }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ material.needed }} {{ material.unit }} per unit</span>
                   </div>
                   <div class="flex justify-between items-center text-xs">
-                    <span class="text-gray-500">Stok tersedia: {{ material.available }} {{ material.unit }}</span>
+                    <span class="text-gray-500 dark:text-gray-400">Stok tersedia: {{ material.available }} {{ material.unit }}</span>
                     <span class="font-semibold" :class="maxProductionFromMaterial(material) > 0 ? 'text-green-600' : 'text-red-600'">
                       Max: {{ maxProductionFromMaterial(material) }} unit
                     </span>
@@ -274,33 +274,33 @@
             </div>
 
             <div>
-              <h4 class="font-semibold text-gray-900 mb-4">Hasil Analisis</h4>
-              <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 border border-green-200">
+              <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Hasil Analisis</h4>
+              <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 border border-green-200 dark:border-green-800">
                 <div class="text-center mb-6">
-                  <p class="text-sm text-gray-600 mb-2">Maksimal Produksi</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Maksimal Produksi</p>
                   <p class="text-5xl font-bold text-green-600">{{ maxProduction }}</p>
-                  <p class="text-sm text-gray-500 mt-1">unit produk</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">unit produk</p>
                 </div>
 
-                <div class="space-y-3 pt-4 border-t border-green-200">
+                <div class="space-y-3 pt-4 border-t border-green-200 dark:border-green-800">
                   <div class="flex justify-between">
-                    <span class="text-sm text-gray-600">Bahan Pembatas</span>
-                    <span class="text-sm font-semibold text-gray-900">{{ limitingMaterial }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Bahan Pembatas</span>
+                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ limitingMaterial }}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-sm text-gray-600">Total HPP</span>
-                    <span class="text-sm font-semibold text-gray-900">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Total HPP</span>
+                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">
                       {{ formatCurrency(maxProduction * selectedProductForMax.hpp) }}
                     </span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-sm text-gray-600">Estimasi Revenue</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Estimasi Revenue</span>
                     <span class="text-sm font-semibold text-green-600">
                       {{ formatCurrency(maxProduction * selectedProductForMax.sellingPrice) }}
                     </span>
                   </div>
                   <div class="flex justify-between pt-3 border-t border-green-300">
-                    <span class="text-sm font-semibold text-gray-900">Estimasi Profit</span>
+                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Estimasi Profit</span>
                     <span class="text-lg font-bold text-green-700">
                       {{ formatCurrency(maxProduction * (selectedProductForMax.sellingPrice - selectedProductForMax.hpp)) }}
                     </span>
@@ -313,27 +313,27 @@
 
         <!-- History Tab -->
         <div v-if="activeTab === 'history'" class="p-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Riwayat Produksi</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Riwayat Produksi</h3>
           
           <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
+              <thead class="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Produk</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Jumlah</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">HPP/Unit</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total HPP</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Include Packing</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Tanggal</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Produk</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Jumlah</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">HPP/Unit</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Total HPP</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Include Packing</th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr v-for="history in productionHistory" :key="history.id" class="hover:bg-gray-50">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ history.date }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ history.product }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ history.quantity }} unit</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ formatCurrency(history.hppPerUnit) }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{{ formatCurrency(history.totalHPP) }}</td>
+              <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200">
+                <tr v-for="history in productionHistory" :key="history.id" class="hover:bg-gray-50 dark:bg-gray-800">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ history.date }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ history.product }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ history.quantity }} unit</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ formatCurrency(history.hppPerUnit) }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(history.totalHPP) }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm">
                     <span :class="history.includePacking ? 'text-green-600' : 'text-gray-400'">
                       {{ history.includePacking ? '✓ Ya' : '✗ Tidak' }}
