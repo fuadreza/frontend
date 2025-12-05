@@ -5,7 +5,14 @@
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <!-- Logo & Theme Toggle -->
         <div class="mb-10 flex items-center justify-between">
-          <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">MaxPro</span>
+          <div class="flex items-center gap-3">
+            <NuxtLink to="/" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </NuxtLink>
+            <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">ProfitMax</span>
+          </div>
           <ThemeToggle />
         </div>
 
