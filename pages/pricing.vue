@@ -3,8 +3,8 @@
     <!-- Hero Section -->
     <section class="relative overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-700 dark:from-indigo-900 dark:to-purple-900 pt-32 pb-20">
       <div class="absolute inset-0 overflow-hidden opacity-20">
-        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-pink-300 blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"/>
+        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-pink-300 blur-3xl"/>
       </div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -13,7 +13,7 @@
             Harga Terjangkau
           </span>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Pilih Paket yang Tepat<br/>untuk Bisnis Anda
+            Pilih Paket yang Tepat<br>untuk Bisnis Anda
           </h1>
           <p class="text-xl text-indigo-100 max-w-3xl mx-auto mb-8">
             Mulai gratis, upgrade kapan saja. Tidak ada biaya tersembunyi.
@@ -23,24 +23,24 @@
           <!-- Billing Toggle - Modern Pill Design -->
           <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full p-1.5 mb-8 border-2 border-white/20">
             <button 
-              @click="billingPeriod = 'monthly'"
               :class="[
                 'px-8 py-3 rounded-full font-bold text-base transition-all duration-300',
                 billingPeriod === 'monthly' 
                   ? 'bg-white text-indigo-600 shadow-lg' 
                   : 'text-white hover:text-indigo-100'
               ]"
+              @click="billingPeriod = 'monthly'"
             >
               Bulanan
             </button>
             <button 
-              @click="billingPeriod = 'yearly'"
               :class="[
                 'px-8 py-3 rounded-full font-bold text-base transition-all duration-300 relative',
                 billingPeriod === 'yearly' 
                   ? 'bg-white text-indigo-600 shadow-lg' 
                   : 'text-white hover:text-indigo-100'
               ]"
+              @click="billingPeriod = 'yearly'"
             >
               Tahunan
               <span class="absolute -top-2 -right-2 px-2.5 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-xs font-black rounded-full text-gray-900 shadow-lg animate-pulse">
@@ -349,8 +349,4 @@ definePageMeta({
 })
 
 const billingPeriod = ref<'monthly' | 'yearly'>('monthly')
-
-const toggleBilling = () => {
-  billingPeriod.value = billingPeriod.value === 'monthly' ? 'yearly' : 'monthly'
-}
 </script>

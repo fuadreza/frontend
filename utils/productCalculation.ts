@@ -1,4 +1,4 @@
-import type { IProduct, IProductWithDetails } from '~/services/interfaces/IProductService';
+import type { IProductWithDetails } from '~/services/interfaces/IProductService';
 // Asumsikan MaterialCost dan PackagingCost sudah didefinisikan
 
 /**

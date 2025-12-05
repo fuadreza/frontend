@@ -27,11 +27,11 @@ export const useProductStore = defineStore('product', {
 
                 // Map materials and packaging to productMaterial and productPackaging
                 const productMaterial = product.productMaterial ? product.productMaterial.map(material => ({
-                    material: materials?.find(m => m && m.id === material.materialId)!,
+                    material: materials && materials.find(m => m && m.id === material.materialId)!,
                     quantity: material.quantity
                 })) : [];
                 const productPackaging = product.productPackaging ? product.productPackaging.map(packaging => ({
-                    packaging: packagings?.find(p => p && p.id === packaging.packagingId)!,
+                    packaging: packagings && packagings.find(p => p && p.id === packaging.packagingId)!,
                     quantity: packaging.quantity
                 })) : [];
 

@@ -1,9 +1,9 @@
 <template>
   <button
-    @click="toggleTheme"
     class="relative p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 group"
     :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
     title="Toggle theme"
+    @click="toggleTheme"
   >
     <!-- Sun Icon (Light Mode) -->
     <svg
@@ -40,12 +40,12 @@
     </svg>
 
     <!-- Ripple effect on click -->
-    <span class="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 to-blue-500 opacity-0 group-active:opacity-20 transition-opacity duration-200"></span>
+    <span class="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 to-blue-500 opacity-0 group-active:opacity-20 transition-opacity duration-200"/>
   </button>
 </template>
 
 <script setup lang="ts">
-const { theme, toggleTheme, isDark, initTheme } = useTheme()
+const { toggleTheme, isDark, initTheme } = useTheme()
 
 // Initialize theme saat component mount
 onMounted(() => {

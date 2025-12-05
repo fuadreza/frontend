@@ -17,8 +17,8 @@
           <div class="flex-shrink-0 flex items-center gap-2">
             <ThemeToggle />
             <button
-              @click="handleLogout"
               class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-red-50 dark:hover:bg-red-900/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800 transition-colors whitespace-nowrap group"
+              @click="handleLogout"
             >
               <svg class="h-4 w-4 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -34,13 +34,13 @@
           <button
             v-for="menu in menuItems"
             :key="menu.path"
-            @click="navigateTo(menu.path)"
             :class="[
               'flex items-center px-4 py-3 text-sm font-medium border-b-2 transition-colors focus:outline-none',
               currentPath === menu.path || (currentPath === menu.path && menu.path !== '/')
                 ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 font-semibold'
                 : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600'
             ]"
+            @click="navigateTo(menu.path)"
           >
             <component :is="menu.icon" class="h-5 w-5 mr-2" />
             {{ menu.name }}
@@ -64,7 +64,6 @@ import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();
-const config = useRuntimeConfig();
 
 // Define Menu Items for the layout (can be moved to a configuration file if needed)
 

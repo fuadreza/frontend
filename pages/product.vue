@@ -70,7 +70,7 @@
               type="text"
               placeholder="Cari produk..."
               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
-            />
+            >
           </div>
           <div>
             <select
@@ -137,20 +137,20 @@
 
             <div class="flex justify-end space-x-2 pt-4 border-t border-gray-200 dark:border-gray-700">
               <button
-                @click="viewDetail(product)"
                 class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
+                @click="viewDetail(product)"
               >
                 Detail
               </button>
               <button
-                @click="editProduct(product)"
                 class="px-3 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md transition-colors"
+                @click="editProduct(product)"
               >
                 Edit
               </button>
               <button
-                @click="deleteProduct(product.id)"
                 class="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-md transition-colors"
+                @click="deleteProduct(product.id)"
               >
                 Hapus
               </button>
@@ -163,7 +163,7 @@
     <!-- Add/Edit Modal -->
     <div v-if="showAddModal" class="fixed z-10 inset-0 overflow-y-auto">
       <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="closeModal"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="closeModal"/>
         
         <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-2xl w-full relative z-20">
           <div class="bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
@@ -181,7 +181,7 @@
                   type="text"
                   class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                   placeholder="Contoh: Kopi Arabica Premium"
-                />
+                >
               </div>
 
               <div>
@@ -191,7 +191,7 @@
                   rows="2"
                   class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                   placeholder="Deskripsi produk..."
-                ></textarea>
+                />
               </div>
 
               <div class="grid grid-cols-2 gap-4">
@@ -202,7 +202,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                     placeholder="0"
-                  />
+                  >
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Biaya Tenaga</label>
@@ -211,7 +211,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                     placeholder="0"
-                  />
+                  >
                 </div>
               </div>
 
@@ -223,7 +223,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
                     placeholder="45000"
-                  />
+                  >
                 </div>
 
                 <div>
@@ -233,7 +233,7 @@
                     type="text"
                     readonly
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors"
-                  />
+                  >
                 </div>
               </div>
 
@@ -241,7 +241,7 @@
               <div>
                 <div class="flex justify-between items-center mb-2">
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Bahan Baku</label>
-                  <button type="button" @click="addMaterialRow" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium">
+                  <button type="button" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium" @click="addMaterialRow">
                     + Tambah Bahan
                   </button>
                 </div>
@@ -261,8 +261,8 @@
                       type="number"
                       placeholder="Jml"
                       class="w-20 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
-                    />
-                    <button type="button" @click="removeMaterialRow(index)" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors">
+                    >
+                    <button type="button" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors" @click="removeMaterialRow(index)">
                       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
@@ -276,7 +276,7 @@
               <div>
                 <div class="flex justify-between items-center mb-2">
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kemasan</label>
-                  <button type="button" @click="addPackagingRow" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium">
+                  <button type="button" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium" @click="addPackagingRow">
                     + Tambah Kemasan
                   </button>
                 </div>
@@ -296,8 +296,8 @@
                       type="number"
                       placeholder="Jml"
                       class="w-20 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
-                    />
-                    <button type="button" @click="removePackagingRow(index)" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors">
+                    >
+                    <button type="button" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors" @click="removePackagingRow(index)">
                       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
@@ -313,7 +313,7 @@
                     v-model="formData.isActive"
                     type="checkbox"
                     class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:bg-gray-700 transition-colors"
-                  />
+                  >
                   <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Produk Aktif</span>
                 </label>
               </div>
@@ -322,14 +322,14 @@
 
           <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end space-x-3 border-t border-gray-200 dark:border-gray-700">
             <button
-              @click="closeModal"
               class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              @click="closeModal"
             >
               Batal
             </button>
             <button
-              @click="saveProduct"
               class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors"
+              @click="saveProduct"
             >
               {{ editMode ? 'Update' : 'Simpan' }}
             </button>
@@ -341,7 +341,7 @@
     <!-- Detail Modal -->
     <div v-if="showDetailModal && selectedProduct" class="fixed z-10 inset-0 overflow-y-auto">
       <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="showDetailModal = false"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity" @click="showDetailModal = false"/>
         
         <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-2xl w-full relative z-20">
           <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-8 text-white">
@@ -401,8 +401,8 @@
 
           <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end border-t border-gray-200 dark:border-gray-700">
             <button
-              @click="showDetailModal = false"
               class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              @click="showDetailModal = false"
             >
               Tutup
             </button>
@@ -413,8 +413,8 @@
 
     <!-- Modern Floating Action Button -->
     <button
-      @click="showAddModal = true"
       class="fixed bottom-8 right-8 group flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out z-10"
+      @click="showAddModal = true"
     >
       <svg class="h-6 w-6 transition-transform group-hover:rotate-90 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />

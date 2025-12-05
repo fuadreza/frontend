@@ -26,20 +26,20 @@
         </div>
 
         <div class="mt-8">
-          <form @submit.prevent="handleLogin" class="space-y-6">
+          <form class="space-y-6" @submit.prevent="handleLogin">
             <div>
               <label for="email" class="sr-only">Email address</label>
               <div class="mt-1">
                 <input
                   id="email"
+                  v-model="email"
                   name="email"
                   type="email"
                   autocomplete="email"
                   required
-                  v-model="email"
                   class="appearance-none block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors duration-200"
                   placeholder="you@example.com"
-                />
+                >
               </div>
             </div>
 
@@ -80,8 +80,8 @@
         </div>
         
         <!-- Subtle decorative circle -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-50 dark:bg-blue-900/20 opacity-50 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-purple-50 dark:bg-purple-900/20 opacity-50 blur-3xl"></div>
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-50 dark:bg-blue-900/20 opacity-50 blur-3xl"/>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-purple-50 dark:bg-purple-900/20 opacity-50 blur-3xl"/>
     </div>
   </div>
 </template>
