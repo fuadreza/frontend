@@ -1,23 +1,24 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <!-- Header Section with Navbar (Now in Layout) -->
-    <header class="bg-white shadow sticky top-0 z-10">
+    <header class="bg-white dark:bg-gray-800 shadow dark:shadow-gray-900/50 sticky top-0 z-10 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Top Header -->
         <div class="py-6 sm:py-8 flex items-center justify-between gap-4">
           <div class="flex-1 min-w-0">
-            <h1 class="text-xl font-bold leading-tight text-gray-900 sm:text-2xl truncate">
+            <h1 class="text-xl font-bold leading-tight text-gray-900 dark:text-gray-100 sm:text-2xl truncate">
               {{ currentHeader.title }}
             </h1>
-            <p class="mt-1 text-xs sm:text-sm text-gray-500 truncate">
+            <p class="mt-1 text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">
               {{ currentHeader.subtitle }}
-              <span class="font-medium text-gray-900">{{ authStore.user?.name ? ' (' + authStore.user.name + ')' : '' }}</span>
+              <span class="font-medium text-gray-900 dark:text-gray-100">{{ authStore.user?.name ? ' (' + authStore.user.name + ')' : '' }}</span>
             </p>
           </div>
-          <div class="flex-shrink-0">
+          <div class="flex-shrink-0 flex items-center gap-2">
+            <ThemeToggle />
             <button
               @click="handleLogout"
-              class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors whitespace-nowrap group"
+              class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-red-50 dark:hover:bg-red-900/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800 transition-colors whitespace-nowrap group"
             >
               <svg class="h-4 w-4 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -29,7 +30,7 @@
 
         
         <!-- Navigation Menu -->
-        <nav class="flex space-x-1 border-t border-gray-200 ">
+        <nav class="flex space-x-1 border-t border-gray-200 dark:border-gray-700 ">
           <button
             v-for="menu in menuItems"
             :key="menu.path"
@@ -37,8 +38,8 @@
             :class="[
               'flex items-center px-4 py-3 text-sm font-medium border-b-2 transition-colors focus:outline-none',
               currentPath === menu.path || (currentPath === menu.path && menu.path !== '/')
-                ? 'border-indigo-500 text-indigo-600 font-semibold'
-                : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 font-semibold'
+                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600'
             ]"
           >
             <component :is="menu.icon" class="h-5 w-5 mr-2" />

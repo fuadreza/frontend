@@ -1,61 +1,61 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-800 dark:bg-gray-900 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
-        <div class="bg-white p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500">Total Bahan</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ materialStore.materials.length }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Total Bahan</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ materialStore.materials.length }}</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-green-100 text-green-600">
+            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500">Stok Aman</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ safeStock }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Stok Aman</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ safeStock }}</p>
             </div>
           </div>
         </div>
 
         <!-- Perlu Restock -->
-        <div class="bg-white p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+            <div class="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500">Perlu Restock</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ lowStock }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Perlu Restock</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ lowStock }}</p>
             </div>
           </div>
         </div>
 
         <!-- Nilai Total -->
-        <div class="bg-white p-6 rounded-lg shadow">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+            <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm text-gray-500">Nilai Total</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ formatCurrency(totalValue) }}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Nilai Total</p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ formatCurrency(totalValue) }}</p>
             </div>
           </div>
         </div>
@@ -63,18 +63,18 @@
       </div>
 
       <!-- Filter & Search -->
-      <div class="bg-white p-4 rounded-lg shadow mb-6">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             v-model="searchQuery"
             type="text"
             placeholder="Cari bahan..."
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
           />
 
           <select
             v-model="filterStatus"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
           >
             <option value="">Semua Status</option>
             <option value="aman">Stok Aman</option>
@@ -85,26 +85,26 @@
       </div>
 
       <!-- Table -->
-      <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors duration-300 rounded-lg overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
+          <thead class="bg-gray-50 dark:bg-gray-800">
             <tr>
-              <th class="px-6 py-3">Nama Bahan</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Nama Bahan</th>
               <!-- <th class="px-6 py-3">Kategori</th> -->
-              <th class="px-6 py-3">Stok</th>
-              <th class="px-6 py-3">Satuan</th>
-              <th class="px-6 py-3">Harga/Unit</th>
-              <th class="px-6 py-3">Total Nilai</th>
-              <th class="px-6 py-3">Status</th>
-              <th class="px-6 py-3">Aksi</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Stok</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Satuan</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Harga/Unit</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Total Nilai</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Status</th>
+              <th class="px-6 py-3 text-gray-500 dark:text-gray-400 ">Aksi</th>
             </tr>
           </thead>
 
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200">
             <tr v-for="material in filteredMaterials" :key="material.id">
-              <td class="px-6 py-4 font-medium text-gray-900">{{ material.name }}</td>
+              <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ material.name }}</td>
               <td class="px-6 py-4 text-center">{{ material.stock }}</td>
-              <td class="px-6 py-4 text-gray-500 text-center">{{ material.metric }}</td>
+              <td class="px-6 py-4 text-gray-500 dark:text-gray-400 text-center">{{ material.metric }}</td>
               <td class="px-6 py-4 text-center">
                 {{ formatCurrency(material.costPerUnit) }}
               </td>
@@ -131,18 +131,18 @@
 
     <!-- Add/Edit Modal -->
     <div v-if="showAddModal" class="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-40">
-      <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
+      <div class="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/50 transition-colors duration-300-xl max-w-lg w-full p-6">
 
         <h3 class="text-lg font-semibold mb-4">
           {{ editMode ? 'Edit Bahan' : 'Tambah Bahan Baru' }}
         </h3>
 
         <div class="space-y-4">
-          <input v-model="formData.name" type="text" placeholder="Nama bahan" class="input" />
+          <input v-model="formData.name" type="text" placeholder="Nama bahan" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
 
           <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="formData.stock" type="number" placeholder="Stok" class="input" />
-            <select v-model="formData.metric" class="input">
+            <input v-model.number="formData.stock" type="number" placeholder="Stok" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
+            <select v-model="formData.metric" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200">
               <option value="kg">kg</option>
               <option value="gram">gram</option>
               <option value="liter">liter</option>
@@ -151,11 +151,11 @@
           </div>
 
           <div class="grid grid-cols-2 gap-4">
-            <input v-model.number="formData.costPerUnit" type="number" placeholder="Harga per unit" class="input" />
-            <input v-model.number="formData.minStock" type="number" placeholder="Stok minimum" class="input" />
+            <input v-model.number="formData.costPerUnit" type="number" placeholder="Harga per unit" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
+            <input v-model.number="formData.minStock" type="number" placeholder="Stok minimum" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" />
           </div>
 
-          <textarea v-model="formData.notes" rows="3" class="input" placeholder="Catatan"></textarea>
+          <textarea v-model="formData.notes" rows="3" class="input bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200" placeholder="Catatan"></textarea>
         </div>
 
         <div class="flex justify-end mt-6 space-x-3">
@@ -249,10 +249,10 @@ const formatCurrency = (value: number) =>
   }).format(value);
 
 const getStatusClass = (m: IMaterial) => {
-  if (m.stock === 0) return "bg-red-100 text-red-800";
-  if (m.stock <= m.minStock) return "bg-yellow-100 text-yellow-800";
-  if (m.stock <= m.minStock * 2) return "bg-blue-100 text-blue-800";
-  return "bg-green-100 text-green-800";
+  if (m.stock === 0) return "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300";
+  if (m.stock <= m.minStock) return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300";
+  if (m.stock <= m.minStock * 2) return "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300";
+  return "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300";
 };
 
 const getStatusText = (m: IMaterial) => {
@@ -309,12 +309,12 @@ const closeModal = () => {
 
 <style scoped>
 .input {
-  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500;
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500;
 }
 .btn-primary {
   @apply px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700;
 }
 .btn-secondary {
-  @apply px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100;
+  @apply px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100;
 }
 </style>

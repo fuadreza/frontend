@@ -1,9 +1,9 @@
 <template>
-  <div class="relative overflow-hidden bg-white pt-20">
+  <div class="relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-300 pt-20">
     <!-- Background Elements -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-      <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-50/50 blur-3xl"></div>
-      <div class="absolute top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-teal-50/50 blur-3xl"></div>
+      <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-100/30 dark:bg-blue-900/20 blur-3xl"></div>
+      <div class="absolute top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-teal-100/30 dark:bg-teal-900/20 blur-3xl"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -12,44 +12,44 @@
         <!-- Text Content -->
         <div class="flex-1 text-center lg:text-left space-y-8">
           <div class="space-y-4">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold tracking-wide uppercase">
-              Growth Intelligence
+            <span class="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold tracking-wide uppercase">
+              Manajemen Produksi Cerdas
             </span>
-            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
-              Unlock Your Business's <br/>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Full Profit Potential</span>
+            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 leading-tight tracking-tight">
+              Kelola Produksi & <br/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 dark:from-blue-400 dark:to-teal-400">Maksimalkan Profit</span>
             </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Our data-driven strategies empower entrepreneurs to achieve unprecedented growth and financial efficiency. Stop guessing, start scaling.
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Sistem manajemen produksi terintegrasi untuk menghitung HPP, kelola stok bahan & kemasan, dan optimalkan kapasitas produksi Anda.
             </p>
           </div>
 
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
             <NuxtLink to="/login">
               <button class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg shadow-lg shadow-blue-500/30 hover:bg-blue-700 hover:shadow-blue-600/40 transform hover:-translate-y-1 transition-all duration-300">
-                Start Free Trial
+                Mulai Sekarang
               </button>
             </NuxtLink>
-            <button class="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-full font-semibold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 flex items-center justify-center gap-2 group">
-              <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button class="w-full sm:w-auto px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 rounded-full font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 flex items-center justify-center gap-2 group">
+              <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Watch Demo
+              Lihat Demo
             </button>
           </div>
 
           <div class="pt-8 flex items-center justify-center lg:justify-start gap-8 text-gray-400 grayscale opacity-70">
             <!-- Trust Badges / Partner Logos Placeholder -->
-            <div class="h-8 w-24 bg-gray-200 rounded animate-pulse"></div>
-            <div class="h-8 w-24 bg-gray-200 rounded animate-pulse"></div>
-            <div class="h-8 w-24 bg-gray-200 rounded animate-pulse"></div>
+            <div class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
           </div>
         </div>
 
         <!-- Hero Image -->
         <div class="flex-1 w-full max-w-lg lg:max-w-xl relative">
-          <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-gray-100 bg-white p-2">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2">
              <img 
               src="/illustration-profit.png" 
               alt="Business Growth Analytics" 
@@ -57,8 +57,8 @@
             />
           </div>
           <!-- Decorative Elements -->
-          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-yellow-400 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-          <div class="absolute -top-6 -left-6 w-32 h-32 bg-blue-400 rounded-full blur-2xl opacity-20 animate-pulse delay-700"></div>
+          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-yellow-400 dark:bg-yellow-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+          <div class="absolute -top-6 -left-6 w-32 h-32 bg-blue-400 dark:bg-blue-600 rounded-full blur-2xl opacity-20 animate-pulse delay-700"></div>
         </div>
 
       </div>
@@ -66,14 +66,14 @@
   </div>
 
   <!-- Features & Benefits Section -->
-  <section class="py-16 bg-gray-50 relative overflow-hidden">
+  <section class="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-          How We Maximize Your Profit
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Fitur Unggulan Sistem Kami
         </h2>
-        <p class="text-lg text-gray-600">
-          Unlock the full potential of your business with our cutting-edge tools and strategies designed for sustainable growth.
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          Kelola seluruh aspek produksi Anda dengan mudah dan efisien menggunakan sistem terintegrasi kami.
         </p>
       </div>
 
@@ -105,15 +105,15 @@
   </section>
 
   <!-- Social Proof / Testimonials Section -->
-  <section class="pb-16 bg-gray-50 relative overflow-hidden">
+  <section class="pb-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-gray-100">
+      <div class="bg-white dark:bg-gray-700 rounded-3xl p-8 sm:p-12 shadow-2xl dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-600">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Trusted by Visionary Entrepreneurs
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Dipercaya oleh Pelaku UMKM
           </h2>
-          <p class="text-lg text-gray-600">
-            See how our data-driven approach is transforming businesses and driving real results.
+          <p class="text-lg text-gray-600 dark:text-gray-400">
+            Lihat bagaimana sistem kami membantu bisnis produksi berkembang dan meningkatkan efisiensi.
           </p>
         </div>
 
@@ -141,9 +141,9 @@
   </section>
 
   <!-- Primary CTA Section -->
-  <section class="pb-12 sm:py-24">
+  <section class="pb-12 sm:py-24 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-blue-900 rounded-3xl relative overflow-hidden py-20 px-6 sm:px-12 shadow-2xl">
+      <div class="bg-gradient-to-r from-blue-900 to-indigo-900 dark:from-blue-950 dark:to-indigo-950 rounded-3xl relative overflow-hidden py-20 px-6 sm:px-12 shadow-2xl">
         <!-- Background Decoration -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
           <div class="absolute -top-[50%] -right-[20%] w-[100%] h-[100%] rounded-full bg-blue-500 blur-3xl"></div>
@@ -160,14 +160,14 @@
           ]"
         >
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-            Ready to Finally Maximize Your Business Profit?
+            Siap Optimalkan Produksi & Profit Bisnis Anda?
           </h2>
           <p class="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-            Join hundreds of successful entrepreneurs who achieved sustainable growth with our tool. Stop guessing, start growing.
+            Bergabunglah dengan ratusan pelaku UMKM yang telah meningkatkan efisiensi produksi mereka. Mulai kelola bisnis dengan lebih cerdas.
           </p>
           <NuxtLink to="/login">
             <button class="inline-block px-10 py-5 bg-yellow-400 text-blue-900 rounded-full font-bold text-xl shadow-xl shadow-yellow-400/20 hover:bg-yellow-300 hover:shadow-yellow-400/40 transform hover:-translate-y-1 transition-all duration-300 animate-pulse">
-              Get Started For Free
+              Mulai Gratis Sekarang
             </button>
           </NuxtLink>
         </div>
@@ -250,37 +250,37 @@ onMounted(() => {
 
 const features = [
   {
-    title: 'AI-Powered Profit Analytics',
-    description: 'Gain deep insights into your revenue streams and identify hidden opportunities for growth.',
+    title: 'Kalkulator HPP Otomatis',
+    description: 'Hitung Harga Pokok Produksi secara akurat dengan memperhitungkan bahan baku, tenaga kerja, dan overhead.',
+    iconPath: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'
+  },
+  {
+    title: 'Manajemen Stok Terintegrasi',
+    description: 'Kelola stok bahan baku dan kemasan dengan sistem peringatan otomatis untuk restock.',
+    iconPath: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'
+  },
+  {
+    title: 'Analisis Kapasitas Produksi',
+    description: 'Ketahui maksimal produksi berdasarkan stok yang tersedia dan optimalkan perencanaan produksi.',
     iconPath: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
   },
   {
-    title: 'Dynamic Pricing Strategies',
-    description: 'Adjust your product prices in real-time to maximize margins without losing sales.',
+    title: 'Manajemen Produk & Margin',
+    description: 'Kelola katalog produk, hitung margin keuntungan, dan tentukan strategi harga yang optimal.',
     iconPath: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-  },
-  {
-    title: 'Automated Cost Optimization',
-    description: 'Automatically detect and eliminate unnecessary expenditures to boost your bottom line.',
-    iconPath: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z'
-  },
-  {
-    title: 'Personalized Growth Roadmaps',
-    description: 'Receive tailored strategies to scale your business efficiently based on your unique data.',
-    iconPath: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7'
   }
 ]
 
 const testimonials = [
   {
-    quote: "Our revenue increased by 30% after just three months using their strategy. The insights were actionable and immediate.",
+    quote: "Sistem ini sangat membantu kami menghitung HPP dengan akurat. Sekarang kami bisa tentukan harga jual yang tepat dan profit meningkat 35%!",
     author: "Budi Santoso",
-    handle: "@Budis_Coffee"
+    handle: "@KopiNusantara"
   },
   {
-    quote: "The deep cost analysis saved us thousands monthly and transformed our operation. Highly recommended for any growing business.",
-    author: "Lina Wijaya",
-    handle: "@LinaBeauty_ID"
+    quote: "Manajemen stok jadi lebih mudah. Tidak ada lagi bahan yang habis mendadak atau over-stock. Efisiensi produksi meningkat drastis!",
+    author: "Siti Rahmawati",
+    handle: "@SkincareBali"
   }
 ]
 
