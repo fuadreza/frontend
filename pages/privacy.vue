@@ -3,8 +3,8 @@
     <!-- Hero Section -->
     <section class="relative overflow-hidden bg-gradient-to-br from-green-600 to-teal-700 dark:from-green-900 dark:to-teal-900 pt-32 pb-20">
       <div class="absolute inset-0 overflow-hidden opacity-20">
-        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-blue-300 blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"/>
+        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-blue-300 blur-3xl"/>
       </div>
       
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -3,8 +3,8 @@
     <!-- Hero Section -->
     <section class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-900 dark:to-indigo-900 pt-32 pb-20">
       <div class="absolute inset-0 overflow-hidden opacity-20">
-        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-purple-300 blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"/>
+        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-purple-300 blur-3xl"/>
       </div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -13,7 +13,7 @@
             Fitur Lengkap
           </span>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Semua yang Anda Butuhkan<br/>untuk Kelola Produksi
+            Semua yang Anda Butuhkan<br>untuk Kelola Produksi
           </h1>
           <p class="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
             Sistem manajemen produksi all-in-one dengan AI untuk membantu bisnis Anda tumbuh lebih cepat dan efisien.

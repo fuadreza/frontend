@@ -3,8 +3,8 @@
     <!-- Hero Section -->
     <section class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-900 dark:to-indigo-900 pt-32 pb-20">
       <div class="absolute inset-0 overflow-hidden opacity-20">
-        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-teal-300 blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white blur-3xl"/>
+        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 rounded-full bg-teal-300 blur-3xl"/>
       </div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -29,7 +29,7 @@
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
               <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Kirim Pesan</h2>
               
-              <form @submit.prevent="handleSubmit" class="space-y-6">
+              <form class="space-y-6" @submit.prevent="handleSubmit">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label for="name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -42,7 +42,7 @@
                       required
                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                       placeholder="John Doe"
-                    />
+                    >
                   </div>
                   
                   <div>
@@ -56,7 +56,7 @@
                       required
                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                       placeholder="john@example.com"
-                    />
+                    >
                   </div>
                 </div>
 
@@ -71,7 +71,7 @@
                     required
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="Pertanyaan tentang fitur"
-                  />
+                  >
                 </div>
 
                 <div>
@@ -85,7 +85,7 @@
                     required
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
                     placeholder="Tulis pesan Anda di sini..."
-                  ></textarea>
+                  />
                 </div>
 
                 <button
@@ -152,8 +152,8 @@
                 <div class="ml-4">
                   <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">Alamat</h3>
                   <p class="text-gray-600 dark:text-gray-400">
-                    Jl. Teknologi No. 123<br/>
-                    Jakarta Selatan, DKI Jakarta<br/>
+                    Jl. Teknologi No. 123<br>
+                    Jakarta Selatan, DKI Jakarta<br>
                     Indonesia 12345
                   </p>
                 </div>
