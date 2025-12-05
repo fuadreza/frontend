@@ -432,80 +432,184 @@
 
         <!-- Max Production Tab -->
         <div v-if="activeTab === 'maxProduction'" class="p-6">
-          <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Pilih Produk</h3>
-            <select
-              v-model="selectedProductForMax"
-              class="w-full max-w-md px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-            >
-              <option :value="null">Pilih produk...</option>
-              <option v-for="prod in sampleProducts" :key="prod.id" :value="prod">
-                {{ prod.name }}
-              </option>
-            </select>
+          
+          <!-- Mode Switcher -->
+          <div class="flex justify-center mb-8">
+            <div class="bg-gray-100 dark:bg-gray-700 p-1 rounded-lg inline-flex">
+              <button
+                @click="productionMode = 'all'"
+                :class="[
+                  'px-6 py-2 rounded-md text-sm font-medium transition-all duration-200',
+                  productionMode === 'all'
+                    ? 'bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-300 shadow-sm'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+                ]"
+              >
+                Mode 1: Semua Bahan Baku
+              </button>
+              <button
+                @click="productionMode = 'single'"
+                :class="[
+                  'px-6 py-2 rounded-md text-sm font-medium transition-all duration-200',
+                  productionMode === 'single'
+                    ? 'bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-300 shadow-sm'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+                ]"
+              >
+                Mode 2: Produk Spesifik
+              </button>
+            </div>
           </div>
 
-          <div v-if="selectedProductForMax" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Mode 1: List View (All Products) -->
+          <div v-if="productionMode === 'all'" class="space-y-6">
+            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg p-4 mb-4">
+              <h4 class="text-blue-800 dark:text-blue-300 font-medium mb-1">Rekomendasi Berdasarkan Bahan Tersedia</h4>
+              <p class="text-sm text-blue-600 dark:text-blue-400">
+                Menampilkan kapasitas produksi maksimal untuk setiap produk secara independen berdasarkan stok saat ini.
+              </p>
+            </div>
+
+            <div class="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-800">
+                  <tr>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Produk</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Max Produksi</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Estimasi Profit</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Faktor Pembatas</th>
+                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                      <span class="sr-only">Detail</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
+                  <tr v-for="item in allMaxProductions" :key="item.product.id">
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {{ item.product.name }}
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
+                        :class="item.maxQty > 0 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'">
+                        {{ item.maxQty }} unit
+                      </span>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-gray-100">
+                      {{ formatCurrency(item.estProfit) }}
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+                      {{ item.limitingFactor }}
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <button 
+                        @click="productionMode = 'single'; selectedProductForMax = item.product"
+                        class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                      >
+                        Detail & Analisis
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Mode 2: Single Product View -->
+          <div v-if="productionMode === 'single'" class="space-y-6">
             <div>
-              <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Resep & Kebutuhan Bahan</h4>
-              <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
-                <div v-for="material in selectedProductForMax.recipe" :key="material.name">
-                  <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ material.name }}</span>
-                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ material.needed }} {{ material.unit }} per unit</span>
-                  </div>
-                  <div class="flex justify-between items-center text-xs">
-                    <span class="text-gray-500 dark:text-gray-400">Stok tersedia: {{ material.available }} {{ material.unit }}</span>
-                    <span class="font-semibold" :class="maxProductionFromMaterial(material) > 0 ? 'text-green-600' : 'text-red-600'">
-                      Max: {{ maxProductionFromMaterial(material) }} unit
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pilih Produk untuk Dianalisis</label>
+              <select
+                v-model="selectedProductForMax"
+                class="w-full max-w-md px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
+              >
+                <option :value="null">-- Pilih Produk --</option>
+                <option v-for="prod in availableProducts" :key="prod.id" :value="prod">
+                  {{ prod.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- OVERVIEW PANEL (Always visible if data exists) -->
+          <div v-if="currentMaxProductionData" class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+              Overview Panel: {{ currentMaxProductionData.product.name }}
+            </h3>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <!-- Sisa Bahan -->
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-3 opacity-10">
+                  <svg class="w-16 h-16 text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" /><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>
+                </div>
+                <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Estimasi Sisa Bahan</h4>
+                <div class="space-y-2 mt-3 max-h-40 overflow-y-auto pr-2 custom-scrollbar">
+                  <div v-for="mat in currentMaxProductionData.remainingMaterials" :key="mat.name" class="flex justify-between text-sm">
+                    <span class="text-gray-700 dark:text-gray-300 truncate w-2/3" :title="mat.name">{{ mat.name }}</span>
+                    <span class="font-semibold" :class="mat.remaining < 0 ? 'text-red-500' : 'text-gray-900 dark:text-gray-100'">
+                      {{ mat.remaining }} {{ mat.unit }}
                     </span>
-                  </div>
-                  <div class="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div
-                      class="h-2 rounded-full bg-indigo-600"
-                      :style="{ width: `${Math.min((material.available / (material.needed * 100)) * 100, 100)}%` }"
-                    ></div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Hasil Analisis</h4>
-              <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-6 border border-green-200 dark:border-green-800">
-                <div class="text-center mb-6">
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Maksimal Produksi</p>
-                  <p class="text-5xl font-bold text-green-600 dark:text-green-400">{{ maxProduction }}</p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">unit produk</p>
-                </div>
+              <!-- Estimasi HPP -->
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                 <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Estimasi Total HPP</h4>
+                 <div class="mt-2 flex items-baseline gap-2">
+                   <span class="text-3xl font-bold text-gray-900 dark:text-gray-100">{{ formatCurrency(currentMaxProductionData.totalHPP) }}</span>
+                 </div>
+                 <p class="text-xs text-gray-500 mt-2">Untuk produksi {{ currentMaxProductionData.maxQty }} unit</p>
+              </div>
 
-                <div class="space-y-3 pt-4 border-t border-green-200 dark:border-green-800">
-                  <div class="flex justify-between">
-                    <span class="text-sm text-gray-600 dark:text-gray-400">Bahan Pembatas</span>
-                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ limitingMaterial }}</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-sm text-gray-600 dark:text-gray-400">Total HPP</span>
-                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                      {{ formatCurrency(maxProduction * selectedProductForMax.hpp) }}
-                    </span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-sm text-gray-600 dark:text-gray-400">Estimasi Revenue</span>
-                    <span class="text-sm font-semibold text-green-600 dark:text-green-400">
-                      {{ formatCurrency(maxProduction * selectedProductForMax.sellingPrice) }}
-                    </span>
-                  </div>
-                  <div class="flex justify-between pt-3 border-t border-green-300 dark:border-green-800">
-                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Estimasi Profit</span>
-                    <span class="text-lg font-bold text-green-700 dark:text-green-400">
-                      {{ formatCurrency(maxProduction * (selectedProductForMax.sellingPrice - selectedProductForMax.hpp)) }}
-                    </span>
-                  </div>
-                </div>
+              <!-- Estimasi Profit -->
+              <div class="bg-gradient-to-br from-indigo-600 to-purple-600 p-6 rounded-xl shadow-lg text-white">
+                <h4 class="text-sm font-medium text-indigo-100 uppercase tracking-wider mb-2">Estimasi Profit Potensial</h4>
+                <div class="mt-2 flex items-baseline gap-2">
+                   <span class="text-3xl font-bold text-white">{{ formatCurrency(currentMaxProductionData.estProfit) }}</span>
+                 </div>
+                 <p class="text-xs text-indigo-100 mt-2 opacity-80">Revenue - HPP</p>
               </div>
             </div>
+
+            <!-- AI Strategy Section -->
+            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border-2 border-indigo-100 dark:border-indigo-900">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                  <div class="bg-indigo-600 p-2 rounded-lg text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Analisis Strategi Produksi (AI)</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Dapatkan saran strategis dari AI berdasarkan data ini</p>
+                  </div>
+                </div>
+                <button
+                  @click="getProductionStrategy"
+                  :disabled="analyzingStrategy"
+                  class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium flex items-center gap-2"
+                >
+                  <span v-if="analyzingStrategy" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 dark:border-gray-400"></span>
+                  {{ analyzingStrategy ? 'Menganalisis...' : 'Minta Saran Strategi' }}
+                </button>
+              </div>
+
+              <!-- AI Result -->
+              <div v-if="aiStrategyResult" class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm prose dark:prose-invert max-w-none">
+                 <div class="whitespace-pre-wrap font-sans text-gray-700 dark:text-gray-300">{{ aiStrategyResult }}</div>
+              </div>
+              <div v-else class="text-center py-8 text-gray-400 dark:text-gray-500 text-sm border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg">
+                Klik tombol "Minta Saran Strategi" untuk mendapatkan wawasan lebih lanjut.
+              </div>
+            </div>
+
           </div>
+          
+          <div v-else-if="productionMode === 'single' && !selectedProductForMax" class="text-center py-12 text-gray-500 dark:text-gray-400">
+            Silakan pilih produk terlebih dahulu untuk melihat analisis.
+          </div>
+          
         </div>
 
         <!-- History Tab -->
@@ -565,6 +669,13 @@ import { ref, computed, onMounted } from 'vue'
 import { useProductionStore } from '~/stores/productionStore'
 import OpenAI from 'openai'
 
+import { useProductStore } from '~/stores/productStore'
+import type { IProductWithDetails } from '~/services/interfaces/IProductService'
+import type { IMaterial } from '~/services/interfaces/IMaterialService'
+
+const productStore = useProductStore()
+const productionStore = useProductionStore()
+
 interface Material {
   name: string
   quantity: number
@@ -584,21 +695,13 @@ interface Recipe {
   available: number
 }
 
-interface SampleProduct {
-  id: number
-  name: string
-  hpp: number
-  sellingPrice: number
-  recipe: Recipe[]
-}
-
 definePageMeta({
   layout: 'dashboard',
 })
 
 const activeTab = ref('calculator')
 const loading = ref(false)
-const aiInsights = ref(null)
+const aiInsights = ref<any>(null)
 
 // HPP Calculator Form
 const hppForm = ref({
@@ -608,7 +711,7 @@ const hppForm = ref({
   ] as Material[],
   laborCost: 0,
   overheadCost: 0,
-  includePacking: false,
+  includePacking: true,
   packaging: [
     { name: '', quantity: 0, price: 0 }
   ] as Packaging[],
@@ -619,37 +722,216 @@ const hppForm = ref({
 })
 
 // Sample products for max production
-const sampleProducts = ref<SampleProduct[]>([
-  {
-    id: 1,
-    name: 'Kopi Arabica Premium 250g',
-    hpp: 25000,
-    sellingPrice: 45000,
-    recipe: [
-      { name: 'Kopi Arabica', needed: 0.25, unit: 'kg', available: 150 },
-      { name: 'Gula Aren', needed: 0.05, unit: 'kg', available: 50 },
-      { name: 'Botol 250ml', needed: 1, unit: 'pcs', available: 500 }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Teh Hijau Organik 100g',
-    hpp: 18000,
-    sellingPrice: 32000,
-    recipe: [
-      { name: 'Teh Hijau', needed: 0.1, unit: 'kg', available: 75 },
-      { name: 'Pouch 100g', needed: 1, unit: 'pcs', available: 1000 }
-    ]
-  }
-])
 
-const selectedProductForMax = ref<SampleProduct | null>(null)
 
-const productionStore = useProductionStore()
+
+// Max Production Logic
+const productionMode = ref<'all' | 'single'>('all')
+const selectedProductForMax = ref<IProductWithDetails | null>(null)
+const aiStrategyResult = ref<string>('')
+const analyzingStrategy = ref(false)
 
 onMounted(() => {
   productionStore.fetchProductions()
+  productStore.fetchProductsWithDetails()
 })
+
+const availableProducts = computed(() => {
+  return productStore.productsWithDetails
+})
+
+interface MaxProductionResult {
+  product: IProductWithDetails
+  maxQty: number
+  limitingFactor: string
+  totalHPP: number
+  estRevenue: number
+  estProfit: number
+  remainingMaterials: any[]
+}
+
+const calculateMaxForProduct = (product: IProductWithDetails): MaxProductionResult => {
+  let maxQty = Infinity
+  let limitingFactor = '-'
+  
+  // Check Materials
+  product.materials.forEach(pm => {
+    if (pm.quantity > 0) {
+      const possible = Math.floor((pm.material.stock || 0) / pm.quantity)
+      if (possible < maxQty) {
+        maxQty = possible
+        limitingFactor = `${pm.material.name} (Stok: ${pm.material.stock})`
+      }
+    }
+  })
+
+  // Check Packaging
+  product.packaging.forEach(pp => {
+    if (pp.quantity > 0) {
+      const possible = Math.floor((pp.packaging.stock || 0) / pp.quantity)
+      if (possible < maxQty) {
+        maxQty = possible
+        limitingFactor = `${pp.packaging.name} (Stok: ${pp.packaging.stock})`
+      }
+    }
+  })
+
+  if (maxQty === Infinity) maxQty = 0
+
+  // Calculate Financials
+  // HPP = Materials Cost + Packaging Cost + Labor + Overhead (Assuming standard/saved costs or simplified)
+  // Since we don't have stored Labor/Overhead in IProduct, we might need to estimate or use the product's base HPP if stored?
+  // IProduct has 'sellingPrice' and 'laborCost'. Overhead is often per batch or per unit. 
+  // Let's use product.laborCost. 
+  
+  // Calculate Material Cost per unit
+  const matCost = product.materials.reduce((sum, m) => sum + (m.quantity * m.material.costPerUnit), 0)
+  const packCost = product.packaging.reduce((sum, p) => sum + (p.quantity * p.packaging.costPerUnit), 0)
+  
+  // Use laborCost from product if available, else 0. 
+  const labor = product.laborCost || 0
+  
+  // Total HPP per unit
+  const hppPerUnit = matCost + packCost + labor
+  
+  const totalHPP = maxQty * hppPerUnit
+  const estRevenue = maxQty * product.sellingPrice
+  const estProfit = estRevenue - totalHPP
+  
+  // Calculate Remaining Materials
+  // We list ALL materials involved and their remaining amount
+  const remainingMaterials = [] as any[]
+  
+  product.materials.forEach(pm => {
+    remainingMaterials.push({
+      name: pm.material.name,
+      initial: pm.material.stock,
+      used: maxQty * pm.quantity,
+      remaining: (pm.material.stock || 0) - (maxQty * pm.quantity),
+      unit: pm.material.metric
+    })
+  })
+  
+  product.packaging.forEach(pp => {
+    remainingMaterials.push({
+      name: pp.packaging.name,
+      initial: pp.packaging.stock,
+      used: maxQty * pp.quantity,
+      remaining: (pp.packaging.stock || 0) - (maxQty * pp.quantity),
+      unit: 'pcs' // Assuming packaging is unit based
+    })
+  })
+
+  return {
+    product,
+    maxQty,
+    limitingFactor,
+    totalHPP,
+    estRevenue,
+    estProfit,
+    remainingMaterials
+  }
+}
+
+const allMaxProductions = computed(() => {
+  return availableProducts.value
+    .map(p => calculateMaxForProduct(p))
+    .sort((a, b) => b.estProfit - a.estProfit) // Sort by most profitable
+})
+
+const currentMaxProductionData = computed(() => {
+  if (productionMode.value === 'single') {
+    if (!selectedProductForMax.value) return null
+    return calculateMaxForProduct(selectedProductForMax.value)
+  } else {
+    // In 'all' mode, maybe we don't show specific Overview unless one is "active", 
+    // BUT the prompt asks for an Overview Panel regardless. 
+    // We will show the aggregation OR the top recommendation.
+    // Let's show the Top Recommendation (Most Profitable) as the "Main Highlight" in the Overview
+    return allMaxProductions.value.length > 0 ? allMaxProductions.value[0] : null
+  }
+})
+
+// AI Strategy Logic
+const getProductionStrategy = async () => {
+  if (!currentMaxProductionData.value) return
+  
+  analyzingStrategy.value = true
+  aiStrategyResult.value = ''
+  
+  try {
+    const data = currentMaxProductionData.value
+    const modeText = productionMode.value === 'all' 
+      ? "Mode 1: Rekomendasi Berdasarkan Bahan Tersedia (Memprioritaskan profit tertinggi)" 
+      : "Mode 2: Rekomendasi Maksimal Produk Dipilih"
+
+    const materialList = data.remainingMaterials.map(m => 
+      `- ${m.name}: Sisa ${m.remaining} ${m.unit} (Terpakai ${m.used})`
+    ).join('\n')
+
+    const prompt = `
+Context: Anda adalah ahli strategi produksi untuk manufaktur.
+Data Produksi Saat Ini:
+${modeText}
+Produk Target: ${data.product.name}
+- Maksimal Produksi: ${data.maxQty} unit
+- Faktor Pembatas: ${data.limitingFactor}
+- Estimasi Profit: ${formatCurrency(data.estProfit)}
+- HPP Total: ${formatCurrency(data.totalHPP)}
+
+Status Sisa Bahan setelah produksi maksimal:
+${materialList}
+
+Tugas AI:
+1. Berikan justifikasi singkat mengapa angka produksi ini direkomendasikan.
+2. Berikan rekomendasi strategis: apa yang harus diproduksi atau bahan apa yang harus di-restock untuk meningkatkan output.
+3. Berikan 2-3 skenario alternatif (misalnya: "Jika mengurangi produksi A sebesar 10%, bisa memproduksi B sebanyak Y...").
+
+Format Output: Berikan jawaban dalam teks biasa (Markdown) yang rapi, profesional dan bahasa Indonesia yang luwes. Jangan gunakan JSON untuk respon ini.
+    `
+    
+    // We reuse existing API but it expects JSON output wrapper logic in the server.
+    // The server forces JSON parsing! 
+    // Server code: 
+    // const cleanJson = aiResponse.replace(/```json|```/g, '').trim()
+    // const jsonMatch = cleanJson.match(/\{[\s\S]*\}/)
+    // if (jsonMatch) return JSON.parse...
+    
+    // PROBLEM: The server expects JSON. The prompt request asks for "text response". 
+    // I must adjust the prompt to request JSON that *contains* the text response, 
+    // OR I need a new API endpoint. 
+    // Re-reading User Request: "Instruct OpenAI to return a text response..."
+    // But the server blindly parses JSON.
+    // I will wrap the response in a JSON object structure: { "analysis_text": "..." }
+    
+    const jsonPrompt = `
+${prompt}
+
+PENTING: Output HARUS dalam format JSON valid dengan struktur:
+{
+  "strategy_analysis": "Tuliskan seluruh analisis teks panjang (markdown) Anda di sini. Gunakan \\n untuk baris baru."
+}
+`
+
+    const response = await $fetch('/api/ai-analysis', {
+      method: 'POST',
+      body: { prompt: jsonPrompt }
+    })
+    
+    if (response && response.strategy_analysis) {
+      aiStrategyResult.value = response.strategy_analysis
+    } else {
+      aiStrategyResult.value = "Gagal memuat analisis strategi."
+    }
+
+  } catch (err) {
+    console.error(err)
+    aiStrategyResult.value = "Terjadi kesalahan saat menghubungi AI."
+  } finally {
+    analyzingStrategy.value = false
+  }
+}
+
 
 // Computed - Sesuai Standar Indonesia
 const totalMaterialCost = computed(() => {
@@ -680,33 +962,7 @@ const suggestedPrice = computed(() => {
   return hppPerUnit.value / (1 - hppForm.value.targetMargin / 100)
 })
 
-const maxProduction = computed(() => {
-  if (!selectedProductForMax.value) return 0
-  
-  const maxValues = selectedProductForMax.value.recipe.map(material => 
-    Math.floor(material.available / material.needed)
-  )
-  
-  return Math.min(...maxValues)
-})
 
-const limitingMaterial = computed(() => {
-  if (!selectedProductForMax.value) return '-'
-  
-  const materials = selectedProductForMax.value.recipe
-  let minValue = Infinity
-  let limitingName = ''
-  
-  materials.forEach(material => {
-    const maxUnits = Math.floor(material.available / material.needed)
-    if (maxUnits < minValue) {
-      minValue = maxUnits
-      limitingName = material.name
-    }
-  })
-  
-  return limitingName
-})
 
 // Methods
 const addMaterial = () => {
@@ -729,9 +985,7 @@ const removePackaging = (index: number) => {
   }
 }
 
-const maxProductionFromMaterial = (material: Recipe) => {
-  return Math.floor(material.available / material.needed)
-}
+
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('id-ID', {

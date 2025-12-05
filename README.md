@@ -29,11 +29,12 @@ pnpm install
 
 This application requires environment variables to be configured.
 
-1. Create a `.env` file in the root directory.
+1. Create a `.env` or copy from `.env.example` into `.env` file in the root directory.
 2. Add the following variables (example provided):
 
 ```env
 NUXT_PUBLIC_API_BASE_URL=https://api.yourdomain.com/v1
+VITE_KOLOSAL_API_KEY=
 ```
 
 > [!IMPORTANT]
