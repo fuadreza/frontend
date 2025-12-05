@@ -70,7 +70,7 @@
               type="text"
               placeholder="Cari kemasan..."
               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
-            />
+            >
           </div>
           <div>
             <select
@@ -147,21 +147,21 @@
                       pack.stock <= pack.minStock * 2 ? 'bg-yellow-500' : 'bg-green-500'
                     ]"
                     :style="{ width: `${Math.min((pack.stock / (pack.minStock * 3)) * 100, 100)}%` }"
-                  ></div>
+                  />
                 </div>
               </div>
             </div>
 
             <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-2">
               <button
-                @click="editPackaging(pack)"
                 class="px-3 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
+                @click="editPackaging(pack)"
               >
                 Edit
               </button>
               <button
-                @click="deletePackaging(pack.id)"
                 class="px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                @click="deletePackaging(pack.id)"
               >
                 Hapus
               </button>
@@ -174,7 +174,7 @@
     <!-- Add/Edit Modal -->
     <div v-if="showAddModal" class="fixed z-10 inset-0 overflow-y-auto">
       <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="closeModal"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="closeModal"/>
         
         <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full relative z-20">
           <div class="bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
@@ -192,7 +192,7 @@
                   type="text"
                   class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                   placeholder="Contoh: Botol Kaca 250ml"
-                />
+                >
               </div>
 
               <div class="grid grid-cols-2 gap-4">
@@ -203,7 +203,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                     placeholder="500"
-                  />
+                  >
                 </div>
 
                 <div>
@@ -228,7 +228,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                     placeholder="5000"
-                  />
+                  >
                 </div>
 
                 <div>
@@ -238,7 +238,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                     placeholder="100"
-                  />
+                  >
                 </div>
               </div>
 
@@ -249,7 +249,7 @@
                   type="text"
                   class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                   placeholder="Nama supplier"
-                />
+                >
               </div>
 
               <div>
@@ -259,21 +259,21 @@
                   rows="3"
                   class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                   placeholder="Catatan tambahan..."
-                ></textarea>
+                />
               </div>
             </div>
           </div>
 
           <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-end space-x-3">
             <button
-              @click="closeModal"
               class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              @click="closeModal"
             >
               Batal
             </button>
             <button
-              @click="savePackaging"
               class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              @click="savePackaging"
             >
               {{ editMode ? 'Update' : 'Simpan' }}
             </button>
@@ -284,8 +284,8 @@
 
     <!-- Modern Floating Action Button -->
     <button
-      @click="showAddModal = true"
       class="fixed bottom-8 right-8 group flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out z-10"
+      @click="showAddModal = true"
     >
       <svg class="h-6 w-6 transition-transform group-hover:rotate-90 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -389,7 +389,7 @@ const getStatusText = (stock: number, minStock: number) => {
   return 'Aman'
 }
 
-const editPackaging = (pack: any) => {
+const editPackaging = (pack: IPackaging) => {
   formData.value = { ...pack }
   editMode.value = true
   showAddModal.value = true

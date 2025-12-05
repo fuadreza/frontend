@@ -14,7 +14,7 @@ export const useTheme = () => {
         if (isInitialized.value) return
 
         // Hanya jalankan di client-side (browser)
-        if (process.client) {
+        if (import.meta.client) {
             // 1. Cek localStorage dulu
             const savedTheme = localStorage.getItem('theme') as Theme | null
 
@@ -36,7 +36,7 @@ export const useTheme = () => {
      * Apply theme ke document element
      */
     const applyTheme = (newTheme: Theme) => {
-        if (process.client) {
+        if (import.meta.client) {
             const html = document.documentElement
 
             if (newTheme === 'dark') {
@@ -63,7 +63,7 @@ export const useTheme = () => {
 
     // Watch theme changes dan save ke localStorage
     watch(theme, (newTheme) => {
-        if (process.client) {
+        if (import.meta.client) {
             localStorage.setItem('theme', newTheme)
             applyTheme(newTheme)
         }

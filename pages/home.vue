@@ -104,7 +104,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
           <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex justify-between">
             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Produksi Terakhir</h3>
-            <button @click="router.push('/production')" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">Lihat Semua →</button>
+            <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium" @click="router.push('/production')">Lihat Semua →</button>
           </div>
           <div class="px-6 py-5">
             <div v-if="recentProductions.length > 0" class="space-y-4">
@@ -138,7 +138,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Total HPP</span>
                 <span class="text-lg font-bold text-red-600">{{ formatCurrency(totalProductionHPP) }}</span>
               </div>
-              <div class="border-t border-green-300 dark:border-green-700 my-3"></div>
+              <div class="border-t border-green-300 dark:border-green-700 my-3"/>
               <div class="flex justify-between">
                 <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Est. Revenue</span>
                 <span class="text-2xl font-bold text-green-600">{{ formatCurrency(estimatedRevenue) }}</span>
@@ -169,7 +169,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
         </div>
         <div class="px-6 py-5">
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <button v-for="action in quickActions" :key="action.name" @click="action.onClick" class="group bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:border-indigo-500 hover:shadow-md transition-all">
+            <button v-for="action in quickActions" :key="action.name" class="group bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:border-indigo-500 hover:shadow-md transition-all" @click="action.onClick">
               <div class="flex flex-col items-center text-center">
                 <div :class="[action.iconBg, 'rounded-lg p-3 mb-3 group-hover:scale-110 transition-transform']">
                   <component :is="action.icon" :class="[action.iconColor, 'h-6 w-6']" />

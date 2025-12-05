@@ -2,8 +2,8 @@
   <div class="relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-300 pt-20">
     <!-- Background Elements -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-      <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-100/30 dark:bg-blue-900/20 blur-3xl"></div>
-      <div class="absolute top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-teal-100/30 dark:bg-teal-900/20 blur-3xl"></div>
+      <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-100/30 dark:bg-blue-900/20 blur-3xl"/>
+      <div class="absolute top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-teal-100/30 dark:bg-teal-900/20 blur-3xl"/>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -16,7 +16,7 @@
               Manajemen Produksi Cerdas
             </span>
             <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 leading-tight tracking-tight">
-              Kelola Produksi & <br/>
+              Kelola Produksi & <br>
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 dark:from-blue-400 dark:to-teal-400">Maksimalkan Profit</span>
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
@@ -69,11 +69,11 @@
               src="/illustration-profit.png" 
               alt="Business Growth Analytics" 
               class="w-full h-auto rounded-xl transform hover:scale-105 transition-transform duration-700"
-            />
+            >
           </div>
           <!-- Decorative Elements -->
-          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-yellow-400 dark:bg-yellow-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-          <div class="absolute -top-6 -left-6 w-32 h-32 bg-blue-400 dark:bg-blue-600 rounded-full blur-2xl opacity-20 animate-pulse delay-700"></div>
+          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-yellow-400 dark:bg-yellow-600 rounded-full blur-2xl opacity-20 animate-pulse"/>
+          <div class="absolute -top-6 -left-6 w-32 h-32 bg-blue-400 dark:bg-blue-600 rounded-full blur-2xl opacity-20 animate-pulse delay-700"/>
         </div>
 
       </div>
@@ -84,8 +84,8 @@
   <section class="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300 relative overflow-hidden">
     <!-- Background Decorations -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-30">
-      <div class="absolute top-[10%] right-[10%] w-72 h-72 rounded-full bg-blue-200 dark:bg-blue-900 blur-3xl"></div>
-      <div class="absolute bottom-[10%] left-[10%] w-72 h-72 rounded-full bg-purple-200 dark:bg-purple-900 blur-3xl"></div>
+      <div class="absolute top-[10%] right-[10%] w-72 h-72 rounded-full bg-blue-200 dark:bg-blue-900 blur-3xl"/>
+      <div class="absolute bottom-[10%] left-[10%] w-72 h-72 rounded-full bg-purple-200 dark:bg-purple-900 blur-3xl"/>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -170,8 +170,8 @@
       <div class="bg-gradient-to-r from-blue-900 to-indigo-900 dark:from-blue-950 dark:to-indigo-950 rounded-3xl relative overflow-hidden py-20 px-6 sm:px-12 shadow-2xl">
         <!-- Background Decoration -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
-          <div class="absolute -top-[50%] -right-[20%] w-[100%] h-[100%] rounded-full bg-blue-500 blur-3xl"></div>
-          <div class="absolute -bottom-[50%] -left-[20%] w-[100%] h-[100%] rounded-full bg-teal-500 blur-3xl"></div>
+          <div class="absolute -top-[50%] -right-[20%] w-[100%] h-[100%] rounded-full bg-blue-500 blur-3xl"/>
+          <div class="absolute -bottom-[50%] -left-[20%] w-[100%] h-[100%] rounded-full bg-teal-500 blur-3xl"/>
         </div>
 
         <div 

@@ -18,46 +18,46 @@
         <div class="border-b border-gray-200 dark:border-gray-700">
           <nav class="flex -mb-px">
             <button
-              @click="activeTab = 'calculator'"
               :class="[
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'calculator'
                   ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
                   : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               ]"
+              @click="activeTab = 'calculator'"
             >
               📊 Kalkulator HPP
             </button>
             <button
-              @click="activeTab = 'ai'"
               :class="[
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'ai'
                   ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
                   : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               ]"
+              @click="activeTab = 'ai'"
             >
               ✨ AI Insights
             </button>
             <button
-              @click="activeTab = 'maxProduction'"
               :class="[
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'maxProduction'
                   ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
                   : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               ]"
+              @click="activeTab = 'maxProduction'"
             >
               📈 Maksimal Produksi
             </button>
             <button
-              @click="activeTab = 'history'"
               :class="[
                 'py-4 px-6 text-sm font-medium border-b-2 transition-colors',
                 activeTab === 'history'
                   ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
                   : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               ]"
+              @click="activeTab = 'history'"
             >
               📜 Riwayat Produksi
             </button>
@@ -79,7 +79,7 @@
                     type="text"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="Contoh: Kopi Arabica 250g"
-                  />
+                  >
                 </div>
 
                 <!-- Persediaan (Standar Indonesia) -->
@@ -100,7 +100,7 @@
                         type="number"
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
                         placeholder="0"
-                      />
+                      >
                     </div>
                     <div>
                       <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
@@ -111,7 +111,7 @@
                         type="number"
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
                         placeholder="0"
-                      />
+                      >
                     </div>
                   </div>
                   <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
@@ -123,36 +123,40 @@
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bahan Baku</label>
                   <div class="space-y-2">
                     <div v-for="(item, index) in hppForm.materials" :key="index" class="flex gap-2">
-                      <input
-                        v-model="item.name"
-                        type="text"
-                        placeholder="Nama bahan"
+                       <select
+                        v-model="item.materialId"
                         class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                      />
+                        @change="onMaterialSelect(index)"
+                      >
+                        <option :value="null">pilih bahan</option>
+                        <option v-for="mat in materialStore.materials" :key="mat.id" :value="mat.id">
+                          {{ mat.name }} ({{ formatCurrency(mat.costPerUnit) }}/{{ mat.metric }}) - Stok: {{ mat.stock }}
+                        </option>
+                      </select>
                       <input
                         v-model.number="item.quantity"
                         type="number"
                         placeholder="Qty"
                         class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                      />
+                      >
                       <input
                         v-model.number="item.price"
                         type="number"
                         placeholder="Harga"
                         class="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                      />
+                      >
                       <button
                         v-if="hppForm.materials.length > 1"
-                        @click="removeMaterial(index)"
                         class="px-3 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md"
+                        @click="removeMaterial(index)"
                       >
                         ✕
                       </button>
                     </div>
                   </div>
                   <button
-                    @click="addMaterial"
                     class="mt-2 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
+                    @click="addMaterial"
                   >
                     + Tambah Bahan
                   </button>
@@ -165,7 +169,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="50000"
-                  />
+                  >
                 </div>
 
                 <div>
@@ -175,7 +179,7 @@
                     type="number"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                     placeholder="20000"
-                  />
+                  >
                 </div>
 
                 <div>
@@ -185,34 +189,38 @@
                       v-model="hppForm.includePacking"
                       type="checkbox"
                       class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 dark:text-indigo-400 focus:ring-indigo-500 bg-white dark:bg-gray-700"
-                    />
+                    >
                     <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Include biaya kemasan dalam HPP</span>
                   </div>
                   
                   <div v-if="hppForm.includePacking" class="space-y-2">
                     <div v-for="(pack, index) in hppForm.packaging" :key="index" class="flex gap-2">
-                      <input
-                        v-model="pack.name"
-                        type="text"
-                        placeholder="Nama kemasan"
+                      <select
+                        v-model="pack.packagingId"
                         class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                      />
+                         @change="onPackagingSelect(index)"
+                      >
+                         <option :value="null">pilih kemasan</option>
+                        <option v-for="pkg in packagingStore.packagings" :key="pkg.id" :value="pkg.id">
+                          {{ pkg.name }} ({{ formatCurrency(pkg.costPerUnit) }}/{{ pkg.metric }}) - Stok: {{ pkg.stock }}
+                        </option>
+                      </select>
                       <input
                         v-model.number="pack.quantity"
                         type="number"
                         placeholder="Qty"
                         class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                      />
+                      >
                       <input
                         v-model.number="pack.price"
                         type="number"
                         placeholder="Harga"
                         class="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                      />
+                      >
                       <button
                         v-if="hppForm.packaging.length > 1"
-                        @click="removePackaging(index)"
                         class="px-3 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md"
+                        @click="removePackaging(index)"
                       >
                         ✕
                       </button>
@@ -220,8 +228,8 @@
                   </div>
                   <button
                     v-if="hppForm.includePacking"
-                    @click="addPackaging"
                     class="mt-2 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
+                    @click="addPackaging"
                   >
                     + Tambah Kemasan
                   </button>
@@ -235,7 +243,7 @@
                       type="number"
                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       placeholder="100"
-                    />
+                    >
                   </div>
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Target Margin (%)</label>
@@ -244,7 +252,7 @@
                       type="number"
                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                       placeholder="40"
-                    />
+                    >
                   </div>
                 </div>
               </div>
@@ -300,12 +308,12 @@
                 </div>
 
                 <button
-                  @click="getAIAnalysis"
                   :disabled="loading"
                   class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-md hover:from-indigo-700 hover:to-purple-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                  @click="getAIAnalysis"
                 >
                   <template v-if="loading">
-                    <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"/>
                     Menganalisis dengan AI...
                   </template>
                   <template v-else>
@@ -317,8 +325,8 @@
                 </button>
 
                 <button
-                  @click="saveProduction"
                   class="mt-3 w-full bg-gray-800 dark:bg-gray-700 text-white py-3 px-4 rounded-md hover:bg-gray-900 dark:hover:bg-gray-600 font-medium"
+                  @click="saveProduction"
                 >
                   💾 Simpan Produksi
                 </button>
@@ -340,8 +348,8 @@
               Isi data di tab Kalkulator HPP, lalu klik tombol "Analisis dengan AI"
             </p>
             <button
-              @click="activeTab = 'calculator'"
               class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+              @click="activeTab = 'calculator'"
             >
               Ke Kalkulator
             </button>
@@ -366,7 +374,7 @@
                 <div
                   class="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full transition-all duration-500"
                   :style="{ width: `${aiInsights.efficiency_score}%` }"
-                ></div>
+                />
               </div>
             </div>
 
@@ -437,24 +445,24 @@
           <div class="flex justify-center mb-8">
             <div class="bg-gray-100 dark:bg-gray-700 p-1 rounded-lg inline-flex">
               <button
-                @click="productionMode = 'all'"
                 :class="[
                   'px-6 py-2 rounded-md text-sm font-medium transition-all duration-200',
                   productionMode === 'all'
                     ? 'bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-300 shadow-sm'
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                 ]"
+                @click="productionMode = 'all'"
               >
                 Mode 1: Semua Bahan Baku
               </button>
               <button
-                @click="productionMode = 'single'"
                 :class="[
                   'px-6 py-2 rounded-md text-sm font-medium transition-all duration-200',
                   productionMode === 'single'
                     ? 'bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-300 shadow-sm'
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                 ]"
+                @click="productionMode = 'single'"
               >
                 Mode 2: Produk Spesifik
               </button>
@@ -489,7 +497,8 @@
                       {{ item.product.name }}
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
+                      <span
+class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
                         :class="item.maxQty > 0 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'">
                         {{ item.maxQty }} unit
                       </span>
@@ -502,8 +511,8 @@
                     </td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <button 
-                        @click="productionMode = 'single'; selectedProductForMax = item.product"
                         class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                        @click="productionMode = 'single'; selectedProductForMax = item.product"
                       >
                         Detail & Analisis
                       </button>
@@ -586,11 +595,11 @@
                   </div>
                 </div>
                 <button
-                  @click="getProductionStrategy"
                   :disabled="analyzingStrategy"
                   class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium flex items-center gap-2"
+                  @click="getProductionStrategy"
                 >
-                  <span v-if="analyzingStrategy" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 dark:border-gray-400"></span>
+                  <span v-if="analyzingStrategy" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 dark:border-gray-400"/>
                   {{ analyzingStrategy ? 'Menganalisis...' : 'Minta Saran Strategi' }}
                 </button>
               </div>
@@ -643,8 +652,8 @@
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
                     <button
-                      @click="deleteProduction(history.id)"
                       class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-medium transition-colors"
+                      @click="deleteProduction(history.id)"
                     >
                       Hapus
                     </button>
@@ -678,31 +687,18 @@ import { ref, computed, onMounted } from 'vue'
 import { useProductionStore } from '~/stores/productionStore'
 import OpenAI from 'openai'
 
+import { useMaterialStore } from '~/stores/materialStore'
+import { usePackagingStore } from '~/stores/packagingStore'
+
 import { useProductStore } from '~/stores/productStore'
 import type { IProductWithDetails } from '~/services/interfaces/IProductService'
 import type { IMaterial } from '~/services/interfaces/IMaterialService'
+import type { IPackaging } from '~/services/interfaces/IPackagingService' // Import interface
 
 const productStore = useProductStore()
 const productionStore = useProductionStore()
-
-interface Material {
-  name: string
-  quantity: number
-  price: number
-}
-
-interface Packaging {
-  name: string
-  quantity: number
-  price: number
-}
-
-interface Recipe {
-  name: string
-  needed: number
-  unit: string
-  available: number
-}
+const materialStore = useMaterialStore()
+const packagingStore = usePackagingStore()
 
 definePageMeta({
   layout: 'dashboard',
@@ -712,27 +708,38 @@ const activeTab = ref('calculator')
 const loading = ref(false)
 const aiInsights = ref<any>(null)
 
+// Define local interfaces for the form items
+interface ProductionMaterialItem {
+  materialId: number | null
+  name: string
+  quantity: number
+  price: number
+}
+
+interface ProductionPackagingItem {
+  packagingId: number | null
+  name: string
+  quantity: number
+  price: number
+}
+
 // HPP Calculator Form
 const hppForm = ref({
   productName: '',
   materials: [
-    { name: '', quantity: 0, price: 0 }
-  ] as Material[],
+    { materialId: null, name: '', quantity: 0, price: 0 }
+  ] as ProductionMaterialItem[],
   laborCost: 0,
   overheadCost: 0,
   includePacking: true,
   packaging: [
-    { name: '', quantity: 0, price: 0 }
-  ] as Packaging[],
+    { packagingId: null, name: '', quantity: 0, price: 0 }
+  ] as ProductionPackagingItem[],
   productionQty: 1,
   inventoryStart: 0,
   inventoryEnd: 0,
   targetMargin: 40
 })
-
-// Sample products for max production
-
-
 
 // Max Production Logic
 const productionMode = ref<'all' | 'single'>('all')
@@ -743,6 +750,8 @@ const analyzingStrategy = ref(false)
 onMounted(() => {
   productionStore.fetchProductions()
   productStore.fetchProductsWithDetails()
+  materialStore.fetchMaterials()
+  packagingStore.fetchPackagings()
 })
 
 const availableProducts = computed(() => {
@@ -772,6 +781,7 @@ const calculateMaxForProduct = (product: IProductWithDetails): MaxProductionResu
         limitingFactor = `${pm.material.name} (Stok: ${pm.material.stock})`
       }
     }
+    // Calculate Material Cost per unit here or outside
   })
 
   // Check Packaging
@@ -975,7 +985,7 @@ const suggestedPrice = computed(() => {
 
 // Methods
 const addMaterial = () => {
-  hppForm.value.materials.push({ name: '', quantity: 0, price: 0 })
+  hppForm.value.materials.push({ materialId: null, name: '', quantity: 0, price: 0 })
 }
 
 const removeMaterial = (index: number) => {
@@ -984,13 +994,45 @@ const removeMaterial = (index: number) => {
   }
 }
 
+const onMaterialSelect = (index: number) => {
+  const item = hppForm.value.materials[index]
+  if (!item) return
+
+  if (item.materialId) {
+    const mat = materialStore.materials.find(m => m.id === item.materialId)
+    if (mat) {
+      item.name = mat.name
+      item.price = mat.costPerUnit // Set default price from master data
+    }
+  } else {
+    item.name = ''
+    item.price = 0
+  }
+}
+
 const addPackaging = () => {
-  hppForm.value.packaging.push({ name: '', quantity: 0, price: 0 })
+  hppForm.value.packaging.push({ packagingId: null, name: '', quantity: 0, price: 0 })
 }
 
 const removePackaging = (index: number) => {
   if (hppForm.value.packaging.length > 1) {
     hppForm.value.packaging.splice(index, 1)
+  }
+}
+
+const onPackagingSelect = (index: number) => {
+  const item = hppForm.value.packaging[index]
+  if (!item) return
+
+  if (item.packagingId) {
+    const pkg = packagingStore.packagings.find(p => p.id === item.packagingId)
+    if (pkg) {
+      item.name = pkg.name
+      item.price = pkg.costPerUnit
+    }
+  } else {
+    item.name = ''
+    item.price = 0
   }
 }
 
@@ -1082,11 +1124,11 @@ const saveProduction = async () => {
   // Reset form
   hppForm.value = {
     productName: '',
-    materials: [{ name: '', quantity: 0, price: 0 }],
+    materials: [{ materialId: null, name: '', quantity: 0, price: 0 }],
     laborCost: 0,
     overheadCost: 0,
     includePacking: false,
-    packaging: [{ name: '', quantity: 0, price: 0 }],
+    packaging: [{ packagingId: null, name: '', quantity: 0, price: 0 }],
     productionQty: 1,
     inventoryStart: 0,
     inventoryEnd: 0,

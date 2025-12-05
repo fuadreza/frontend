@@ -7,12 +7,16 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@nuxt/eslint": "1.11.0",
     "@pinia/nuxt": "^0.11.3",
     "dexie": "^4.2.1",
     "dotenv": "^17.2.3",
+    "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
     "openai": "^6.10.0",
     "pinia": "^3.0.4",
@@ -22,6 +26,7 @@
   "packageManager": "pnpm@10.12.4+sha1.88a0ccfe72d6345dede50dc9d6158400be2420eb",
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "@types/node": "^24.10.1"
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
   }
 }
