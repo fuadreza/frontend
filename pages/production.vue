@@ -685,15 +685,12 @@ class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useProductionStore } from '~/stores/productionStore'
-import OpenAI from 'openai'
 
 import { useMaterialStore } from '~/stores/materialStore'
 import { usePackagingStore } from '~/stores/packagingStore'
 
 import { useProductStore } from '~/stores/productStore'
 import type { IProductWithDetails } from '~/services/interfaces/IProductService'
-import type { IMaterial } from '~/services/interfaces/IMaterialService'
-import type { IPackaging } from '~/services/interfaces/IPackagingService' // Import interface
 
 const productStore = useProductStore()
 const productionStore = useProductionStore()
@@ -706,7 +703,7 @@ definePageMeta({
 
 const activeTab = ref('calculator')
 const loading = ref(false)
-const aiInsights = ref<any>(null)
+const aiInsights = ref(null)
 
 // Define local interfaces for the form items
 interface ProductionMaterialItem {
@@ -721,6 +718,14 @@ interface ProductionPackagingItem {
   name: string
   quantity: number
   price: number
+}
+
+interface RemainingMaterialItem {
+  name: string
+  initial: number
+  used: number
+  remaining: number
+  unit: string
 }
 
 // HPP Calculator Form
@@ -765,7 +770,7 @@ interface MaxProductionResult {
   totalHPP: number
   estRevenue: number
   estProfit: number
-  remainingMaterials: any[]
+  remainingMaterials: RemainingMaterialItem[]
 }
 
 const calculateMaxForProduct = (product: IProductWithDetails): MaxProductionResult => {
@@ -819,7 +824,7 @@ const calculateMaxForProduct = (product: IProductWithDetails): MaxProductionResu
   
   // Calculate Remaining Materials
   // We list ALL materials involved and their remaining amount
-  const remainingMaterials = [] as any[]
+  const remainingMaterials = [] as RemainingMaterialItem[]
   
   product.materials.forEach(pm => {
     remainingMaterials.push({
