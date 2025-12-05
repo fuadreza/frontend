@@ -61,7 +61,17 @@ export const useProductStore = defineStore('product', {
             this.fetchProductsWithDetails();
         },
         async updateProduct(id: number, product: Partial<IProduct>) {
-            await productServiceLocal.updateProduct(id, product);
+            await productServiceLocal.updateProduct(id, {
+                ...product,
+                productMaterial: product.productMaterial?.map(material => ({
+                    materialId: material.materialId,
+                    quantity: material.quantity
+                })),
+                productPackaging: product.productPackaging?.map(packaging => ({
+                    packagingId: packaging.packagingId,
+                    quantity: packaging.quantity
+                }))
+            });
             this.fetchProductsWithDetails();
         },
         async deleteProduct(id: number) {

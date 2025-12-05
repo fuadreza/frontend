@@ -131,7 +131,7 @@
               </div>
               <div class="flex justify-between text-sm pt-2 border-t border-gray-200">
                 <span class="text-gray-600">Margin</span>
-                <span class="font-semibold text-indigo-600">{{ getMargin(product) }}%</span>
+                <span class="font-semibold text-indigo-600">{{ getMargin(product).toFixed(2) }}%</span>
               </div>
             </div>
 
@@ -380,7 +380,7 @@
                   <div class="space-y-2">
                     <div class="flex justify-between">
                       <span class="text-sm text-gray-600">Margin</span>
-                      <span class="text-sm font-semibold text-indigo-600">{{ getMargin(selectedProduct) }}%</span>
+                      <span class="text-sm font-semibold text-indigo-600">{{ getMargin(selectedProduct).toFixed(2) }}%</span>
                     </div>
                     <div class="flex justify-between">
                       <span class="text-sm text-gray-600">Status</span>
@@ -486,7 +486,7 @@ const getHPP = (product: IProductWithDetails) => {
 }
 
 const getMargin = (product: IProductWithDetails) => {
-  return calculateProductMetrics(product).margin
+  return calculateProductMetrics(product).marginPercentage
 }
 
 const avgHPP = computed(() => {
@@ -563,7 +563,9 @@ const deleteProduct = (id: number) => {
 const saveProduct = () => {
   if (editMode.value) {
     if (formData.value.id) {
-      productStore.updateProduct(formData.value.id, formData.value)
+      const productWithDetails = formData.value as IProductWithDetails
+      const { materials, packaging, ...product } = productWithDetails
+      productStore.updateProduct(formData.value.id, product)
     }
   } else {
     productStore.addProduct({...formData.value as IProduct})

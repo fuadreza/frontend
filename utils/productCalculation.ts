@@ -49,12 +49,14 @@ export function calculateProductMetrics(
     // HPP = Biaya Material + Biaya Packaging + Biaya Tenaga Kerja (Labor Cost)
     const HPP = materialCost + packagingCost + productWithDetails.laborCost;
 
-    // 4. Hitung Margin Laba Kotor (Gross Margin)
+    // 4. Hitung Margin Laba Kotor (Gross Margin) dalam persen
     // Margin = Harga Jual - HPP
     const margin = productWithDetails.sellingPrice - HPP;
+    const marginPercentage = (margin / productWithDetails.sellingPrice) * 100;
 
     return {
         HPP: HPP,
         margin: margin,
+        marginPercentage: marginPercentage,
     };
 }
