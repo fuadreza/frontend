@@ -22,8 +22,8 @@
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-8">
           <NuxtLink to="/" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Home</NuxtLink>
-          <NuxtLink to="#features" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Features</NuxtLink>
-          <NuxtLink to="#pricing" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Pricing</NuxtLink>
+          <NuxtLink to="/features" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Features</NuxtLink>
+          <NuxtLink to="/pricing" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Pricing</NuxtLink>
         </div>
 
         <!-- Right Side: Theme Toggle + CTA Button -->
