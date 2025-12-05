@@ -129,7 +129,7 @@
   </section>
 
   <!-- Social Proof / Testimonials Section -->
-  <section class="pb-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 relative overflow-hidden">
+  <section class="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="bg-white dark:bg-gray-700 rounded-3xl p-8 sm:p-12 shadow-2xl dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-600">
         <div class="text-center max-w-3xl mx-auto mb-16">
