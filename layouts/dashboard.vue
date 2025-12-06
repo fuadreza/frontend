@@ -5,14 +5,28 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Top Header -->
         <div class="py-6 sm:py-8 flex items-center justify-between gap-4">
-          <div class="flex-1 min-w-0">
-            <h1 class="text-xl font-bold leading-tight text-gray-900 dark:text-gray-100 sm:text-2xl truncate">
-              {{ currentHeader.title }}
-            </h1>
-            <p class="mt-1 text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">
-              {{ currentHeader.subtitle }}
-              <span class="font-medium text-gray-900 dark:text-gray-100">{{ authStore.user?.name ? ' (' + authStore.user.name + ')' : '' }}</span>
-            </p>
+          <div class="flex-1 min-w-0 flex items-center gap-6">
+            <!-- App Logo -->
+            <NuxtLink to="/" class="flex-shrink-0 flex items-center gap-2 group">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-blue-500/30 transition-all duration-300">
+                P
+              </div>
+              <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 hidden md:inline">ProfitMax</span>
+            </NuxtLink>
+            
+            <!-- Divider -->
+            <div class="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+
+            <!-- Page Title -->
+            <div class="min-w-0">
+              <h1 class="text-xl font-bold leading-tight text-gray-900 dark:text-gray-100 sm:text-2xl truncate">
+                {{ currentHeader.title }}
+              </h1>
+              <p class="mt-1 text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">
+                {{ currentHeader.subtitle }}
+                <span class="font-medium text-gray-900 dark:text-gray-100">{{ authStore.user?.name ? ' (' + authStore.user.name + ')' : '' }}</span>
+              </p>
+            </div>
           </div>
           <div class="flex-shrink-0 flex items-center gap-2">
             <ThemeToggle />
