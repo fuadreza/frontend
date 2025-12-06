@@ -230,6 +230,12 @@
                   >
                 </div>
               </div>
+              
+              <!-- Estimated HPP Display -->
+              <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md border border-blue-100 dark:border-blue-900/50 flex justify-between items-center">
+                <span class="text-sm font-medium text-blue-700 dark:text-blue-300">Estimasi HPP:</span>
+                <span class="text-lg font-bold text-blue-800 dark:text-blue-200">{{ formatCurrency(estimatedHPP) }}</span>
+              </div>
 
               <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -566,7 +572,39 @@ const avgMargin = computed(() => {
 })
 
 const calculatedMargin = computed(() => {
-  return '0%'
+  const sellingPrice = formData.value.sellingPrice || 0
+  const hpp = estimatedHPP.value
+  
+  if (sellingPrice === 0) return '0%'
+  
+  const marginPercentage = ((sellingPrice - hpp) / sellingPrice) * 100
+  return `${marginPercentage.toFixed(2)}%`
+})
+
+const estimatedHPP = computed(() => {
+  let totalCost = (formData.value.laborCost || 0) + (formData.value.overheadCost || 0)
+
+  // Calculate Materials Cost
+  if (formData.value.productMaterial) {
+    formData.value.productMaterial.forEach(pm => {
+      const material = materialStore.materials.find(m => m.id === pm.materialId)
+      if (material) {
+        totalCost += (material.costPerUnit * pm.quantity)
+      }
+    })
+  }
+
+  // Calculate Packaging Cost
+  if (formData.value.productPackaging) {
+    formData.value.productPackaging.forEach(pp => {
+      const packaging = packagingStore.packagings.find(p => p.id === pp.packagingId)
+      if (packaging) {
+        totalCost += (packaging.costPerUnit * pp.quantity)
+      }
+    })
+  }
+
+  return totalCost
 })
 
 const formatCurrency = (value: number) => {
