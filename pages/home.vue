@@ -21,7 +21,7 @@ if (!authStore.isAuthenticated) router.push('/login')
 onMounted(() => {
   materialStore.fetchMaterials()
   packagingStore.fetchPackagings()
-  productionStore.fetchProductions()
+  productionStore.fetchProductionsWithDetails()
   productStore.fetchProductsWithDetails()
 })
 
@@ -33,14 +33,15 @@ const AlertIcon = () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox
 const CalculatorIcon = () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z' })])
 
 // Computed
-const recentProductions = computed(() => productionStore.productions.slice(0, 5))
-const totalProductionUnits = computed(() => productionStore.productions.reduce((s, p) => s + p.quantity, 0))
-const totalProductionHPP = computed(() => productionStore.productions.reduce((s, p) => s + p.totalHPP, 0))
+const recentProductions = computed(() => productionStore.productionsWithDetails.slice(0, 5))
+const totalProductionUnits = computed(() => productionStore.productionsWithDetails.reduce((s, p) => s + p.quantity, 0))
+const totalProductionHPP = computed(() => productionStore.productionsWithDetails.reduce((s, p) => s + p.totalHPP, 0))
 const estimatedRevenue = computed(() => {
   let rev = 0
-  productionStore.productions.forEach(prod => {
-    const p = productStore.productsWithDetails.find(pr => pr.name === prod.productName)
-    if (p) rev += p.sellingPrice * prod.quantity
+  productionStore.productionsWithDetails.forEach(prod => {
+    if (prod.product) {
+      rev += (prod.product.sellingPrice || 0) * prod.quantity
+    }
   })
   return rev
 })
@@ -110,7 +111,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
             <div v-if="recentProductions.length > 0" class="space-y-4">
               <div v-for="prod in recentProductions" :key="prod.id" class="flex justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div class="flex-1">
-                  <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ prod.productName }}</p>
+                  <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ prod.product.name }}</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">{{ prod.date }}</p>
                 </div>
                 <div class="text-right">
