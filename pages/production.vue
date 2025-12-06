@@ -591,36 +591,46 @@
             </div>
 
             <!-- Optimization Summary -->
-            <div v-if="sharedOptimizationResult" class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in-up">
-               <!-- Financial Summary -->
-               <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
-                  <h4 class="text-green-800 dark:text-green-300 font-bold text-lg mb-4">Estimasi Total Profit</h4>
-                  <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
-                     {{ formatCurrency(sharedOptimizationResult.totalProfit) }}
-                  </div>
-                  <div class="text-sm text-green-700 dark:text-green-300">
-                     Dari Total Revenue: {{ formatCurrency(sharedOptimizationResult.totalRevenue) }}
-                  </div>
-               </div>
+            <div v-if="sharedOptimizationResult" class="space-y-6 animate-fade-in-up">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <!-- Financial Summary -->
+                 <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+                    <h4 class="text-green-800 dark:text-green-300 font-bold text-lg mb-4">Estimasi Total Profit</h4>
+                    <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+                       {{ formatCurrency(sharedOptimizationResult.totalProfit) }}
+                    </div>
+                    <div class="text-sm text-green-700 dark:text-green-300">
+                       Dari Total Revenue: {{ formatCurrency(sharedOptimizationResult.totalRevenue) }}
+                    </div>
+                 </div>
 
-                <!-- Resource Usage Summary -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 max-h-60 overflow-y-auto">
-                   <h4 class="text-gray-800 dark:text-gray-100 font-bold text-lg mb-4">Penggunaan Sumber Daya</h4>
-                   <div class="space-y-3">
-                      <div v-for="(usage, key) in sharedOptimizationResult.resourceUsage" :key="key" class="text-sm">
-                         <div class="flex justify-between mb-1">
-                            <span class="text-gray-600 dark:text-gray-300">{{ usage.name }}</span>
-                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ usage.used }} / {{ usage.total }} {{ usage.unit }}</span>
-                         </div>
-                         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                            <div 
-                               class="bg-indigo-600 h-2 rounded-full" 
-                               :style="{ width: `${Math.min((usage.used / usage.total) * 100, 100)}%` }"
-                            ></div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
+                  <!-- Resource Usage Summary -->
+                  <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 max-h-60 overflow-y-auto">
+                     <h4 class="text-gray-800 dark:text-gray-100 font-bold text-lg mb-4">Penggunaan Sumber Daya</h4>
+                     <div class="space-y-3">
+                        <div v-for="(usage, key) in sharedOptimizationResult.resourceUsage" :key="key" class="text-sm">
+                           <div class="flex justify-between mb-1">
+                              <span class="text-gray-600 dark:text-gray-300">{{ usage.name }}</span>
+                              <span class="font-medium text-gray-900 dark:text-gray-100">{{ usage.used }} / {{ usage.total }} {{ usage.unit }}</span>
+                           </div>
+                           <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                              <div 
+                                 class="bg-indigo-600 h-2 rounded-full" 
+                                 :style="{ width: `${Math.min((usage.used / usage.total) * 100, 100)}%` }"
+                              ></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+              </div>
+
+               <button
+                  class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all duration-200 flex items-center justify-center gap-2"
+                  @click="saveOptimizedProduction"
+               >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
+                  Proses & Simpan Produksi
+               </button>
             </div>
 
           </div>
@@ -641,83 +651,9 @@
             </div>
           </div>
 
-          <!-- OVERVIEW PANEL (Always visible if data exists) -->
-          <div v-if="currentMaxProductionData" class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8">
-            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-              Overview Panel: {{ currentMaxProductionData.product.name }}
-            </h3>
 
-            <!-- Metrics Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <!-- Sisa Bahan -->
-              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-3 opacity-10">
-                  <svg class="w-16 h-16 text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" /><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>
-                </div>
-                <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Estimasi Sisa Bahan</h4>
-                <div class="space-y-2 mt-3 max-h-40 overflow-y-auto pr-2 custom-scrollbar">
-                  <div v-for="mat in currentMaxProductionData.remainingMaterials" :key="mat.name" class="flex justify-between text-sm">
-                    <span class="text-gray-700 dark:text-gray-300 truncate w-2/3" :title="mat.name">{{ mat.name }}</span>
-                    <span class="font-semibold" :class="mat.remaining < 0 ? 'text-red-500' : 'text-gray-900 dark:text-gray-100'">
-                      {{ mat.remaining }} {{ mat.unit }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Estimasi HPP -->
-              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                 <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Estimasi Total HPP</h4>
-                 <div class="mt-2 flex items-baseline gap-2">
-                   <span class="text-3xl font-bold text-gray-900 dark:text-gray-100">{{ formatCurrency(currentMaxProductionData.totalHPP) }}</span>
-                 </div>
-                 <p class="text-xs text-gray-500 mt-2">Untuk produksi {{ currentMaxProductionData.maxQty }} unit</p>
-              </div>
-
-              <!-- Estimasi Profit -->
-              <div class="bg-gradient-to-br from-indigo-600 to-purple-600 p-6 rounded-xl shadow-lg text-white">
-                <h4 class="text-sm font-medium text-indigo-100 uppercase tracking-wider mb-2">Estimasi Profit Potensial</h4>
-                <div class="mt-2 flex items-baseline gap-2">
-                   <span class="text-3xl font-bold text-white">{{ formatCurrency(currentMaxProductionData.estProfit) }}</span>
-                 </div>
-                 <p class="text-xs text-indigo-100 mt-2 opacity-80">Revenue - HPP</p>
-              </div>
-            </div>
-
-            <!-- AI Strategy Section -->
-            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border-2 border-indigo-100 dark:border-indigo-900">
-              <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-3">
-                  <div class="bg-indigo-600 p-2 rounded-lg text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  </div>
-                  <div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Analisis Strategi Produksi (AI)</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Dapatkan saran strategis dari AI berdasarkan data ini</p>
-                  </div>
-                </div>
-                <button
-                  :disabled="analyzingStrategy"
-                  class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium flex items-center gap-2"
-                  @click="getProductionStrategy"
-                >
-                  <span v-if="analyzingStrategy" class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 dark:border-gray-400"/>
-                  {{ analyzingStrategy ? 'Menganalisis...' : 'Minta Saran Strategi' }}
-                </button>
-              </div>
-
-              <!-- AI Result -->
-              <div v-if="aiStrategyResult" class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm prose dark:prose-invert max-w-none">
-                 <div class="whitespace-pre-wrap font-sans text-gray-700 dark:text-gray-300">{{ aiStrategyResult }}</div>
-              </div>
-              <div v-else class="text-center py-8 text-gray-400 dark:text-gray-500 text-sm border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg">
-                Klik tombol "Minta Saran Strategi" untuk mendapatkan wawasan lebih lanjut.
-              </div>
-            </div>
-
-          </div>
           
-          <div v-else-if="productionMode === 'single' && !selectedProductForMax" class="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div v-if="productionMode === 'single' && !selectedProductForMax" class="text-center py-12 text-gray-500 dark:text-gray-400">
             Silakan pilih produk terlebih dahulu untuk melihat analisis.
           </div>
           
@@ -1491,11 +1427,80 @@ Berikan analisis dalam format JSON berikut (HANYA JSON, tanpa penjelasan lain):
   }
 }
 
+const saveOptimizedProduction = async () => {
+    if (!sharedOptimizationResult.value) return
+
+    const itemsToProcess = sharedOptimizationResult.value.items.filter(item => item.optimizedQty > 0)
+
+    if (itemsToProcess.length === 0) {
+        alert('Tidak ada produk yang dapat diproduksi dengan stok saat ini.')
+        return
+    }
+
+    if (!confirm(`Apakah Anda yakin ingin memproses ${itemsToProcess.length} produk?`)) return
+
+    loading.value = true
+    try {
+        for (const item of itemsToProcess) {
+             await productionStore.addProduction({
+                productId: item.product.id!,
+                date: new Date().toLocaleDateString('id-ID'),
+                quantity: item.optimizedQty,
+                hppPerUnit: item.hppPerUnit,
+                totalHPP: item.optimizedQty * item.hppPerUnit,
+                includePacking: true
+             })
+        }
+        alert('Produksi berhasil disimpan!')
+        
+        // Reset and Refresh
+        sharedOptimizationResult.value = null
+        processingItems.value.forEach(i => {
+           // Keep selection but reset state if needed? 
+           // Maybe just uncheck all
+           i.selected = false
+        })
+        
+        // Refresh data
+        await Promise.all([
+           productionStore.fetchProductions(),
+           productStore.fetchProductsWithDetails(),
+           materialStore.fetchMaterials(),
+           packagingStore.fetchPackagings()
+        ])
+        
+        // Switch to history or stay? Stay for now.
+
+    } catch (e) {
+        console.error(e)
+        alert('Terjadi kesalahan saat menyimpan produksi.')
+    } finally {
+        loading.value = false
+    }
+}
+
 const saveProduction = async () => {
   if (!hppForm.value.productId) {
     alert('Mohon pilih produk terlebih dahulu')
     return
   }
+
+  // Construct Usage Data
+  const materialsUsage = hppForm.value.materials
+    .filter(m => m.materialId)
+    .map(m => ({
+        id: m.materialId!,
+        quantity: m.quantity
+    }))
+
+  const packagingUsage = hppForm.value.includePacking 
+    ? hppForm.value.packaging
+        .filter(p => p.packagingId)
+        .map(p => ({
+            id: p.packagingId!,
+            quantity: p.quantity
+        }))
+    : []
 
   await productionStore.addProduction({
     productId: hppForm.value.productId,
@@ -1504,6 +1509,9 @@ const saveProduction = async () => {
     hppPerUnit: hppPerUnit.value,
     totalHPP: totalHPP.value,
     includePacking: hppForm.value.includePacking
+  }, {
+    materials: materialsUsage,
+    packaging: packagingUsage
   })
   
   alert('Produksi berhasil disimpan!')
