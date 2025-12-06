@@ -73,13 +73,17 @@
               
               <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Produk</label>
-                  <input
-                    v-model="hppForm.productName"
-                    type="text"
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Produk</label>
+                  <select
+                    v-model="hppForm.productId"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
-                    placeholder="Contoh: Kopi Arabica 250g"
+                    @change="onProductSelect"
                   >
+                    <option :value="null">-- Pilih Produk --</option>
+                    <option v-for="prod in availableProducts" :key="prod.id" :value="prod.id">
+                      {{ prod.name }} (Stok: {{ prod.stock }})
+                    </option>
+                  </select>
                 </div>
 
                 <!-- Persediaan (Standar Indonesia) -->
@@ -641,7 +645,7 @@ class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
               <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
                 <tr v-for="history in productionStore.productions" :key="history.id" class="hover:bg-gray-50 dark:hover:bg-gray-800">
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ history.date }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ history.productName }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ getProductName(history.productId) }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ history.quantity }} unit</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ formatCurrency(history.hppPerUnit) }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">{{ formatCurrency(history.totalHPP) }}</td>
@@ -651,12 +655,13 @@ class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                     </span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                    <button
-                      class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-medium transition-colors"
-                      @click="deleteProduction(history.id)"
-                    >
-                      Hapus
-                    </button>
+                      <button
+                        v-if="history.id"
+                        class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-medium transition-colors"
+                        @click="deleteProduction(history.id!)"
+                      >
+                        Hapus
+                      </button>
                   </td>
                 </tr>
               </tbody>
@@ -703,7 +708,7 @@ definePageMeta({
 
 const activeTab = ref('calculator')
 const loading = ref(false)
-const aiInsights = ref(null)
+const aiInsights = ref<any>(null)
 
 // Define local interfaces for the form items
 interface ProductionMaterialItem {
@@ -730,7 +735,7 @@ interface RemainingMaterialItem {
 
 // HPP Calculator Form
 const hppForm = ref({
-  productName: '',
+  productId: null as number | null,
   materials: [
     { materialId: null, name: '', quantity: 0, price: 0 }
   ] as ProductionMaterialItem[],
@@ -745,6 +750,45 @@ const hppForm = ref({
   inventoryEnd: 0,
   targetMargin: 40
 })
+
+const onProductSelect = () => {
+    if (!hppForm.value.productId) return
+    
+    // Find product with details
+    const product = productStore.productsWithDetails.find(p => p.id === hppForm.value.productId)
+    if (!product) return
+
+    // Populate form
+    // Materials
+    if (product.materials && product.materials.length > 0) {
+        hppForm.value.materials = product.materials.map(pm => ({
+            materialId: pm.material.id!,
+            name: pm.material.name,
+            quantity: pm.quantity,
+            price: pm.material.costPerUnit // Use cost per unit as base price
+        }))
+    }
+
+    // Packaging
+    if (product.packaging && product.packaging.length > 0) {
+        hppForm.value.packaging = product.packaging.map(pp => ({
+            packagingId: pp.packaging.id!,
+            name: pp.packaging.name,
+            quantity: pp.quantity,
+            price: pp.packaging.costPerUnit
+        }))
+    }
+    
+    // Labor Cost
+    if (product.laborCost) {
+        hppForm.value.laborCost = product.laborCost
+    }
+}
+
+const getProductName = (id: number) => {
+    const product = productStore.products.find(p => p.id === id)
+    return product ? product.name : 'Unknown Product'
+}
 
 // Max Production Logic
 const productionMode = ref<'all' | 'single'>('all')
@@ -1059,7 +1103,7 @@ const getAIAnalysis = async () => {
     const prompt = `Anda adalah konsultan keuangan dan akuntansi biaya. Analisis data HPP berikut dan berikan rekomendasi dalam format JSON:
 
 Data Produk:
-- Nama: ${hppForm.value.productName || 'Produk'}
+- Nama: ${hppForm.value.productId ? getProductName(hppForm.value.productId) : 'Produk'}
 - HPP per Unit: Rp ${hppPerUnit.value.toFixed(0)}
 - Biaya Bahan Baku: Rp ${totalMaterialCost.value.toFixed(0)}
 - Biaya Produksi Total: Rp ${totalProductionCost.value.toFixed(0)}
@@ -1115,8 +1159,13 @@ Berikan analisis dalam format JSON berikut (HANYA JSON, tanpa penjelasan lain):
 }
 
 const saveProduction = async () => {
+  if (!hppForm.value.productId) {
+    alert('Mohon pilih produk terlebih dahulu')
+    return
+  }
+
   await productionStore.addProduction({
-    productName: hppForm.value.productName,
+    productId: hppForm.value.productId,
     date: new Date().toLocaleDateString('id-ID'),
     quantity: hppForm.value.productionQty,
     hppPerUnit: hppPerUnit.value,
@@ -1128,7 +1177,7 @@ const saveProduction = async () => {
   
   // Reset form
   hppForm.value = {
-    productName: '',
+    productId: null,
     materials: [{ materialId: null, name: '', quantity: 0, price: 0 }],
     laborCost: 0,
     overheadCost: 0,

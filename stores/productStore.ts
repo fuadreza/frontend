@@ -78,5 +78,9 @@ export const useProductStore = defineStore('product', {
             await productServiceLocal.deleteProduct(id);
             this.fetchProductsWithDetails();
         },
+        async updateStock(id: number, stock: number) {
+            await productServiceLocal.updateStock(id, stock);
+            this.fetchProductsWithDetails();
+        },
     },
 })

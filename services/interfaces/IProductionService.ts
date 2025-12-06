@@ -2,7 +2,7 @@ import type { PromiseExtended } from 'dexie'
 
 export interface IProduction {
     id?: number
-    productName: string
+    productId: number
     date: string
     quantity: number
     hppPerUnit: number
@@ -11,7 +11,7 @@ export interface IProduction {
 }
 
 export interface NewProduction {
-    productName: string
+    productId: number
     date: string
     quantity: number
     hppPerUnit: number
