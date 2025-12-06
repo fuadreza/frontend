@@ -512,7 +512,8 @@
                 <thead class="bg-gray-50 dark:bg-gray-800">
                   <tr>
                     <th scope="col" class="relative px-7 sm:w-12 sm:px-6">
-                       <input type="checkbox" 
+                       <input
+type="checkbox" 
                           class="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           :checked="processingItems.length > 0 && processingItems.every(i => i.selected)"
                           @change="(e: any) => processingItems.forEach(i => i.selected = e.target.checked)"
@@ -566,7 +567,8 @@
                                 <div class="font-bold text-indigo-700 dark:text-indigo-400">
                                    {{ sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.optimizedQty }} unit
                                 </div>
-                                <div class="text-xs" :class="{
+                                <div
+class="text-xs" :class="{
                                    'text-red-500': sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status === 'Insufficient for Min',
                                    'text-green-600': sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status === 'Optimized',
                                    'text-gray-400': sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status === 'Min Only'
@@ -617,7 +619,7 @@
                               <div 
                                  class="bg-indigo-600 h-2 rounded-full" 
                                  :style="{ width: `${Math.min((usage.used / usage.total) * 100, 100)}%` }"
-                              ></div>
+                              />
                            </div>
                         </div>
                      </div>
@@ -691,8 +693,8 @@
                         <p class="text-xs text-gray-600 dark:text-gray-400 mb-4">Dapatkan analisis AI untuk meningkatkan kapasitas produksi dan profit.</p>
                         <button 
                             class="bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-50 dark:hover:bg-gray-600 transition-colors w-full"
-                            @click="getProductionStrategy"
                             :disabled="analyzingStrategy"
+                            @click="getProductionStrategy"
                         >
                             {{ analyzingStrategy ? 'Menganalisis...' : 'Minta Saran AI ✨' }}
                         </button>
@@ -769,10 +771,11 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             <div class="flex items-center">
                                                 <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 w-24 mr-2">
-                                                    <div class="h-2 rounded-full" 
+                                                    <div
+class="h-2 rounded-full" 
                                                         :class="(mat.material.stock || 0) - (mat.quantity * currentMaxProductionData.maxQty) < mat.quantity ? 'bg-amber-500' : 'bg-green-500'"
                                                         :style="{ width: Math.min(((mat.quantity * currentMaxProductionData.maxQty) / (mat.material.stock || 1)) * 100, 100) + '%' }"
-                                                    ></div>
+                                                    />
                                                 </div>
                                                 <span class="text-xs" :class="(mat.material.stock || 0) < (mat.quantity * (currentMaxProductionData.maxQty + 1)) ? 'text-amber-600 font-bold' : 'text-green-600'">
                                                     {{ (mat.material.stock || 0) < (mat.quantity * (currentMaxProductionData.maxQty + 1)) ? 'Hampir Habis' : 'Aman' }}
@@ -798,10 +801,11 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             <div class="flex items-center">
                                                 <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 w-24 mr-2">
-                                                    <div class="h-2 rounded-full" 
+                                                    <div
+class="h-2 rounded-full" 
                                                         :class="(pkg.packaging.stock || 0) - (pkg.quantity * currentMaxProductionData.maxQty) < pkg.quantity ? 'bg-amber-500' : 'bg-green-500'"
                                                         :style="{ width: Math.min(((pkg.quantity * currentMaxProductionData.maxQty) / (pkg.packaging.stock || 1)) * 100, 100) + '%' }"
-                                                    ></div>
+                                                    />
                                                 </div>
                                                 <span class="text-xs" :class="(pkg.packaging.stock || 0) < (pkg.quantity * (currentMaxProductionData.maxQty + 1)) ? 'text-amber-600 font-bold' : 'text-green-600'">
                                                     {{ (pkg.packaging.stock || 0) < (pkg.quantity * (currentMaxProductionData.maxQty + 1)) ? 'Hampir Habis' : 'Aman' }}
@@ -821,7 +825,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         Analisis Strategi AI
                     </h3>
-                    <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-400" v-html="formattedAiStrategy"></div>
+                    <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-400" v-html="formattedAiStrategy"/>
                 </div>
             </div>
             
@@ -1008,7 +1012,7 @@ const formattedAiStrategy = computed(() => {
     if (!aiStrategyResult.value) return ''
     try {
         return marked.parse(aiStrategyResult.value)
-    } catch (e) {
+    } catch {
         return aiStrategyResult.value
     }
 })
@@ -1212,7 +1216,6 @@ const calculateSharedOptimization = () => {
         deductResources(item.product, maxAdd)
         res.optimizedQty += maxAdd
         res.status = 'Optimized'
-        const profitPerUnit = res.revenue / res.optimizedQty - res.hppPerUnit // Recalc? No, profit per unit is constant
         // Re-calcs
         const unitProfit = item.product.sellingPrice - res.hppPerUnit
         res.profit = res.optimizedQty * unitProfit

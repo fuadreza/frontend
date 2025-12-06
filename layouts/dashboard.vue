@@ -15,7 +15,7 @@
             </NuxtLink>
             
             <!-- Divider -->
-            <div class="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+            <div class="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"/>
 
             <!-- Page Title -->
             <div class="min-w-0">

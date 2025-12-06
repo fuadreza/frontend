@@ -12,7 +12,6 @@ const authStore = useAuthStore()
 const productionStore = useProductionStore()
 const productStore = useProductStore()
 const router = useRouter()
-const config = useRuntimeConfig()
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -65,7 +64,6 @@ const quickActions = [
 ]
 
 const formatCurrency = (value: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value)
-const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(date)
 </script>
 
 <template>
@@ -180,33 +178,6 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
               </div>
             </button>
           </div>
-        </div>
-      </div>
-
-      <!-- User Profile Card -->
-      <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
-        <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
-          <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Informasi Akun</h3>
-        </div>
-        <div class="px-6 py-5">
-          <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Nama Lengkap</dt>
-              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">{{ authStore.user?.name || '-' }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
-              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">{{ authStore.user?.email || '-' }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">API Base URL</dt>
-              <dd class="mt-1 text-xs font-mono bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded text-gray-900 dark:text-gray-100">{{ config.public.apiBaseUrl }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Login</dt>
-              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">{{ formatDate(new Date()) }}</dd>
-            </div>
-          </dl>
         </div>
       </div>
     </div>

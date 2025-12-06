@@ -243,12 +243,12 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Harga Jual</label>
                     <button
                       type="button"
-                      @click="fetchSmartPrice"
                       :disabled="!formData.name || aiLoading"
                       class="text-xs flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      @click="fetchSmartPrice"
                     >
                       <svg v-if="!aiLoading" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                      <svg v-else class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                      <svg v-else class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
                       {{ aiLoading ? 'Menganalisa...' : 'Tanya AI' }}
                     </button>
                   </div>
@@ -280,8 +280,8 @@
                     </div>
                     <button 
                         type="button"
-                        @click="formData.sellingPrice = aiResponse.suggested_price"
                         class="px-2 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+                        @click="formData.sellingPrice = aiResponse.suggested_price"
                     >
                         Gunakan
                     </button>
