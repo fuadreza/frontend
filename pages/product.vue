@@ -118,6 +118,10 @@
 
             <div class="space-y-2 mb-4">
               <div class="flex justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Stok</span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">{{ product.stock }}</span>
+              </div>
+              <div class="flex justify-between text-sm">
                 <span class="text-gray-600 dark:text-gray-400">Biaya Tenaga</span>
                 <span class="font-medium text-gray-900 dark:text-gray-100">{{ formatCurrency(product.laborCost) }}</span>
               </div>
@@ -204,6 +208,9 @@
                     placeholder="0"
                   >
                 </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Biaya Tenaga</label>
                   <input
@@ -213,11 +220,38 @@
                     placeholder="0"
                   >
                 </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Biaya Overhead</label>
+                  <input
+                    v-model.number="formData.overheadCost"
+                    type="number"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
+                    placeholder="0"
+                  >
+                </div>
+              </div>
+              
+              <!-- Estimated HPP Display -->
+              <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md border border-blue-100 dark:border-blue-900/50 flex justify-between items-center">
+                <span class="text-sm font-medium text-blue-700 dark:text-blue-300">Estimasi HPP:</span>
+                <span class="text-lg font-bold text-blue-800 dark:text-blue-200">{{ formatCurrency(estimatedHPP) }}</span>
               </div>
 
               <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Harga Jual</label>
+                  <div class="flex justify-between items-center mb-1">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Harga Jual</label>
+                    <button
+                      type="button"
+                      :disabled="!formData.name || aiLoading"
+                      class="text-xs flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      @click="fetchSmartPrice"
+                    >
+                      <svg v-if="!aiLoading" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                      <svg v-else class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+                      {{ aiLoading ? 'Menganalisa...' : 'Tanya AI' }}
+                    </button>
+                  </div>
                   <input
                     v-model.number="formData.sellingPrice"
                     type="number"
@@ -234,6 +268,39 @@
                     readonly
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors"
                   >
+                </div>
+              </div>
+
+              <!-- AI Response Area -->
+              <div v-if="aiResponse" class="mt-2 p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-md border border-indigo-100 dark:border-indigo-800">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 block">Saran Harga</span>
+                        <span class="text-lg font-bold text-indigo-700 dark:text-indigo-300">{{ formatCurrency(aiResponse.suggested_price) }}</span>
+                    </div>
+                    <button 
+                        type="button"
+                        class="px-2 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+                        @click="formData.sellingPrice = aiResponse.suggested_price"
+                    >
+                        Gunakan
+                    </button>
+                </div>
+                
+                <div v-if="aiResponse.market_prices?.length" class="mb-2">
+                    <span class="text-xs font-semibold text-gray-600 dark:text-gray-300 block mb-1">Harga Pasar:</span>
+                    <ul class="space-y-1">
+                        <li v-for="(m, idx) in aiResponse.market_prices" :key="idx" class="text-xs flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>{{ m.name }}</span>
+                            <span>{{ formatCurrency(m.price) }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-if="aiResponse.reasoning">
+                    <p class="text-xs text-gray-600 dark:text-gray-400 italic border-t border-indigo-200 dark:border-indigo-800 pt-2 mt-2">
+                        "{{ aiResponse.reasoning }}"
+                    </p>
                 </div>
               </div>
 
@@ -443,6 +510,10 @@ const searchQuery = ref('')
 const filterStatus = ref('')
 const selectedProduct = ref<IProductWithDetails | null>(null)
 
+// AI Refs
+const aiLoading = ref(false)
+const aiResponse = ref<any>(null)
+
 const productStore = useProductStore()
 const materialStore = useMaterialStore()
 const packagingStore = usePackagingStore()
@@ -459,6 +530,7 @@ const emptyForm = (): NewProduct => ({
   sellingPrice: 0,
   stock: 0,
   laborCost: 0,
+  overheadCost: 0,
   productMaterial: [],
   productPackaging: [],
   isActive: true,
@@ -500,7 +572,39 @@ const avgMargin = computed(() => {
 })
 
 const calculatedMargin = computed(() => {
-  return '0%'
+  const sellingPrice = formData.value.sellingPrice || 0
+  const hpp = estimatedHPP.value
+  
+  if (sellingPrice === 0) return '0%'
+  
+  const marginPercentage = ((sellingPrice - hpp) / sellingPrice) * 100
+  return `${marginPercentage.toFixed(2)}%`
+})
+
+const estimatedHPP = computed(() => {
+  let totalCost = (formData.value.laborCost || 0) + (formData.value.overheadCost || 0)
+
+  // Calculate Materials Cost
+  if (formData.value.productMaterial) {
+    formData.value.productMaterial.forEach(pm => {
+      const material = materialStore.materials.find(m => m.id === pm.materialId)
+      if (material) {
+        totalCost += (material.costPerUnit * pm.quantity)
+      }
+    })
+  }
+
+  // Calculate Packaging Cost
+  if (formData.value.productPackaging) {
+    formData.value.productPackaging.forEach(pp => {
+      const packaging = packagingStore.packagings.find(p => p.id === pp.packagingId)
+      if (packaging) {
+        totalCost += (packaging.costPerUnit * pp.quantity)
+      }
+    })
+  }
+
+  return totalCost
 })
 
 const formatCurrency = (value: number) => {
@@ -569,9 +673,43 @@ const saveProduct = () => {
   closeModal()
 }
 
+const fetchSmartPrice = async () => {
+    if (!formData.value.name) return
+    
+    aiLoading.value = true
+    aiResponse.value = null
+
+    try {
+        const prompt = `Berikan rekomendasi harga jual untuk produk produk: "${formData.value.name}". 
+        Produk ini memiliki deskripsi: "${formData.value.description || ''}".
+        Berikan output HANYA dalam format JSON valid dengan struktur berikut:
+        {
+            "suggested_price": number (dalam Rupiah),
+            "market_prices": [
+                { "name": "nama kompetitor/produk serupa", "price": number }
+            ],
+            "reasoning": "penjelasan singkat maksimal 2 kalimat"
+        }`
+
+        const { data, error } = await useFetch('/api/ai-analysis', {
+            method: 'POST',
+            body: { prompt }
+        })
+
+        if (error.value) throw error.value
+        aiResponse.value = data.value
+    } catch (e) {
+        console.error('AI Error:', e)
+        alert('Gagal mendapatkan analisis AI')
+    } finally {
+        aiLoading.value = false
+    }
+}
+
 const closeModal = () => {
   showAddModal.value = false
   editMode.value = false
   formData.value = emptyForm()
+  aiResponse.value = null // Reset AI response
 }
 </script>

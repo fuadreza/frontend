@@ -100,12 +100,12 @@
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200">
             <tr v-for="material in filteredMaterials" :key="material.id">
               <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ material.name }}</td>
-              <td class="px-6 py-4 text-center">{{ material.stock }}</td>
+              <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100 dark:text-gray-100">{{ material.stock }}</td>
               <td class="px-6 py-4 text-gray-500 dark:text-gray-400 text-center">{{ material.metric }}</td>
-              <td class="px-6 py-4 text-center">
+              <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100 dark:text-gray-100">
                 {{ formatCurrency(material.costPerUnit) }}
               </td>
-              <td class="px-6 py-4 font-medium text-center">
+              <td class="px-6 py-4 font-medium text-center text-gray-900 dark:text-gray-100 dark:text-gray-100">
                 {{ formatCurrency(material.stock * material.costPerUnit) }}
               </td>
 

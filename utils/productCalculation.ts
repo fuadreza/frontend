@@ -46,8 +46,8 @@ export function calculateProductMetrics(
     const packagingCost = calculatePackagingCost(productWithDetails);
 
     // 3. Hitung HPP (Cost of Goods Sold/COGS)
-    // HPP = Biaya Material + Biaya Packaging + Biaya Tenaga Kerja (Labor Cost)
-    const HPP = materialCost + packagingCost + productWithDetails.laborCost;
+    // HPP = Biaya Material + Biaya Packaging + Biaya Tenaga Kerja + Overhead Cost
+    const HPP = materialCost + packagingCost + productWithDetails.laborCost + (productWithDetails.overheadCost || 0);
 
     // 4. Hitung Margin Laba Kotor (Gross Margin) dalam persen
     // Margin = Harga Jual - HPP

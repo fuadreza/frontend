@@ -12,7 +12,6 @@ const authStore = useAuthStore()
 const productionStore = useProductionStore()
 const productStore = useProductStore()
 const router = useRouter()
-const config = useRuntimeConfig()
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -21,7 +20,7 @@ if (!authStore.isAuthenticated) router.push('/login')
 onMounted(() => {
   materialStore.fetchMaterials()
   packagingStore.fetchPackagings()
-  productionStore.fetchProductions()
+  productionStore.fetchProductionsWithDetails()
   productStore.fetchProductsWithDetails()
 })
 
@@ -33,14 +32,15 @@ const AlertIcon = () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox
 const CalculatorIcon = () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z' })])
 
 // Computed
-const recentProductions = computed(() => productionStore.productions.slice(0, 5))
-const totalProductionUnits = computed(() => productionStore.productions.reduce((s, p) => s + p.quantity, 0))
-const totalProductionHPP = computed(() => productionStore.productions.reduce((s, p) => s + p.totalHPP, 0))
+const recentProductions = computed(() => productionStore.productionsWithDetails.slice(0, 5))
+const totalProductionUnits = computed(() => productionStore.productionsWithDetails.reduce((s, p) => s + p.quantity, 0))
+const totalProductionHPP = computed(() => productionStore.productionsWithDetails.reduce((s, p) => s + p.totalHPP, 0))
 const estimatedRevenue = computed(() => {
   let rev = 0
-  productionStore.productions.forEach(prod => {
-    const p = productStore.productsWithDetails.find(pr => pr.name === prod.productName)
-    if (p) rev += p.sellingPrice * prod.quantity
+  productionStore.productionsWithDetails.forEach(prod => {
+    if (prod.product) {
+      rev += (prod.product.sellingPrice || 0) * prod.quantity
+    }
   })
   return rev
 })
@@ -64,7 +64,6 @@ const quickActions = [
 ]
 
 const formatCurrency = (value: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value)
-const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(date)
 </script>
 
 <template>
@@ -110,7 +109,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
             <div v-if="recentProductions.length > 0" class="space-y-4">
               <div v-for="prod in recentProductions" :key="prod.id" class="flex justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div class="flex-1">
-                  <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ prod.productName }}</p>
+                  <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ prod.product.name }}</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">{{ prod.date }}</p>
                 </div>
                 <div class="text-right">
@@ -179,33 +178,6 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('id-ID', { day: 'nume
               </div>
             </button>
           </div>
-        </div>
-      </div>
-
-      <!-- User Profile Card -->
-      <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
-        <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
-          <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Informasi Akun</h3>
-        </div>
-        <div class="px-6 py-5">
-          <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Nama Lengkap</dt>
-              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">{{ authStore.user?.name || '-' }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
-              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">{{ authStore.user?.email || '-' }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">API Base URL</dt>
-              <dd class="mt-1 text-xs font-mono bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded text-gray-900 dark:text-gray-100">{{ config.public.apiBaseUrl }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Login</dt>
-              <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-medium">{{ formatDate(new Date()) }}</dd>
-            </div>
-          </dl>
         </div>
       </div>
     </div>
