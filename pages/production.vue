@@ -483,58 +483,146 @@
             </div>
           </div>
 
-          <!-- Mode 1: List View (All Products) -->
+          <!-- Mode 1: Shared Resource Optimization (All Products) -->
           <div v-if="productionMode === 'all'" class="space-y-6">
-            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg p-4 mb-4">
-              <h4 class="text-blue-800 dark:text-blue-300 font-medium mb-1">Rekomendasi Berdasarkan Bahan Tersedia</h4>
-              <p class="text-sm text-blue-600 dark:text-blue-400">
-                Menampilkan kapasitas produksi maksimal untuk setiap produk secara independen berdasarkan stok saat ini.
+            <div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 rounded-lg p-4 mb-4">
+              <h4 class="text-indigo-800 dark:text-indigo-300 font-medium mb-1">Optimasi Produksi Multi-Produk</h4>
+              <p class="text-sm text-indigo-600 dark:text-indigo-400">
+                Pilih produk yang ingin diproduksi. Sistem akan menghitung kombinasi optimal untuk memaksimalkan profit berdasarkan stok bahan yang tersedia.
               </p>
             </div>
 
+            <!-- Validation/Optimization Controls -->
+            <div class="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+               <div class="text-sm text-gray-500 dark:text-gray-400">
+                  <span class="font-medium text-gray-900 dark:text-gray-100">{{ processingItems.filter(i => i.selected).length }}</span> produk dipilih
+               </div>
+               <button
+                  class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md font-medium transition-colors shadow-sm flex items-center gap-2"
+                  @click="calculateSharedOptimization"
+               >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  Hitung Optimasi
+               </button>
+            </div>
+
+            <!-- Input Table -->
             <div class="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-800">
                   <tr>
-                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Produk</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Max Produksi</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Estimasi Profit</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Faktor Pembatas</th>
-                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                      <span class="sr-only">Detail</span>
+                    <th scope="col" class="relative px-7 sm:w-12 sm:px-6">
+                       <input type="checkbox" 
+                          class="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          :checked="processingItems.length > 0 && processingItems.every(i => i.selected)"
+                          @change="(e: any) => processingItems.forEach(i => i.selected = e.target.checked)"
+                       >
                     </th>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Produk</th>
+                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Min. Produksi</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Kebutuhan Bahan/Unit</th>
+                    
+                    
+                    <!-- Result Columns (Dynamic) -->
+                    <template v-if="sharedOptimizationResult">
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-indigo-600 dark:text-indigo-400">Hasil Optimasi</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-green-600 dark:text-green-400">Est. Profit</th>
+                    </template>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
-                  <tr v-for="item in allMaxProductions" :key="item.product.id">
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                      {{ item.product.name }}
-                    </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
-                      <span
-class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
-                        :class="item.maxQty > 0 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'">
-                        {{ item.maxQty }} unit
-                      </span>
-                    </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-gray-100">
-                      {{ formatCurrency(item.estProfit) }}
-                    </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
-                      {{ item.limitingFactor }}
-                    </td>
-                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                      <button 
-                        class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
-                        @click="productionMode = 'single'; selectedProductForMax = item.product"
+                  <tr v-for="item in processingItems" :key="item.productId" :class="item.selected ? 'bg-indigo-50/30 dark:bg-indigo-900/10' : ''">
+                    <td class="relative px-7 sm:w-12 sm:px-6">
+                      <input 
+                        v-model="item.selected"
+                        type="checkbox" 
+                        class="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                       >
-                        Detail & Analisis
-                      </button>
                     </td>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm">
+                      <div class="font-medium text-gray-900 dark:text-gray-100">{{ item.product.name }}</div>
+                      <div class="text-xs text-gray-500">Stok Jadi: {{ item.product.stock }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm">
+                      <input 
+                        v-model.number="item.minQty"
+                        type="number" 
+                        min="0"
+                        class="w-24 px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500"
+                        :disabled="!item.selected"
+                      >
+                    </td>
+                    <td class="px-3 py-4 text-xs text-gray-500 dark:text-gray-400 max-w-xs">
+                       <div class="line-clamp-2 hover:line-clamp-none cursor-help" title="Klik/Hover untuk detail">
+                          {{ item.product.materials.map(m => `${m.material.name}: ${m.quantity}${m.material.metric}`).join(', ') }}
+                          {{ item.product.packaging.length ? ', ' + item.product.packaging.map(p => `${p.packaging.name}: ${p.quantity}`).join(', ') : '' }}
+                       </div>
+                    </td>
+                    
+                    <!-- Results Display -->
+                    <template v-if="sharedOptimizationResult">
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                            <template v-if="sharedOptimizationResult.items.find(r => r.product.id === item.productId)">
+                                <div class="font-bold text-indigo-700 dark:text-indigo-400">
+                                   {{ sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.optimizedQty }} unit
+                                </div>
+                                <div class="text-xs" :class="{
+                                   'text-red-500': sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status === 'Insufficient for Min',
+                                   'text-green-600': sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status === 'Optimized',
+                                   'text-gray-400': sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status === 'Min Only'
+                                }">
+                                   {{ sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.status }}
+                                </div>
+                            </template>
+                            <span v-else class="text-gray-300">-</span>
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                             <template v-if="sharedOptimizationResult.items.find(r => r.product.id === item.productId)">
+                                <div class="font-medium text-green-700 dark:text-green-400">
+                                   {{ formatCurrency(sharedOptimizationResult.items.find(r => r.product.id === item.productId)?.profit || 0) }}
+                                </div>
+                             </template>
+                             <span v-else class="text-gray-300">-</span>
+                        </td>
+                    </template>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <!-- Optimization Summary -->
+            <div v-if="sharedOptimizationResult" class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in-up">
+               <!-- Financial Summary -->
+               <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+                  <h4 class="text-green-800 dark:text-green-300 font-bold text-lg mb-4">Estimasi Total Profit</h4>
+                  <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+                     {{ formatCurrency(sharedOptimizationResult.totalProfit) }}
+                  </div>
+                  <div class="text-sm text-green-700 dark:text-green-300">
+                     Dari Total Revenue: {{ formatCurrency(sharedOptimizationResult.totalRevenue) }}
+                  </div>
+               </div>
+
+                <!-- Resource Usage Summary -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 max-h-60 overflow-y-auto">
+                   <h4 class="text-gray-800 dark:text-gray-100 font-bold text-lg mb-4">Penggunaan Sumber Daya</h4>
+                   <div class="space-y-3">
+                      <div v-for="(usage, key) in sharedOptimizationResult.resourceUsage" :key="key" class="text-sm">
+                         <div class="flex justify-between mb-1">
+                            <span class="text-gray-600 dark:text-gray-300">{{ usage.name }}</span>
+                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ usage.used }} / {{ usage.total }} {{ usage.unit }}</span>
+                         </div>
+                         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div 
+                               class="bg-indigo-600 h-2 rounded-full" 
+                               :style="{ width: `${Math.min((usage.used / usage.total) * 100, 100)}%` }"
+                            ></div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+            </div>
+
           </div>
 
           <!-- Mode 2: Single Product View -->
@@ -826,6 +914,241 @@ interface MaxProductionResult {
   estProfit: number
   remainingMaterials: RemainingMaterialItem[]
 }
+
+interface OptimizationResult {
+  items: {
+    product: IProductWithDetails
+    requestedMin: number
+    optimizedQty: number
+    status: 'Optimized' | 'Insufficient for Min' | 'Skipped' | 'Min Only'
+    profit: number
+    revenue: number
+    hppPerUnit: number
+  }[]
+  totalProfit: number
+  totalRevenue: number
+  resourceUsage: Record<string, { name: string, type: 'material' | 'packaging', used: number, total: number, remaining: number, unit: string }>
+}
+
+const processingItems = ref<{ productId: number, selected: boolean, minQty: number, product: IProductWithDetails }[]>([])
+const sharedOptimizationResult = ref<OptimizationResult | null>(null)
+
+// Watch for products to initialize processing list
+watch(() => productStore.productsWithDetails, (products) => {
+    // Initialize or merge
+    // distinct by id
+    const existingMap = new Map(processingItems.value.map(i => [i.productId, i]))
+    
+    processingItems.value = products.map(p => {
+        const existing = existingMap.get(p.id!)
+        return {
+            productId: p.id!,
+            selected: existing ? existing.selected : false,
+            minQty: existing ? existing.minQty : 0,
+            product: p
+        }
+    })
+}, { immediate: true })
+
+
+// Shared Resource Optimization Greedy Algorithm
+const calculateSharedOptimization = () => {
+  // 1. Snapshot Resources
+  const matStock = new Map<number, number>()
+  const pkgStock = new Map<number, number>()
+  
+  materialStore.materials.forEach(m => matStock.set(m.id!, m.stock || 0))
+  packagingStore.packagings.forEach(p => pkgStock.set(p.id!, p.stock || 0))
+
+  const selectedItems = processingItems.value.filter(i => i.selected)
+  const results: OptimizationResult['items'] = []
+
+  // Helper to check feasibility
+  const checkFeasibility = (prod: IProductWithDetails, qty: number): boolean => {
+     for (const pm of prod.materials) {
+         const needed = pm.quantity * qty
+         const current = matStock.get(pm.material.id!) || 0
+         if (current < needed) return false
+     }
+     for (const pp of prod.packaging) {
+         const needed = pp.quantity * qty
+         const current = pkgStock.get(pp.packaging.id!) || 0
+         if (current < needed) return false
+     }
+     return true
+  }
+
+  // Helper to deduct
+  const deductResources = (prod: IProductWithDetails, qty: number) => {
+      for (const pm of prod.materials) {
+         const needed = pm.quantity * qty
+         const current = matStock.get(pm.material.id!) || 0
+         matStock.set(pm.material.id!, current - needed)
+      }
+      for (const pp of prod.packaging) {
+         const needed = pp.quantity * qty
+         const current = pkgStock.get(pp.packaging.id!) || 0
+         pkgStock.set(pp.packaging.id!, current - needed)
+      }
+  }
+
+  // Phase 1: Satisfy Minimums
+  for (const item of selectedItems) {
+      // Basic financials
+      const matCost = item.product.materials.reduce((sum, m) => sum + (m.quantity * m.material.costPerUnit), 0)
+      const packCost = item.product.packaging.reduce((sum, p) => sum + (p.quantity * p.packaging.costPerUnit), 0)
+      const labor = item.product.laborCost || 0
+      const hpp = matCost + packCost + labor
+      const profitPerUnit = item.product.sellingPrice - hpp
+
+      if (item.minQty > 0) {
+          if (checkFeasibility(item.product, item.minQty)) {
+              deductResources(item.product, item.minQty)
+              results.push({
+                  product: item.product,
+                  requestedMin: item.minQty,
+                  optimizedQty: item.minQty,
+                  status: 'Min Only',
+                  profit: profitPerUnit * item.minQty,
+                  revenue: item.product.sellingPrice * item.minQty,
+                  hppPerUnit: hpp
+              })
+          } else {
+               // Failed to meet min
+               results.push({
+                  product: item.product,
+                  requestedMin: item.minQty,
+                  optimizedQty: 0,
+                  status: 'Insufficient for Min',
+                  profit: 0,
+                  revenue: 0,
+                  hppPerUnit: hpp
+              })
+          }
+      } else {
+           // Placeholder for next phase
+             results.push({
+                  product: item.product,
+                  requestedMin: 0,
+                  optimizedQty: 0,
+                  status: 'Optimized', // Will update
+                  profit: 0,
+                  revenue: 0,
+                  hppPerUnit: hpp
+              })
+      }
+  }
+
+  // Phase 2: Greedy Optimization for Remaining
+  // Filter for items that successfully met min (if any) or are purely for optimization
+  // Actually, we should iterate again or update the results map.
+  // Let's create a map for easy access
+  
+  // Sort items by Profit per Unit DESC
+  const sortedByProfit = [...selectedItems].sort((a, b) => {
+      const profitA = a.product.sellingPrice - (
+          a.product.materials.reduce((s, m) => s + m.quantity * m.material.costPerUnit, 0) +
+          a.product.packaging.reduce((s, p) => s + p.quantity * p.packaging.costPerUnit, 0) +
+          (a.product.laborCost || 0)
+      )
+      const profitB = b.product.sellingPrice - (
+          b.product.materials.reduce((s, m) => s + m.quantity * m.material.costPerUnit, 0) +
+          b.product.packaging.reduce((s, p) => s + p.quantity * p.packaging.costPerUnit, 0) +
+          (b.product.laborCost || 0)
+      )
+      return profitB - profitA
+  })
+
+  for (const item of sortedByProfit) {
+    // Find existing result
+    const resIndex = results.findIndex(r => r.product.id === item.productId)
+    if (resIndex === -1) continue // Should not happen for selected items
+    const res = results[resIndex]
+
+    if (!res || res.status === 'Insufficient for Min') continue
+
+    // Calculate max possible with REMAINING resources
+    let maxAdd = Infinity
+    
+    // Check materials
+    for (const pm of item.product.materials) {
+        if (pm.quantity > 0) {
+             const available = matStock.get(pm.material.id!) || 0
+             const possible = Math.floor(available / pm.quantity)
+             if (possible < maxAdd) maxAdd = possible
+        }
+    }
+    // Check packaging
+    for (const pp of item.product.packaging) {
+        if (pp.quantity > 0) {
+             const available = pkgStock.get(pp.packaging.id!) || 0
+             const possible = Math.floor(available / pp.quantity)
+             if (possible < maxAdd) maxAdd = possible
+        }
+    }
+
+    if (maxAdd === Infinity) maxAdd = 0
+
+    if (maxAdd > 0) {
+        deductResources(item.product, maxAdd)
+        res.optimizedQty += maxAdd
+        res.status = 'Optimized'
+        const profitPerUnit = res.revenue / res.optimizedQty - res.hppPerUnit // Recalc? No, profit per unit is constant
+        // Re-calcs
+        const unitProfit = item.product.sellingPrice - res.hppPerUnit
+        res.profit = res.optimizedQty * unitProfit
+        res.revenue = res.optimizedQty * item.product.sellingPrice
+    }
+  }
+
+  // Phase 3: Compile Report
+  const totalProfit = results.reduce((sum, r) => sum + r.profit, 0)
+  const totalRevenue = results.reduce((sum, r) => sum + r.revenue, 0)
+
+  // Resource Usage Report
+  const resourceUsage: OptimizationResult['resourceUsage'] = {}
+  
+  // Calculate usage based on initial - current
+  materialStore.materials.forEach(m => {
+      const initial = m.stock || 0
+      const current = matStock.get(m.id!) || 0
+      const used = initial - current
+      if (used > 0) {
+          resourceUsage[`mat_${m.id}`] = {
+              name: m.name,
+              type: 'material',
+              used,
+              total: initial,
+              remaining: current,
+              unit: m.metric
+          }
+      }
+  })
+  packagingStore.packagings.forEach(p => {
+      const initial = p.stock || 0
+      const current = pkgStock.get(p.id!) || 0
+      const used = initial - current
+      if (used > 0) {
+           resourceUsage[`pkg_${p.id}`] = {
+              name: p.name,
+              type: 'packaging',
+              used,
+              total: initial,
+              remaining: current,
+              unit: 'pcs'
+          }
+      }
+  })
+
+  // Sort and Filter display results? No, return all logic results
+  sharedOptimizationResult.value = {
+      items: results,
+      totalProfit,
+      totalRevenue,
+      resourceUsage
+  }
+}
+
 
 const calculateMaxForProduct = (product: IProductWithDetails): MaxProductionResult => {
   let maxQty = Infinity
