@@ -126,6 +126,11 @@
                 <div>
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bahan Baku</label>
                   <div class="space-y-2">
+                    <div class="flex gap-2 px-1">
+                      <label class="flex-1 text-xs font-medium text-gray-600 dark:text-gray-400">Nama Bahan</label>
+                      <label class="w-24 text-xs font-medium text-gray-600 dark:text-gray-400">Qty</label>
+                      <label class="w-32 text-xs font-medium text-gray-600 dark:text-gray-400">Harga Satuan</label>
+                    </div>
                     <div v-for="(item, index) in hppForm.materials" :key="index" class="flex gap-2">
                        <select
                         v-model="item.materialId"
@@ -198,6 +203,11 @@
                   </div>
                   
                   <div v-if="hppForm.includePacking" class="space-y-2">
+                    <div class="flex gap-2 px-1">
+                      <label class="flex-1 text-xs font-medium text-gray-600 dark:text-gray-400">Nama Kemasan</label>
+                      <label class="w-24 text-xs font-medium text-gray-600 dark:text-gray-400">Qty</label>
+                      <label class="w-32 text-xs font-medium text-gray-600 dark:text-gray-400">Harga Satuan</label>
+                    </div>
                     <div v-for="(pack, index) in hppForm.packaging" :key="index" class="flex gap-2">
                       <select
                         v-model="pack.packagingId"

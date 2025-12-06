@@ -23,6 +23,7 @@ export interface IProduct {
 
     // Biaya lain per unit produk (misalnya tenaga kerja, overhead)
     laborCost: number;
+    overheadCost: number;
 
     // RELASI: Daftar bahan baku yang dibutuhkan
     productMaterial: ProductMaterial[];

@@ -15,10 +15,10 @@ export class LocalDB extends Dexie {
         super('MyAppLocalDatabase')
 
         // You MUST increment the version number when changing the schema!
-        this.version(5).stores({
+        this.version(6).stores({
             materials: '++id, name, costPerUnit, metric',
             packagings: '++id, name, costPerUnit, metric',
-            products: '++id, name, sellingPrice, laborCost',
+            products: '++id, name, sellingPrice, laborCost, overheadCost',
             productions: '++id, productId, date, quantity'
         })
     }
