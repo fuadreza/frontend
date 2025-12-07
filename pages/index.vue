@@ -31,7 +31,7 @@
                   Mulai Sekarang
                 </button>
               </NuxtLink>
-              <button class="w-full sm:w-auto px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 rounded-full font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 flex items-center justify-center gap-2 group">
+              <button @click="showVideoModal = true" class="w-full sm:w-auto px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 rounded-full font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 flex items-center justify-center gap-2 group">
                 <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -199,6 +199,65 @@
         </div>
       </div>
     </section>
+
+    <!-- Video Modal -->
+    <Transition name="modal">
+      <div 
+        v-if="showVideoModal" 
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+        @click="showVideoModal = false"
+      >
+        <!-- Outer Glow Container -->
+        <div 
+          class="relative w-full max-w-6xl"
+          @click.stop
+        >
+          <!-- Animated Gradient Glow Background -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-2xl opacity-75 animate-pulse"></div>
+          
+          <!-- Secondary Glow Layer -->
+          <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-teal-500 to-purple-500 rounded-3xl blur-xl opacity-60"></div>
+          
+          <!-- Main Modal Container -->
+          <div class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-white/10">
+            <!-- Inner Gradient Border -->
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 pointer-events-none"></div>
+            
+            <!-- Close Button -->
+            <button 
+              @click="showVideoModal = false"
+              class="absolute top-4 right-4 z-20 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-red-500/80 to-pink-500/80 hover:from-red-600 hover:to-pink-600 rounded-full transition-all duration-300 group shadow-lg shadow-red-500/50 hover:shadow-red-600/70 backdrop-blur-sm border border-white/20"
+            >
+              <svg class="w-6 h-6 text-white group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <!-- Video Container with Inner Frame -->
+            <div class="relative p-3">
+              <!-- Video Frame Glow -->
+              <div class="absolute inset-3 bg-gradient-to-br from-blue-400/30 via-purple-400/30 to-pink-400/30 rounded-xl blur-md"></div>
+              
+              <!-- Video Wrapper -->
+              <div class="relative w-full rounded-xl overflow-hidden shadow-2xl border border-white/20" style="padding-bottom: 56.25%;">
+                <iframe 
+                  class="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/gDUBy9S-dnw?si=rC7ZmdlDjO8uWbRM" 
+                  title="YouTube video player" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" 
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+
+            <!-- Bottom Accent Line -->
+            <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -312,4 +371,32 @@ const testimonials = [
 
 const ctaSection = ref<HTMLElement | null>(null)
 const isCtaVisible = ref(false)
+
+const showVideoModal = ref(false)
 </script>
+
+<style scoped>
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .relative {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-enter-from .relative {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.modal-leave-to .relative {
+  transform: scale(0.9);
+  opacity: 0;
+}
+</style>
