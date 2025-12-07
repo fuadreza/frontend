@@ -1,9 +1,23 @@
-# Nuxt 3 Application
+# ProfitMax Frontend
 
-A modern, performant web application built with **Nuxt 3**, **Pinia**, and **Tailwind CSS**.
+ProfitMax is an AI-assisted Inventory Management System for small and medium businesses optimize inventory operations.
+
+AI helps users to optimize inventory production to maximize profit.
+
+## ProfitMax in Action
+On our platform, users can input their inventory data, including product names, prices, and quantities. Our AI then analyzes this data and provides recommendations for optimizing inventory production.
+
+![ProfitMax in Action](https://github.com/fuadreza/profitmax/blob/main/frontend/docs/assets/demo.gif)
+
+## Main Features
+
+- Inventory Management
+- AI Price Recommendations
+- AI Product Insights
 
 ## Technology Stack
 
+- **AI:** [Kolosal.ai](https://kolosal.ai/) with OpenAI API
 - **Framework:** [Nuxt 3](https://nuxt.com/) (Vue 3)
 - **State Management:** [Pinia](https://pinia.vuejs.org/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
@@ -55,3 +69,6 @@ The application will be available at `http://localhost:3000`.
 - **Landing Page:** SSG optimized.
 - **Authentication:** Simulated login/logout using Pinia.
 - **Protected Routes:** Home page requires authentication.
+- **AI Analysis:** AI analysis using Kolosal.ai API.
+- **AI Price Recommendations:** AI price recommendations using Kolosal.ai API.
+- **AI Product Insights:** AI product insights using Kolosal.ai API.
