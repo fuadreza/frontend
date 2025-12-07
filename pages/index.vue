@@ -21,7 +21,7 @@
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 dark:from-blue-400 dark:to-teal-400">Maksimalkan Profit</span>
               </h1>
               <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Sistem manajemen produksi terintegrasi untuk menghitung HPP, kelola stok bahan & kemasan, dan optimalkan kapasitas produksi Anda.
+                Sistem manajemen produksi dengan bantuan AI yang terintegrasi untuk menghitung HPP, kelola stok bahan & kemasan, dan optimalkan kapasitas produksi Anda.
               </p>
             </div>
 
@@ -95,10 +95,10 @@
             Fitur Lengkap
           </span>
           <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            Fitur Unggulan Sistem Kami
+            Fitur Unggulan Sistem AI Kami
           </h2>
           <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-            Kelola seluruh aspek produksi Anda dengan mudah dan efisien menggunakan sistem terintegrasi kami.
+            Kelola seluruh aspek produksi Anda dengan mudah dan efisien menggunakan sistem AI terintegrasi kami.
           </p>
         </div>
 
@@ -185,10 +185,10 @@
             ]"
           >
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Siap Optimalkan Produksi & Profit Bisnis Anda?
+              Siap Optimalkan Produksi & Profit Bisnis Anda dengan AI?
             </h2>
             <p class="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-              Bergabunglah dengan ratusan pelaku UMKM yang telah meningkatkan efisiensi produksi mereka. Mulai kelola bisnis dengan lebih cerdas.
+              Bergabunglah dengan ratusan pelaku UMKM yang telah meningkatkan efisiensi produksi mereka. Mulai kelola bisnis dengan lebih cerdas bersama teknologi AI.
             </p>
             <NuxtLink to="/login">
               <button class="inline-block px-10 py-5 bg-yellow-400 text-blue-900 rounded-full font-bold text-xl shadow-xl shadow-yellow-400/20 hover:bg-yellow-300 hover:shadow-yellow-400/40 transform hover:-translate-y-1 transition-all duration-300 animate-pulse">
@@ -277,7 +277,7 @@ onMounted(() => {
 const features = [
   {
     title: 'Kalkulator HPP Otomatis',
-    description: 'Hitung Harga Pokok Produksi secara akurat dengan memperhitungkan bahan baku, tenaga kerja, dan overhead.',
+    description: 'Hitung Harga Pokok Produksi secara akurat dengan bantuan AI yang memperhitungkan bahan baku, tenaga kerja, dan overhead.',
     iconPath: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'
   },
   {
@@ -287,7 +287,7 @@ const features = [
   },
   {
     title: 'Analisis Kapasitas Produksi',
-    description: 'Ketahui maksimal produksi berdasarkan stok yang tersedia dan optimalkan perencanaan produksi.',
+    description: 'Ketahui maksimal produksi berdasarkan stok yang tersedia dan optimalkan perencanaan produksi dengan analisis AI.',
     iconPath: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
   },
   {
