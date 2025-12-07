@@ -7,7 +7,11 @@ AI helps users to optimize inventory production to maximize profit.
 ## ProfitMax in Action
 On our platform, users can input their inventory data, including product names, prices, and quantities. Our AI then analyzes this data and provides recommendations for optimizing inventory production.
 
-![ProfitMax in Action](docs/assets/demo.mp4)
+![ProfitMax in Action]
+
+https://github.com/user-attachments/assets/8d884a41-67b4-40f9-af63-4402540bc0ef
+
+
 
 ## Main Features
 
